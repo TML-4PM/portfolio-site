@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tech 4 Humanity — Portfolio v12</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,400;9..144,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0b0f;
+  --surface: #12131a;
+  --surface-hover: #1a1b25;
+  --border: #1e2030;
+  --text: #e8e9ed;
+  --text-dim: #7a7d8e;
+  --accent: #3b82f6;
+  --g1: #22c55e; --g1-bg: rgba(34,197,94,0.08);
+  --g2: #8b5cf6; --g2-bg: rgba(139,92,246,0.08);
+  --g3: #f59e0b; --g3-bg: rgba(245,158,11,0.08);
+  --g4: #ef4444; --g4-bg: rgba(239,68,68,0.08);
+  --g5: #ec4899; --g5-bg: rgba(236,72,153,0.08);
+  --g6: #06b6d4; --g6-bg: rgba(6,182,212,0.08);
+  --g7: #f97316; --g7-bg: rgba(249,115,22,0.08);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; line-height:1.6; overflow-x:hidden; }
+
+.hero { position:relative; padding:80px 40px 60px; text-align:center; overflow:hidden; }
+.hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(59,130,246,0.12),transparent); pointer-events:none; }
+.hero h1 { font-family:'Fraunces',serif; font-size:clamp(2.4rem,5vw,4rem); font-weight:700; letter-spacing:-0.02em; margin-bottom:12px; }
+.hero .subtitle { color:var(--text-dim); font-size:1.1rem; margin-bottom:32px; }
+
+.stats-bar { display:flex; justify-content:center; gap:40px; flex-wrap:wrap; margin-bottom:40px; }
+.stat { text-align:center; }
+.stat-num { font-family:'Fraunces',serif; font-size:2rem; font-weight:700; color:var(--accent); }
+.stat-label { font-size:0.8rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.1em; }
+
+.tab-bar { display:flex; justify-content:center; gap:8px; padding:0 24px; margin-bottom:48px; flex-wrap:wrap; }
+.tab-btn { padding:8px 20px; border:1px solid var(--border); border-radius:24px; background:transparent; color:var(--text-dim); font-family:'DM Sans',sans-serif; font-size:0.85rem; cursor:pointer; transition:all 0.25s; }
+.tab-btn:hover,.tab-btn.active { background:var(--accent); color:#fff; border-color:var(--accent); }
+
+.view-toggle { display:flex; justify-content:center; gap:8px; margin-bottom:32px; }
+.view-btn { padding:6px 16px; border:1px solid var(--border); border-radius:6px; background:transparent; color:var(--text-dim); font-family:'DM Sans',sans-serif; font-size:0.8rem; cursor:pointer; transition:all 0.2s; }
+.view-btn.active { background:var(--surface-hover); color:var(--text); border-color:var(--text-dim); }
+
+.group-section { padding:0 24px 64px; max-width:1400px; margin:0 auto; }
+.group-header { display:flex; align-items:center; gap:16px; margin-bottom:24px; padding-bottom:16px; border-bottom:1px solid var(--border); }
+.group-badge { display:inline-flex; align-items:center; justify-content:center; width:48px; height:48px; border-radius:12px; font-family:'Fraunces',serif; font-weight:700; font-size:0.9rem; color:#fff; }
+.group-title { font-family:'Fraunces',serif; font-size:1.5rem; font-weight:700; }
+.group-count { color:var(--text-dim); font-size:0.85rem; margin-left:auto; }
+
+.cards-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:20px; }
+.biz-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; overflow:hidden; transition:all 0.3s ease; cursor:pointer; text-decoration:none; color:inherit; display:block; }
+.biz-card:hover { transform:translateY(-4px); border-color:var(--accent); box-shadow:0 12px 40px rgba(0,0,0,0.3); }
+
+.card-img { height:180px; position:relative; overflow:hidden; background:var(--surface); }
+.card-img img { width:100%; height:100%; object-fit:cover; object-position:top center; display:block; }
+.card-img .fallback { width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; }
+.card-img .fallback .fb-name { font-family:'Fraunces',serif; font-size:1.1rem; font-weight:700; color:rgba(255,255,255,0.85); text-align:center; padding:0 16px; text-shadow:0 1px 4px rgba(0,0,0,0.3); }
+.card-img .fallback .fb-host { font-size:0.72rem; color:rgba(255,255,255,0.45); font-family:monospace; }
+.card-img .fallback .fb-status { font-size:0.65rem; color:rgba(255,255,255,0.3); text-transform:uppercase; letter-spacing:0.1em; margin-top:4px; }
+.card-visit { position:absolute; top:12px; right:12px; width:36px; height:36px; border-radius:50%; background:rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.15); display:flex; align-items:center; justify-content:center; color:#fff; font-size:14px; text-decoration:none; transition:all 0.2s; opacity:0; z-index:10; }
+.biz-card:hover .card-visit { opacity:1; }
+.card-visit:hover { background:var(--accent); border-color:var(--accent); transform:scale(1.1); }
+
+.card-body { padding:16px 20px 20px; }
+.card-body h3 { font-family:'Fraunces',serif; font-size:1.1rem; font-weight:700; margin-bottom:4px; }
+.card-body .slug { color:var(--text-dim); font-size:0.78rem; font-family:monospace; margin-bottom:8px; }
+.card-body .meta { display:flex; gap:8px; flex-wrap:wrap; }
+.badge { display:inline-block; padding:2px 10px; border-radius:12px; font-size:0.7rem; font-weight:500; text-transform:uppercase; letter-spacing:0.05em; }
+.badge-active,.badge-live { background:rgba(34,197,94,0.15); color:#22c55e; }
+.badge-planned { background:rgba(59,130,246,0.15); color:#3b82f6; }
+.badge-consolidated { background:rgba(245,158,11,0.15); color:#f59e0b; }
+.badge-archived { background:rgba(107,114,128,0.15); color:#9ca3af; }
+
+.domain-section { padding:0 24px 64px; max-width:1400px; margin:0 auto; }
+.domain-table { width:100%; border-collapse:collapse; font-size:0.85rem; }
+.domain-table th { text-align:left; padding:12px 16px; border-bottom:2px solid var(--border); color:var(--text-dim); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; }
+.domain-table td { padding:10px 16px; border-bottom:1px solid var(--border); }
+.domain-table tr:hover td { background:var(--surface-hover); }
+.domain-url { color:var(--accent); text-decoration:none; font-family:monospace; font-size:0.8rem; }
+.domain-url:hover { text-decoration:underline; }
+
+footer { text-align:center; padding:48px 24px; color:var(--text-dim); font-size:0.8rem; border-top:1px solid var(--border); }
+footer code { background:var(--surface); padding:2px 6px; border-radius:4px; font-size:0.75rem; }
+
+/* ANALYTICS VIEW */
+.analytics-section { padding:0 24px 64px; max-width:1400px; margin:0 auto; }
+.analytics-header { margin-bottom:32px; }
+.analytics-header h2 { font-family:'Fraunces',serif; font-size:1.8rem; font-weight:700; margin-bottom:8px; }
+.analytics-header p { color:var(--text-dim); }
+.analytics-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(400px, 1fr)); gap:24px; }
+.analytics-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:24px; }
+.analytics-card h3 { font-family:'Fraunces',serif; font-size:1.1rem; font-weight:700; margin-bottom:16px; display:flex; align-items:center; gap:10px; }
+.analytics-card h3 .icon { width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:16px; }
+.analytics-table { width:100%; font-size:0.85rem; }
+.analytics-table th { text-align:left; padding:8px 12px; color:var(--text-dim); font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em; border-bottom:1px solid var(--border); }
+.analytics-table td { padding:10px 12px; border-bottom:1px solid var(--border); }
+.analytics-table tr:hover td { background:var(--surface-hover); }
+.analytics-bar { height:8px; background:var(--bg); border-radius:4px; overflow:hidden; margin-top:4px; }
+.analytics-bar-fill { height:100%; border-radius:4px; }
+.analytics-metric { display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid var(--border); }
+.analytics-metric:last-child { border-bottom:none; }
+.analytics-metric-label { color:var(--text-dim); font-size:0.85rem; }
+.analytics-metric-value { font-family:'Fraunces',serif; font-weight:700; font-size:1.1rem; }
+.analytics-placeholder { padding:40px; text-align:center; color:var(--text-dim); background:var(--bg); border-radius:12px; }
+.analytics-placeholder .icon { font-size:2rem; margin-bottom:12px; opacity:0.5; }
+
+/* MODAL */
+.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:1000; display:none; align-items:center; justify-content:center; padding:24px; backdrop-filter:blur(4px); }
+.modal-overlay.active { display:flex; }
+.modal { background:var(--surface); border:1px solid var(--border); border-radius:20px; max-width:900px; width:100%; max-height:90vh; overflow:hidden; display:flex; flex-direction:column; }
+.modal-header { display:flex; align-items:center; gap:16px; padding:24px 28px; border-bottom:1px solid var(--border); }
+.modal-header .group-badge { width:44px; height:44px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-weight:700; font-size:0.85rem; color:#fff; flex-shrink:0; }
+.modal-header h2 { font-family:'Fraunces',serif; font-size:1.5rem; font-weight:700; flex:1; }
+.modal-header .close-btn { width:36px; height:36px; border-radius:8px; border:1px solid var(--border); background:transparent; color:var(--text-dim); cursor:pointer; font-size:1.2rem; transition:all 0.2s; }
+.modal-header .close-btn:hover { background:var(--surface-hover); color:var(--text); }
+.modal-body { padding:28px; overflow-y:auto; flex:1; }
+.modal-screenshot { width:100%; height:220px; border-radius:12px; overflow:hidden; margin-bottom:24px; background:var(--bg); }
+.modal-screenshot img { width:100%; height:100%; object-fit:cover; object-position:top center; }
+.modal-screenshot .fallback { width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-size:1.2rem; color:var(--text-dim); }
+.modal-tabs { display:flex; gap:8px; margin-bottom:20px; border-bottom:1px solid var(--border); padding-bottom:12px; }
+.modal-tab { padding:8px 16px; border:none; background:transparent; color:var(--text-dim); font-family:'DM Sans',sans-serif; font-size:0.85rem; cursor:pointer; border-radius:6px; transition:all 0.2s; }
+.modal-tab:hover { color:var(--text); }
+.modal-tab.active { background:var(--accent); color:#fff; }
+.modal-content { display:none; }
+.modal-content.active { display:block; }
+.info-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:16px; }
+.info-item { background:var(--bg); border-radius:10px; padding:14px 16px; }
+.info-label { font-size:0.7rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-dim); margin-bottom:4px; }
+.info-value { font-size:0.9rem; font-weight:500; word-break:break-all; }
+.info-value a { color:var(--accent); text-decoration:none; }
+.info-value a:hover { text-decoration:underline; }
+.info-value.mono { font-family:monospace; font-size:0.8rem; }
+.domain-list { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+.domain-chip { background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:6px 12px; font-family:monospace; font-size:0.75rem; color:var(--text-dim); }
+.modal-footer { padding:20px 28px; border-top:1px solid var(--border); display:flex; gap:12px; justify-content:flex-end; }
+.modal-btn { padding:10px 20px; border-radius:8px; font-family:'DM Sans',sans-serif; font-size:0.9rem; font-weight:500; cursor:pointer; transition:all 0.2s; text-decoration:none; }
+.modal-btn-primary { background:var(--accent); color:#fff; border:none; }
+.modal-btn-primary:hover { background:#2563eb; }
+.modal-btn-secondary { background:transparent; color:var(--text); border:1px solid var(--border); }
+.modal-btn-secondary:hover { background:var(--surface-hover); }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Tech 4 Humanity</h1>
+  <div class="subtitle">Canonical Doctrine — 7 Groups × 42 Businesses</div>
+  <div class="stats-bar">
+    <div class="stat"><div class="stat-num">7</div><div class="stat-label">Groups</div></div>
+    <div class="stat"><div class="stat-num">42</div><div class="stat-label">Businesses</div></div>
+    <div class="stat"><div class="stat-num">80</div><div class="stat-label">Sites</div></div>
+    <div class="stat"><div class="stat-num">9</div><div class="stat-label">Active</div></div>
+    <div class="stat"><div class="stat-num">129</div><div class="stat-label">Vercel</div></div>
+    <div class="stat"><div class="stat-num">204</div><div class="stat-label">Instances</div></div>
+  </div>
+</div>
+
+<div class="view-toggle">
+  <button class="view-btn active" onclick="showView('portfolio')">Portfolio View</button>
+  <button class="view-btn" onclick="showView('domain')">Domain Map</button>
+  <button class="view-btn" onclick="showView('analytics')">Analytics</button>
+</div>
+
+<div class="tab-bar" id="tabBar">
+  <button class="tab-btn active" onclick="filterGroup('all',this)">All (42)</button>
+  <button class="tab-btn" onclick="filterGroup('G1',this)">G1 Core (4)</button>
+  <button class="tab-btn" onclick="filterGroup('G2',this)">G2 GC-BAT (6)</button>
+  <button class="tab-btn" onclick="filterGroup('G3',this)">G3 Mission (6)</button>
+  <button class="tab-btn" onclick="filterGroup('G4',this)">G4 Retail (8)</button>
+  <button class="tab-btn" onclick="filterGroup('G5',this)">G5 Fun (6)</button>
+  <button class="tab-btn" onclick="filterGroup('G6',this)">G6 Personal (4)</button>
+  <button class="tab-btn" onclick="filterGroup('G7',this)">G7 IP (8)</button>
+</div>
+
+<div id="portfolioView"></div>
+<div id="domainView" class="domain-section"></div>
+<div id="analyticsView" class="analytics-section" style="display:none"></div>
+
+<footer>
+  Tech 4 Humanity — Canonical Doctrine v1.0 (Frozen) — Portfolio v12 — Generated 2 Feb 2026<br>
+  Source: Supabase <code>lzfgigiyqpuuxslsygjt</code> · <code>mcp_business_registry</code> (42) · <code>sites_registry</code> (80)
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="group-badge" id="modalBadge">G1</div>
+      <h2 id="modalTitle">Business Name</h2>
+      <button class="close-btn" onclick="closeModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-screenshot" id="modalScreenshot"></div>
+      <div class="modal-tabs">
+        <button class="modal-tab active" onclick="showModalTab('business',this)">Business Info</button>
+        <button class="modal-tab" onclick="showModalTab('technical',this)">Technical Details</button>
+        <button class="modal-tab" onclick="showModalTab('domains',this)">Domains</button>
+      </div>
+      <div class="modal-content active" id="tab-business">
+        <div class="info-grid" id="businessInfo"></div>
+      </div>
+      <div class="modal-content" id="tab-technical">
+        <div class="info-grid" id="technicalInfo"></div>
+      </div>
+      <div class="modal-content" id="tab-domains">
+        <div id="domainsInfo"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-btn modal-btn-secondary" onclick="closeModal()">Close</button>
+      <a class="modal-btn modal-btn-primary" id="modalVisitBtn" href="#" target="_blank">Visit Site →</a>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ========================================================
+   DATA — sourced from mcp_business_registry + sites_registry
+   URLs verified live 2 Feb 2026
+   ======================================================== */
+
+var groupMeta = {
+  G1: {name:"CORE",color:"var(--g1)",desc:"Foundation — AI coaching, orchestration, holding company"},
+  G2: {name:"GC-BAT",color:"var(--g2)",desc:"Governance, consent, BCI standards, signal stack"},
+  G3: {name:"MISSION",color:"var(--g3)",desc:"Mission-driven — water, wellness, agriculture, sport"},
+  G4: {name:"RETAIL",color:"var(--g4)",desc:"Commercial & trade — market entry, retail, logistics"},
+  G5: {name:"FUN",color:"var(--g5)",desc:"Entertainment, games, satire, consumer apps"},
+  G6: {name:"PERSONAL",color:"var(--g6)",desc:"Personal tools — CV, tax, property, career"},
+  G7: {name:"IP",color:"var(--g7)",desc:"Books, research, courses, IP assets, publications"}
+};
+
+var colorHex = {G1:'#22c55e',G2:'#8b5cf6',G3:'#f59e0b',G4:'#ef4444',G5:'#ec4899',G6:'#06b6d4',G7:'#f97316'};
+
+// screenshot URL: the best VERIFIED LIVE url to screenshot for each business
+// null = no live site found, show gradient fallback
+// Added: vercel, github, supabase, description for modal
+var businesses = [
+  // G1 CORE (4)
+  {id:1, name:"Augmented Humanity Coach", slug:"augmented-humanity-coach", group:"G1", canonical:"https://augmentedhumanity.coach", ss:"https://augmented-humanity-coach.vercel.app", domains:["augmentedhumanity.coach","ahc.holo-org.com"], vercel:"augmented-humanity-coach", github:null, desc:"AI coaching platform helping leaders, workers, and machines collaborate effectively through role-based augmentation strategies."},
+  {id:2, name:"HoloOrg", slug:"holoorg", group:"G1", canonical:"https://holo-org.com", ss:"https://holo-org.com", domains:["holo-org.com","holoorg.vercel.app","holowall.vercel.app","holo-org.vercel.app"], vercel:"holoorg", github:null, desc:"Organisational intelligence platform connecting conversations, workflows, and insights across every platform."},
+  {id:3, name:"Tech for Humanity", slug:"tech-for-humanity", group:"G1", canonical:"https://tech4humanity.com.au", ss:"https://tech4humanity.com.au", domains:["tech4humanity.com.au","tech4humanity.org","tech4humanity-hub.lovable.app","tech4-humanity-domains.vercel.app"], vercel:"t4h-site", github:null, desc:"Holding company and central hub for the Tech 4 Humanity portfolio of businesses."},
+  {id:4, name:"WorkFamilyAI", slug:"workfamilyai", group:"G1", canonical:"https://workfamilyai.org", ss:"https://workfamilyai.org", domains:["workfamilyai.com","workfamilyai.org","work-family-ai.vercel.app","workfamilyai.vercel.app","neural-ennead-family.vercel.app"], vercel:"workfamilyai", github:null, desc:"AI-powered work-life integration tools for modern families balancing career and home responsibilities."},
+
+  // G2 GC-BAT (6)
+  {id:5, name:"ConsentX", slug:"consentx", group:"G2", canonical:"https://consentx.org", ss:"https://consentx.org", domains:["consentx.vercel.app","consentx-westpac-demo1.vercel.app","consent-x.vercel.app"], vercel:"consent-x", github:null, desc:"Consent management and authorisation platform for enterprise data governance and compliance."},
+  {id:6, name:"Far-Cage", slug:"far-cage", group:"G2", canonical:"https://far-cage.com", ss:"https://far-cage.com", domains:["far-cage.com","far-cage.org","far-cage.vercel.app"], vercel:"far-cage", github:null, desc:"AI safety and containment standards for responsible artificial intelligence deployment."},
+  {id:7, name:"GC-BAT Core", slug:"gc-bat-core", group:"G2", canonical:"https://gcbat.org", ss:"https://gcbat.org", domains:["gcbat.com","gcbat.org","gcbat-org.vercel.app"], vercel:"gcbat-org", github:null, desc:"Global Council on BCI & Assistive Technology - leading ethical research, innovation, and global collaboration."},
+  {id:8, name:"MyNeuralSignal", slug:"myneuralsignal", group:"G2", canonical:"https://myneuralsignal.gcbat.org", ss:"https://myneuralsignal.gcbat.org", domains:["myneuralsignal.com","myneuralsignal.vercel.app"], vercel:"myneuralsignal", github:null, desc:"Real-time brain signal monitoring and alerts for cognitive health and decision support."},
+  {id:9, name:"NEUROPAK", slug:"neuropak", group:"G2", canonical:"https://neuropak.gcbat.org", ss:"https://neuropak.vercel.app", domains:["neuropak.com","neuropak.io","neuropak.vercel.app","neuropak-dashboard.vercel.app","neurostack.vercel.app"], vercel:"neuropak", github:null, desc:"Neural interface toolkit and dashboard for BCI research and development."},
+  {id:10, name:"RATPAK", slug:"ratpak", group:"G2", canonical:"https://ratpak.com.au", ss:"https://ratpak.com.au", domains:["ratpak.com.au","ratpak.io","ratpak.vercel.app","ratworks.vercel.app"], vercel:"ratpak-platform", github:null, desc:"Robotics and automation technology platform for industrial applications."},
+
+  // G3 MISSION (6)
+  {id:11, name:"AquaMe", slug:"aquame", group:"G3", canonical:"https://aquame.tech4humanity.com", ss:null, domains:[], vercel:null, github:null, desc:"Water quality monitoring and hydration tracking for personal wellness."},
+  {id:12, name:"CalmBound", slug:"calmbound", group:"G3", canonical:"https://calmbound-system.vercel.app", ss:"https://calmbound-system.vercel.app", domains:[], vercel:"calmbound-system", github:null, desc:"Mental wellness and stress management platform for workplace wellbeing."},
+  {id:13, name:"Chemists Platform", slug:"chemists-platform", group:"G3", canonical:"https://allchemist.org", ss:"https://all-chemist-com.vercel.app", domains:["all-chemist-com.vercel.app"], vercel:"all-chemist-org", github:null, desc:"Digital platform connecting pharmacies and enabling better healthcare access."},
+  {id:14, name:"GAIN", slug:"gain", group:"G3", canonical:"https://gain-foundation.vercel.app", ss:"https://gain-foundation.vercel.app", domains:["gain-foundation.vercel.app"], vercel:"gain", github:null, desc:"Global Agriculture Innovation Network - technology for sustainable farming."},
+  {id:15, name:"Global Tyres", slug:"global-tyres", group:"G3", canonical:"https://global-tyres.vercel.app", ss:"https://global-tyres.vercel.app", domains:["global-tyre-locator.vercel.app","global-tyres.vercel.app"], vercel:null, github:null, desc:"Tyre recycling and sustainability tracking platform."},
+  {id:16, name:"SmartPark", slug:"smartpark", group:"G3", canonical:"https://smartpark.vercel.app", ss:"https://smartpark.vercel.app", domains:[], vercel:"smartpark", github:null, desc:"Intelligent parking management and urban mobility solutions."},
+
+  // G4 RETAIL (8)
+  {id:17, name:"APAC Just Walk Out", slug:"apac-just-walk-out", group:"G4", canonical:"https://apac.justwalkout.tech4humanity.com", ss:null, domains:[], vercel:null, github:null, desc:"Autonomous checkout technology for retail stores across Asia-Pacific."},
+  {id:18, name:"Enter Australia", slug:"enter-australia", group:"G4", canonical:"https://enteraustralia.com", ss:"https://enter-australia.vercel.app", domains:["enteraustralia.com"], vercel:"enter-australia", github:null, desc:"Market entry consulting and business setup services for companies expanding to Australia."},
+  {id:19, name:"Enter Australia Tech", slug:"enter-australia-tech", group:"G4", canonical:"https://enteraustralia.tech", ss:"https://enteraustralia.tech", domains:["enteraustralia.tech"], vercel:"enter-australia-tech", github:null, desc:"Technology solutions for international businesses entering the Australian market."},
+  {id:20, name:"House of Biscuits", slug:"house-of-biscuits", group:"G4", canonical:"https://house-of-biscuits.vercel.app", ss:"https://house-of-biscuits.vercel.app", domains:[], vercel:"house-of-biscuits", github:null, desc:"Artisan biscuit marketplace and delivery platform."},
+  {id:21, name:"JustPoint", slug:"justpoint", group:"G4", canonical:"https://justpoint.tech4humanity.com", ss:null, domains:[], vercel:null, github:null, desc:"Location-based retail discovery and loyalty platform."},
+  {id:22, name:"Oman Strategy", slug:"oman-strategy", group:"G4", canonical:"https://oman-australia-strategy.vercel.app", ss:"https://oman-australia-strategy.vercel.app", domains:["oman-australia-strategy.vercel.app"], vercel:null, github:null, desc:"Oman-Australia trade and investment facilitation platform."},
+  {id:23, name:"Vuon Troi", slug:"vuon-troi", group:"G4", canonical:"https://vuon-troi-is-reach-the-sky.vercel.app", ss:"https://vuon-troi-is-reach-the-sky.vercel.app", domains:["vuon-troi-is-reach-the-sky.vercel.app"], vercel:null, github:null, desc:"Vietnamese market expansion and cross-cultural business services."},
+  {id:24, name:"XCES", slug:"xces", group:"G4", canonical:"https://xces.tech4humanity.com", ss:null, domains:[], vercel:null, github:null, desc:"Excess inventory and sustainable commerce marketplace."},
+
+  // G5 FUN (6)
+  {id:25, name:"AI Oopsies", slug:"ai-oopsies", group:"G5", canonical:"https://aioopsies.vercel.app", ss:"https://aioopsies.vercel.app", domains:["aioopsies.vercel.app"], vercel:null, github:null, desc:"Collection of humorous AI failures and lessons learned from machine learning mishaps."},
+  {id:26, name:"Apex Predator Insurance", slug:"apex-predator-insurance", group:"G5", canonical:"https://apexpredatorinsurance.com", ss:"https://apexpredatorinsurance.com", domains:["apex-predator-insurance.vercel.app"], vercel:"apex-predator-insurance", github:null, desc:"Satirical insurance product for protection against unlikely apex predator encounters."},
+  {id:27, name:"Predator Alert", slug:"predator-alert", group:"G5", canonical:"https://predatoralert.tech4humanity.com", ss:null, domains:[], vercel:null, github:null, desc:"Wildlife tracking and safety alert system for outdoor adventures."},
+  {id:28, name:"Rhythm Method", slug:"rhythm-method", group:"G5", canonical:"https://rhythmmethod.tech4humanity.com", ss:null, domains:[], vercel:"rhythmmethod", github:null, desc:"Music-based productivity and focus enhancement application."},
+  {id:29, name:"Spotto", slug:"spotto", group:"G5", canonical:"https://spotto.app", ss:"https://spotto.vercel.app", domains:["spotto.au","spotto.app","spotto.vercel.app","extreme-spotto.vercel.app","come-in-spinner.vercel.app"], vercel:"spotto", github:null, desc:"Interactive spotting game and location-based entertainment platform."},
+  {id:30, name:"Stubborn AI Fails", slug:"stubborn-ai-fails", group:"G5", canonical:"https://stubborn-ai-fails.vercel.app", ss:"https://stubborn-ai-fails.vercel.app", domains:["stubborn-ai-fails.vercel.app"], vercel:null, github:null, desc:"Documentation of persistent AI failures and the lessons they teach us."},
+
+  // G6 PERSONAL (4)
+  {id:31, name:"CV Engine", slug:"cv-engine", group:"G6", canonical:"https://cv.tech4humanity.com", ss:null, domains:[], vercel:null, github:null, desc:"AI-powered resume builder and career development tools."},
+  {id:32, name:"MAAT Money", slug:"maat-money", group:"G6", canonical:"https://maat.tech4humanity.com", ss:null, domains:[], vercel:null, github:null, desc:"Personal finance management guided by principles of balance and fairness."},
+  {id:33, name:"Making You A Star", slug:"making-you-a-star", group:"G6", canonical:"https://makingyouastar.tech4humanity.com", ss:null, domains:[], vercel:"making-you-a-star", github:null, desc:"Personal branding and career visibility coaching platform."},
+  {id:34, name:"Property Decision Pack", slug:"property-decision-pack", group:"G6", canonical:"https://property-decision-pack-web.vercel.app", ss:"https://property-decision-pack-web.vercel.app", domains:["property-decision-pack-web.vercel.app"], vercel:"property-decision-pack-web", github:null, desc:"Comprehensive property analysis toolkit for informed real estate decisions."},
+
+  // G7 IP (8)
+  {id:35, name:"10 Day Media Map", slug:"10-day-media-map", group:"G7", canonical:"https://book-store.vercel.app", ss:"https://book-store.vercel.app", domains:["book-store.vercel.app"], vercel:"book-store", github:null, desc:"Strategic media planning framework and course for content creators."},
+  {id:36, name:"AI Era Thinking", slug:"ai-era-thinking", group:"G7", canonical:"https://ai-sweet-spots-for-all.vercel.app", ss:"https://ai-sweet-spots-for-all.vercel.app", domains:["ai-sweet-spots-for-all.vercel.app"], vercel:"ai-sweet-spots-for-all", github:null, desc:"Frameworks and methodologies for thriving in the age of artificial intelligence."},
+  {id:37, name:"Atlas Aus Pulse", slug:"atlas-aus-pulse", group:"G7", canonical:"https://atlas.tech4humanity.com", ss:null, domains:[], vercel:null, github:null, desc:"Australian economic and social indicators dashboard."},
+  {id:38, name:"LifeGraph Plus", slug:"lifegraph-plus", group:"G7", canonical:"https://mind-atlas.vercel.app", ss:"https://mind-atlas.vercel.app", domains:["mind-atlas.vercel.app"], vercel:null, github:null, desc:"Personal knowledge graph and life mapping tool for self-understanding."},
+  {id:39, name:"Neural Market Intelligence", slug:"neural-market-intelligence", group:"G7", canonical:"https://neural-market-intelligence.vercel.app", ss:"https://neural-market-intelligence.vercel.app", domains:["neural-market-intelligence.vercel.app"], vercel:null, github:null, desc:"AI-powered market research and competitive intelligence platform."},
+  {id:40, name:"Neural Research Hub", slug:"neural-research-hub", group:"G7", canonical:"https://ai-sweet-spots-for-all.vercel.app", ss:"https://ai-sweet-spots-for-all.vercel.app", domains:[], vercel:null, github:null, desc:"Central repository for neurotechnology research and publications."},
+  {id:41, name:"Resilience Atlas", slug:"resilience-atlas", group:"G7", canonical:"https://resilienceatlas.tech4humanity.com", ss:null, domains:[], vercel:null, github:null, desc:"Mapping personal and organisational resilience factors and strategies."},
+  {id:42, name:"SM 2.0 Tech4Humanity", slug:"sm-2-0-tech4humanity", group:"G7", canonical:"https://sm-ban-watch.vercel.app", ss:"https://sm-ban-watch.vercel.app", domains:["sm-ban-watch.vercel.app"], vercel:"sm-ban-watch", github:null, desc:"Social media monitoring and platform policy tracking tools."}
+];
+
+/* ========================================================
+   SCREENSHOT URL BUILDER
+   Uses Microlink API — returns image/png directly
+   ======================================================== */
+function screenshotSrc(url) {
+  return 'https://api.microlink.io/?url=' + encodeURIComponent(url) + '&screenshot=true&meta=false&embed=screenshot.url';
+}
+
+/* ========================================================
+   RENDER: PORTFOLIO CARDS
+   ======================================================== */
+function renderCard(biz) {
+  var statusClass = biz.domains.length > 0 ? 'active' : 'planned';
+  var c = colorHex[biz.group] || '#3b82f6';
+  var grad = 'linear-gradient(135deg, ' + c + '18 0%, ' + c + '38 50%, ' + c + '58 100%)';
+  var host = '';
+  try { host = new URL(biz.canonical).hostname; } catch(e) { host = biz.slug; }
+
+  var imgHtml;
+  if (biz.ss) {
+    // Live site — show screenshot, fallback if it fails
+    imgHtml = '<img src="' + screenshotSrc(biz.ss) + '" alt="' + biz.name + '" loading="lazy" ' +
+      'onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">' +
+      '<div class="fallback" style="display:none;background:' + grad + '">' +
+        '<div class="fb-name">' + biz.name + '</div>' +
+        '<div class="fb-host">' + host + '</div>' +
+      '</div>';
+  } else {
+    // No live site — gradient with name
+    imgHtml = '<div class="fallback" style="display:flex;background:' + grad + '">' +
+      '<div class="fb-name">' + biz.name + '</div>' +
+      '<div class="fb-host">' + host + '</div>' +
+      '<div class="fb-status">In development</div>' +
+    '</div>';
+  }
+
+  var domainBadge = '';
+  if (biz.domains.length > 0) {
+    domainBadge = '<span class="badge" style="background:rgba(255,255,255,0.05);color:var(--text-dim)">' +
+      biz.domains.length + ' domain' + (biz.domains.length > 1 ? 's' : '') + '</span>';
+  }
+
+  return '<div class="biz-card" data-group="' + biz.group + '" onclick="openModal(' + biz.id + ')">' +
+    '<div class="card-img">' + 
+      imgHtml + 
+      '<a class="card-visit" href="' + biz.canonical + '" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Visit site">↗</a>' +
+    '</div>' +
+    '<div class="card-body">' +
+      '<h3>' + biz.name + '</h3>' +
+      '<div class="slug">' + biz.slug + ' · ' + biz.group + '</div>' +
+      '<div class="meta">' +
+        '<span class="badge badge-' + statusClass + '">' + (biz.ss ? 'LIVE' : 'PLANNED') + '</span>' +
+        domainBadge +
+      '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+function renderPortfolio(filter) {
+  var container = document.getElementById('portfolioView');
+  var html = '';
+  var groups = ['G1','G2','G3','G4','G5','G6','G7'];
+
+  groups.forEach(function(g) {
+    if (filter !== 'all' && filter !== g) return;
+    var gm = groupMeta[g];
+    var groupBiz = businesses.filter(function(b) { return b.group === g; });
+
+    html += '<div class="group-section" data-group="' + g + '">' +
+      '<div class="group-header">' +
+        '<div class="group-badge" style="background:' + gm.color + '">' + g + '</div>' +
+        '<div>' +
+          '<div class="group-title">' + gm.name + '</div>' +
+          '<div style="color:var(--text-dim);font-size:0.85rem">' + gm.desc + '</div>' +
+        '</div>' +
+        '<div class="group-count">' + groupBiz.length + ' businesses</div>' +
+      '</div>' +
+      '<div class="cards-grid">' +
+        groupBiz.map(renderCard).join('') +
+      '</div>' +
+    '</div>';
+  });
+
+  container.innerHTML = html;
+}
+
+/* ========================================================
+   RENDER: DOMAIN MAP TABLE
+   ======================================================== */
+function renderDomainMap() {
+  var container = document.getElementById('domainView');
+  var rows = '';
+  var groups = ['G1','G2','G3','G4','G5','G6','G7'];
+
+  groups.forEach(function(g) {
+    var gm = groupMeta[g];
+    var groupBiz = businesses.filter(function(b) { return b.group === g; });
+
+    rows += '<tr><td colspan="4" style="background:var(--surface);padding:16px;font-family:Fraunces,serif;font-weight:700;font-size:1.1rem">' +
+      '<span style="display:inline-block;width:32px;height:32px;border-radius:8px;background:' + gm.color + ';color:#fff;text-align:center;line-height:32px;font-size:0.8rem;margin-right:12px;vertical-align:middle">' + g + '</span>' +
+      gm.name + ' — ' + gm.desc + '</td></tr>';
+
+    groupBiz.forEach(function(biz) {
+      var host = '';
+      try { host = new URL(biz.canonical).hostname; } catch(e) { host = biz.slug; }
+
+      rows += '<tr>' +
+        '<td style="font-weight:500">' + biz.name + '</td>' +
+        '<td><a class="domain-url" href="' + biz.canonical + '" target="_blank">' + host + '</a></td>' +
+        '<td><span class="badge badge-' + (biz.ss ? 'active' : 'planned') + '">' + (biz.ss ? 'LIVE' : 'PLANNED') + '</span></td>' +
+        '<td>' + (biz.domains.length > 0 ? biz.domains.map(function(d) { return '<span style="font-size:0.75rem;color:var(--text-dim);font-family:monospace">' + d + '</span>'; }).join('<br>') : '<span style="color:var(--text-dim);font-size:0.75rem">—</span>') + '</td>' +
+      '</tr>';
+    });
+  });
+
+  container.innerHTML = '<table class="domain-table">' +
+    '<thead><tr><th>Business</th><th>Canonical URL</th><th>Status</th><th>All Domains</th></tr></thead>' +
+    '<tbody>' + rows + '</tbody></table>';
+}
+
+/* ========================================================
+   UI CONTROLLERS
+   ======================================================== */
+function filterGroup(group, btn) {
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+  renderPortfolio(group);
+}
+
+function showView(view) {
+  document.querySelectorAll('.view-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('portfolioView').style.display = 'none';
+  document.getElementById('domainView').style.display = 'none';
+  document.getElementById('analyticsView').style.display = 'none';
+  document.getElementById('tabBar').style.display = 'none';
+
+  if (view === 'portfolio') {
+    document.getElementById('portfolioView').style.display = 'block';
+    document.getElementById('tabBar').style.display = 'flex';
+    document.querySelectorAll('.view-btn')[0].classList.add('active');
+  } else if (view === 'domain') {
+    document.getElementById('domainView').style.display = 'block';
+    document.querySelectorAll('.view-btn')[1].classList.add('active');
+    renderDomainMap();
+  } else if (view === 'analytics') {
+    document.getElementById('analyticsView').style.display = 'block';
+    document.querySelectorAll('.view-btn')[2].classList.add('active');
+    renderAnalytics();
+  }
+}
+
+// INIT
+renderPortfolio('all');
+
+/* ========================================================
+   RENDER: ANALYTICS VIEW
+   ======================================================== */
+function renderAnalytics() {
+  var container = document.getElementById('analyticsView');
+  
+  // Calculate stats
+  var liveCount = businesses.filter(function(b) { return b.ss !== null; }).length;
+  var plannedCount = businesses.length - liveCount;
+  var totalDomains = businesses.reduce(function(sum, b) { return sum + b.domains.length; }, 0);
+  var withVercel = businesses.filter(function(b) { return b.vercel !== null; }).length;
+  
+  // Group stats
+  var groupStats = {};
+  ['G1','G2','G3','G4','G5','G6','G7'].forEach(function(g) {
+    var gBiz = businesses.filter(function(b) { return b.group === g; });
+    groupStats[g] = {
+      total: gBiz.length,
+      live: gBiz.filter(function(b) { return b.ss !== null; }).length,
+      domains: gBiz.reduce(function(sum, b) { return sum + b.domains.length; }, 0)
+    };
+  });
+  
+  var html = '<div class="analytics-header">' +
+    '<h2>Portfolio Analytics</h2>' +
+    '<p>Infrastructure overview, site health, and metrics for all 42 businesses</p>' +
+  '</div>' +
+  '<div class="analytics-grid">' +
+    
+    // OVERVIEW CARD
+    '<div class="analytics-card">' +
+      '<h3><span class="icon" style="background:var(--g1-bg);color:var(--g1)">📊</span>Overview</h3>' +
+      '<div class="analytics-metric"><span class="analytics-metric-label">Total Businesses</span><span class="analytics-metric-value">42</span></div>' +
+      '<div class="analytics-metric"><span class="analytics-metric-label">Live Sites</span><span class="analytics-metric-value" style="color:var(--g1)">' + liveCount + '</span></div>' +
+      '<div class="analytics-metric"><span class="analytics-metric-label">In Development</span><span class="analytics-metric-value" style="color:var(--accent)">' + plannedCount + '</span></div>' +
+      '<div class="analytics-metric"><span class="analytics-metric-label">Total Domains</span><span class="analytics-metric-value">' + totalDomains + '</span></div>' +
+      '<div class="analytics-metric"><span class="analytics-metric-label">Vercel Projects</span><span class="analytics-metric-value">' + withVercel + '</span></div>' +
+    '</div>' +
+    
+    // GROUP BREAKDOWN
+    '<div class="analytics-card">' +
+      '<h3><span class="icon" style="background:var(--g2-bg);color:var(--g2)">📁</span>By Group</h3>' +
+      '<table class="analytics-table">' +
+        '<tr><th>Group</th><th>Total</th><th>Live</th><th>Coverage</th></tr>' +
+        ['G1','G2','G3','G4','G5','G6','G7'].map(function(g) {
+          var s = groupStats[g];
+          var pct = Math.round((s.live / s.total) * 100);
+          return '<tr>' +
+            '<td><span style="color:' + colorHex[g] + ';font-weight:600">' + g + '</span> ' + groupMeta[g].name + '</td>' +
+            '<td>' + s.total + '</td>' +
+            '<td>' + s.live + '</td>' +
+            '<td><div style="display:flex;align-items:center;gap:8px"><span style="width:40px">' + pct + '%</span><div class="analytics-bar" style="flex:1"><div class="analytics-bar-fill" style="width:' + pct + '%;background:' + colorHex[g] + '"></div></div></div></td>' +
+          '</tr>';
+        }).join('') +
+      '</table>' +
+    '</div>' +
+    
+    // SUPABASE TABLES
+    '<div class="analytics-card">' +
+      '<h3><span class="icon" style="background:var(--g3-bg);color:var(--g3)">🗄️</span>Supabase Tables</h3>' +
+      '<table class="analytics-table">' +
+        '<tr><th>Table</th><th>Rows</th><th>Purpose</th></tr>' +
+        '<tr><td><code>mcp_business_registry</code></td><td>42</td><td>Core business definitions</td></tr>' +
+        '<tr><td><code>sites_registry</code></td><td>80</td><td>Site infrastructure</td></tr>' +
+        '<tr><td><code>vercel_projects_map</code></td><td>156</td><td>Vercel deployments</td></tr>' +
+        '<tr><td><code>domains</code></td><td>35</td><td>Registered domains</td></tr>' +
+        '<tr><td><code>group_counts</code></td><td>28</td><td>Category aggregates</td></tr>' +
+      '</table>' +
+    '</div>' +
+    
+    // TRAFFIC & REVENUE (PLACEHOLDER)
+    '<div class="analytics-card">' +
+      '<h3><span class="icon" style="background:var(--g4-bg);color:var(--g4)">📈</span>Traffic & Revenue</h3>' +
+      '<div class="analytics-placeholder">' +
+        '<div class="icon">🔗</div>' +
+        '<div>Connect analytics to view traffic data</div>' +
+        '<div style="margin-top:12px;font-size:0.8rem">Requires: Vercel Analytics, Plausible, or GA4 integration</div>' +
+      '</div>' +
+    '</div>' +
+    
+    // SITE HEALTH
+    '<div class="analytics-card">' +
+      '<h3><span class="icon" style="background:var(--g5-bg);color:var(--g5)">💚</span>Site Health</h3>' +
+      '<table class="analytics-table">' +
+        '<tr><th>Status</th><th>Count</th><th></th></tr>' +
+        '<tr><td>🟢 Live & Healthy</td><td>' + liveCount + '</td><td><span style="color:var(--g1)">OK</span></td></tr>' +
+        '<tr><td>🔵 In Development</td><td>' + plannedCount + '</td><td><span style="color:var(--accent)">Building</span></td></tr>' +
+        '<tr><td>🟡 Needs Review</td><td>0</td><td><span style="color:var(--g3)">Pending</span></td></tr>' +
+        '<tr><td>🔴 Down/Issues</td><td>0</td><td><span style="color:var(--g4)">—</span></td></tr>' +
+      '</table>' +
+    '</div>' +
+    
+    // RECENT ACTIVITY
+    '<div class="analytics-card">' +
+      '<h3><span class="icon" style="background:var(--g6-bg);color:var(--g6)">🕐</span>Infrastructure</h3>' +
+      '<div class="analytics-metric"><span class="analytics-metric-label">Supabase Project</span><span class="analytics-metric-value" style="font-size:0.9rem">lzfgigiyqpuuxslsygjt</span></div>' +
+      '<div class="analytics-metric"><span class="analytics-metric-label">Vercel Team</span><span class="analytics-metric-value" style="font-size:0.9rem">troys-projects</span></div>' +
+      '<div class="analytics-metric"><span class="analytics-metric-label">Primary Region</span><span class="analytics-metric-value" style="font-size:0.9rem">Sydney (ap-southeast-2)</span></div>' +
+      '<div class="analytics-metric"><span class="analytics-metric-label">CDN</span><span class="analytics-metric-value" style="font-size:0.9rem">Vercel Edge Network</span></div>' +
+    '</div>' +
+    
+  '</div>';
+  
+  container.innerHTML = html;
+}
+
+/* ========================================================
+   MODAL FUNCTIONS
+   ======================================================== */
+function openModal(bizId) {
+  var biz = businesses.find(function(b) { return b.id === bizId; });
+  if (!biz) return;
+
+  var gm = groupMeta[biz.group];
+  var c = colorHex[biz.group] || '#3b82f6';
+
+  // Header
+  document.getElementById('modalBadge').style.background = c;
+  document.getElementById('modalBadge').textContent = biz.group;
+  document.getElementById('modalTitle').textContent = biz.name;
+
+  // Screenshot
+  var ssContainer = document.getElementById('modalScreenshot');
+  if (biz.ss) {
+    ssContainer.innerHTML = '<img src="' + screenshotSrc(biz.ss) + '" alt="' + biz.name + '" onerror="this.parentElement.innerHTML=\'<div class=fallback>' + biz.name + '</div>\'">';
+  } else {
+    var grad = 'linear-gradient(135deg, ' + c + '25 0%, ' + c + '45 100%)';
+    ssContainer.innerHTML = '<div class="fallback" style="background:' + grad + '">' + biz.name + '</div>';
+  }
+
+  // Business Info Tab
+  var host = '';
+  try { host = new URL(biz.canonical).hostname; } catch(e) { host = biz.slug; }
+  
+  var businessHtml = 
+    '<div class="info-item"><div class="info-label">Group</div><div class="info-value">' + biz.group + ' — ' + gm.name + '</div></div>' +
+    '<div class="info-item"><div class="info-label">Status</div><div class="info-value"><span class="badge badge-' + (biz.ss ? 'active' : 'planned') + '">' + (biz.ss ? 'LIVE' : 'PLANNED') + '</span></div></div>' +
+    '<div class="info-item"><div class="info-label">Canonical URL</div><div class="info-value"><a href="' + biz.canonical + '" target="_blank">' + host + '</a></div></div>' +
+    '<div class="info-item"><div class="info-label">Business ID</div><div class="info-value mono">' + biz.id + '</div></div>' +
+    '<div class="info-item" style="grid-column:1/-1"><div class="info-label">Description</div><div class="info-value">' + (biz.desc || 'No description available.') + '</div></div>';
+  document.getElementById('businessInfo').innerHTML = businessHtml;
+
+  // Technical Info Tab
+  var technicalHtml = 
+    '<div class="info-item"><div class="info-label">Slug</div><div class="info-value mono">' + biz.slug + '</div></div>' +
+    '<div class="info-item"><div class="info-label">Vercel Project</div><div class="info-value mono">' + (biz.vercel ? '<a href="https://' + biz.vercel + '.vercel.app" target="_blank">' + biz.vercel + '</a>' : '—') + '</div></div>' +
+    '<div class="info-item"><div class="info-label">GitHub Repo</div><div class="info-value mono">' + (biz.github ? '<a href="https://github.com/' + biz.github + '" target="_blank">' + biz.github + '</a>' : '—') + '</div></div>' +
+    '<div class="info-item"><div class="info-label">Screenshot Source</div><div class="info-value mono" style="font-size:0.7rem">' + (biz.ss || '—') + '</div></div>' +
+    '<div class="info-item"><div class="info-label">Domain Count</div><div class="info-value">' + biz.domains.length + '</div></div>' +
+    '<div class="info-item"><div class="info-label">Group Category</div><div class="info-value">' + gm.desc + '</div></div>';
+  document.getElementById('technicalInfo').innerHTML = technicalHtml;
+
+  // Domains Tab
+  var domainsHtml = '<div class="info-label" style="margin-bottom:8px">Registered Domains (' + biz.domains.length + ')</div>';
+  if (biz.domains.length > 0) {
+    domainsHtml += '<div class="domain-list">';
+    biz.domains.forEach(function(d) {
+      domainsHtml += '<a class="domain-chip" href="https://' + d + '" target="_blank">' + d + '</a>';
+    });
+    domainsHtml += '</div>';
+  } else {
+    domainsHtml += '<div style="color:var(--text-dim);font-size:0.85rem">No additional domains registered for this business.</div>';
+  }
+  document.getElementById('domainsInfo').innerHTML = domainsHtml;
+
+  // Visit button
+  document.getElementById('modalVisitBtn').href = biz.canonical;
+
+  // Reset to first tab
+  showModalTab('business', document.querySelector('.modal-tab'));
+
+  // Show modal
+  document.getElementById('modalOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function showModalTab(tabId, btn) {
+  // Update tab buttons
+  document.querySelectorAll('.modal-tab').forEach(function(t) { t.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+  
+  // Update tab content
+  document.querySelectorAll('.modal-content').forEach(function(c) { c.classList.remove('active'); });
+  document.getElementById('tab-' + tabId).classList.add('active');
+}
+
+// Close modal on Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
+});
+</script>
+</body>
+</html>
