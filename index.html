@@ -161,6 +161,7 @@ footer code { background:var(--surface); padding:2px 6px; border-radius:4px; fon
   <button class="view-btn active" onclick="showView('portfolio')">Portfolio View</button>
   <button class="view-btn" onclick="showView('domain')">Domain Map</button>
   <button class="view-btn" onclick="showView('analytics')">Analytics</button>
+  <button class="view-btn" onclick="showView('internal-tools')">Internal Tools</button>
 </div>
 
 <div class="tab-bar" id="tabBar">
@@ -177,9 +178,10 @@ footer code { background:var(--surface); padding:2px 6px; border-radius:4px; fon
 <div id="portfolioView"></div>
 <div id="domainView" class="domain-section"></div>
 <div id="analyticsView" class="analytics-section" style="display:none"></div>
+<div id="internalToolsView" style="display:none"></div>
 
 <footer>
-  Tech 4 Humanity — Canonical Doctrine v1.0 (Frozen) — Portfolio v13 — Generated 19 Feb 2026<br>
+  Tech 4 Humanity — Canonical Doctrine v1.0 (Frozen) — Portfolio v14 — Generated 23 Feb 2026<br>
   Source: Supabase <code>lzfgigiyqpuuxslsygjt</code> · <code>mcp_business_registry</code> (42) · <code>sites_registry</code> (80)
 </footer>
 
@@ -448,7 +450,55 @@ function showView(view) {
     document.getElementById('analyticsView').style.display = 'block';
     document.querySelectorAll('.view-btn')[2].classList.add('active');
     renderAnalytics();
+  } else if (view === 'internal-tools') {
+    document.getElementById('internalToolsView').style.display = 'block';
+    document.querySelectorAll('.view-btn')[3].classList.add('active');
+    renderInternalTools();
   }
+}
+
+/* ========================================================
+   RENDER: INTERNAL TOOLS VIEW
+   ======================================================== */
+var internalToolsRendered = false;
+function renderInternalTools() {
+  if (internalToolsRendered) return;
+  internalToolsRendered = true;
+  var container = document.getElementById('internalToolsView');
+
+  var tools = [
+    {
+      name: 'Tech4Humanity Tools Hub',
+      url: 'https://tech4humanity.net/',
+      desc: 'Central hub for T4H tools, calculators, and utilities across all business platforms. Covers AI, BCI, robotics, workforce, finance, and more.',
+      group: 'All Platforms',
+      icon: '🛠️',
+      status: 'live'
+    }
+  ];
+
+  var html = '<div style="padding:32px 24px;">';
+  html += '<h2 style="font-size:1.4rem;margin-bottom:8px;">Internal Tools</h2>';
+  html += '<p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:32px;">T4H operational tools, calculators, and utilities across all business platforms.</p>';
+  html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;">';
+
+  tools.forEach(function(tool) {
+    html += '<div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;transition:border-color 0.2s;" onmouseover="this.style.borderColor=\'var(--accent)\'" onmouseout="this.style.borderColor=\'var(--border)\'">';
+    html += '<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">';
+    html += '<span style="font-size:1.8rem;">' + tool.icon + '</span>';
+    html += '<div>';
+    html += '<div style="font-weight:600;font-size:1rem;">' + tool.name + '</div>';
+    html += '<div style="font-size:0.75rem;color:var(--text-dim);">' + tool.group + '</div>';
+    html += '</div>';
+    html += '<div style="margin-left:auto;"><span style="font-size:0.7rem;padding:2px 8px;border-radius:10px;background:' + (tool.status==='live'?'rgba(34,197,94,0.15)':'rgba(250,204,21,0.15)') + ';color:' + (tool.status==='live'?'#4ade80':'#fbbf24') + ';">' + tool.status.toUpperCase() + '</span></div>';
+    html += '</div>';
+    html += '<p style="font-size:0.83rem;color:var(--text-dim);margin-bottom:16px;line-height:1.5;">' + tool.desc + '</p>';
+    html += '<a href="' + tool.url + '" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;font-size:0.82rem;color:var(--accent);text-decoration:none;">Visit Site →</a>';
+    html += '</div>';
+  });
+
+  html += '</div></div>';
+  container.innerHTML = html;
 }
 
 // INIT
