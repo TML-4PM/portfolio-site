@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>T4H Portfolio — Site Registry</title>
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg:      #080A0E;
+      --bg2:     #0D1117;
+      --border:  #1F2937;
+      --border2: #374151;
+      --text:    #F9FAFB;
+      --muted:   #9CA3AF;
+      --dim:     #4B5563;
+      --mono:    'DM Mono', 'Fira Code', monospace;
+      --sans:    'Space Grotesk', system-ui, sans-serif;
+
+      --z1: #00D4FF;
+      --z2: #7C3AED;
+      --z3: #F59E0B;
+      --z4a:#10B981;
+      --z4b:#EF4444;
+      --zu: #4B5563;
+
+      --active:      #10B981;
+      --planned:     #F59E0B;
+      --archived:    #4B5563;
+      --consolidated:#7C3AED;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--mono);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Ambient glow */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background:
+        radial-gradient(ellipse 900px 600px at 0% 0%, rgba(0,212,255,.06) 0%, transparent 60%),
+        radial-gradient(ellipse 700px 500px at 100% 100%, rgba(124,58,237,.06) 0%, transparent 60%);
+    }
+
+    .wrap { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; padding: 0 24px 80px; }
+
+    /* ── Header ── */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(8,10,14,.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+    }
+    .bar {
+      max-width: 1280px; margin: 0 auto;
+      height: 54px; display: flex; align-items: center; gap: 24px;
+    }
+    .wordmark { display: flex; align-items: baseline; gap: 6px; text-decoration: none; }
+    .wm-t4h   { font-family: var(--sans); font-weight: 700; font-size: 18px; color: var(--text); letter-spacing: -.02em; }
+    .wm-slash { font-family: var(--mono); color: var(--dim); font-size: 16px; }
+    .wm-port  { font-family: var(--mono); font-size: 13px; color: var(--dim); letter-spacing: .08em; }
+    .bar-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+    .live-chip {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 11px; padding: 5px 10px;
+      border: 1px solid rgba(16,185,129,.3); border-radius: 99px;
+      background: rgba(16,185,129,.07); color: #34D399;
+    }
+    .live-dot { width: 6px; height: 6px; border-radius: 50%; background: #34D399; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .bar-date { font-size: 11px; color: var(--dim); }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 56px 0 40px;
+    }
+    .hero-label { font-size: 11px; color: var(--dim); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 16px; }
+    .hero-title {
+      font-family: var(--sans); font-size: clamp(32px, 5vw, 60px);
+      font-weight: 700; letter-spacing: -.03em; line-height: 1.05;
+      margin-bottom: 12px;
+    }
+    .hero-title span { color: var(--dim); }
+    .hero-sub { font-size: 14px; color: var(--muted); line-height: 1.6; max-width: 60ch; margin-bottom: 32px; }
+
+    /* Stat bar */
+    .stat-bar { display: flex; flex-wrap: wrap; gap: 0; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; width: fit-content; }
+    .stat-item {
+      padding: 12px 24px; border-right: 1px solid var(--border);
+      display: flex; flex-direction: column; gap: 3px;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-val { font-family: var(--sans); font-size: 28px; font-weight: 700; line-height: 1; }
+    .stat-label { font-size: 10px; color: var(--dim); letter-spacing: .1em; text-transform: uppercase; }
+
+    /* ── Controls ── */
+    .controls {
+      position: sticky; top: 54px; z-index: 90;
+      background: rgba(8,10,14,.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 0;
+      margin: 0 -24px;
+      padding-left: 24px; padding-right: 24px;
+    }
+    .controls-inner { max-width: 1280px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+    .search {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 6px; color: var(--text); font-family: var(--mono);
+      font-size: 12px; padding: 7px 12px; outline: none; min-width: 240px;
+    }
+    .search::placeholder { color: var(--dim); }
+    .filter-group { display: flex; gap: 4px; flex-wrap: wrap; }
+    .filter-btn {
+      font-family: var(--mono); font-size: 11px;
+      padding: 5px 10px; border-radius: 4px;
+      border: 1px solid var(--border); background: transparent;
+      color: var(--dim); cursor: pointer; white-space: nowrap;
+      transition: all .12s;
+    }
+    .filter-btn.on { background: var(--bg2); border-color: var(--border2); color: var(--text); }
+    .view-toggle { margin-left: auto; display: flex; gap: 4px; }
+
+    /* ── Legend ── */
+    .legend {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      padding: 20px 0 8px;
+    }
+    .legend-item {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 11px; color: var(--muted);
+      padding: 6px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--bg2);
+    }
+    .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+    /* ── Main content ── */
+    main { padding: 24px 0; }
+
+    /* Grid view */
+    .site-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 10px;
+    }
+
+    /* Site card */
+    .site-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      cursor: pointer;
+      transition: border-color .15s, transform .15s;
+      position: relative;
+    }
+    .site-card:hover { border-color: var(--border2); transform: translateY(-1px); }
+    .site-card.expanded { border-color: var(--border2); background: #111827; }
+
+    .card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .zone-label { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+    .status-chip {
+      display: flex; align-items: center; gap: 5px;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 99px; padding: 3px 8px;
+    }
+    .status-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+    .status-text { font-size: 10px; color: var(--muted); }
+
+    .card-name { font-family: var(--sans); font-size: 14px; font-weight: 600; margin-bottom: 6px; line-height: 1.3; word-break: break-word; }
+    .fn-tag {
+      display: inline-block; font-size: 10px; color: var(--dim);
+      background: var(--bg); border: 1px solid #111827;
+      border-radius: 3px; padding: 2px 7px;
+    }
+
+    /* Expanded detail */
+    .card-detail {
+      margin-top: 14px; padding-top: 14px;
+      border-top: 1px solid var(--border);
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .detail-row { display: flex; flex-direction: column; gap: 2px; }
+    .detail-key { font-size: 9px; color: var(--dim); text-transform: uppercase; letter-spacing: .12em; }
+    .detail-val { font-size: 12px; color: var(--muted); }
+    .detail-link { font-size: 12px; color: var(--z1); text-decoration: none; word-break: break-all; }
+    .detail-link:hover { text-decoration: underline; }
+
+    /* Zone view */
+    .zone-view { display: flex; flex-direction: column; gap: 40px; }
+    .zone-section {}
+    .zone-header {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 16px; padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .zone-orb { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .zone-title { font-family: var(--sans); font-size: 15px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+    .zone-desc { font-size: 11px; color: var(--dim); margin-top: 2px; }
+    .zone-count { margin-left: auto; font-size: 11px; color: var(--dim); background: var(--bg2); border: 1px solid var(--border); border-radius: 99px; padding: 2px 10px; }
+
+    /* States */
+    .load-state { display: flex; align-items: center; gap: 12px; padding: 80px 0; justify-content: center; font-size: 13px; color: var(--dim); }
+    .spinner { width: 18px; height: 18px; border: 2px solid var(--border); border-top-color: var(--z1); border-radius: 50%; animation: spin .7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .error-box { padding: 24px; background: var(--bg2); border: 1px solid #7F1D1D; border-radius: 8px; font-size: 13px; }
+    .empty { padding: 80px 0; text-align: center; color: var(--dim); font-size: 13px; }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 16px 0;
+      display: flex; gap: 12px; justify-content: center;
+      font-size: 11px; color: var(--dim);
+      flex-wrap: wrap;
+    }
+    footer a { color: var(--dim); text-decoration: none; }
+    footer a:hover { color: var(--muted); }
+
+    @media (max-width: 600px) {
+      .stat-bar { width: 100%; }
+      .stat-item { flex: 1; }
+      .controls-inner { gap: 8px; }
+      .search { min-width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="bar">
+    <a class="wordmark" href="#">
+      <span class="wm-t4h">T4H</span>
+      <span class="wm-slash">/</span>
+      <span class="wm-port">PORTFOLIO</span>
+    </a>
+    <div class="bar-right">
+      <div class="live-chip"><span class="live-dot"></span>SUPABASE LIVE</div>
+      <span class="bar-date" id="barDate"></span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="hero">
+    <div class="hero-label">Tech4Humanity · Site Registry</div>
+    <h1 class="hero-title">86 sites.<br><span>7 zones. One OS.</span></h1>
+    <p class="hero-sub">Internal systems, live products, and the exploration pipeline. Source of truth is Supabase — this page renders live.</p>
+    <div class="stat-bar" id="statBar">
+      <div class="stat-item"><div class="stat-val" id="stTotal">—</div><div class="stat-label">Total</div></div>
+      <div class="stat-item"><div class="stat-val" style="color:var(--active)" id="stActive">—</div><div class="stat-label">Active</div></div>
+      <div class="stat-item"><div class="stat-val" style="color:var(--planned)" id="stPlanned">—</div><div class="stat-label">Planned</div></div>
+      <div class="stat-item"><div class="stat-val" style="color:var(--consolidated)" id="stConsolidated">—</div><div class="stat-label">Consolidated</div></div>
+    </div>
+  </section>
+
+  <!-- Controls (inside wrap so they stick within the page) -->
+  <div class="controls" id="controls">
+    <div class="controls-inner">
+      <input class="search" id="searchInput" placeholder="Search sites, functions, domains…" />
+      <div class="filter-group" id="groupFilter">
+        <button class="filter-btn on" data-group="all">All</button>
+        <button class="filter-btn" data-group="internal">⚙️ Internal</button>
+        <button class="filter-btn" data-group="product">🚀 Products</button>
+        <button class="filter-btn" data-group="explore">🔭 Explore</button>
+      </div>
+      <div class="filter-group" id="statusFilter">
+        <button class="filter-btn on" data-status="all">Any Status</button>
+        <button class="filter-btn" data-status="ACTIVE">Active</button>
+        <button class="filter-btn" data-status="PLANNED">Planned</button>
+        <button class="filter-btn" data-status="CONSOLIDATED">Consolidated</button>
+        <button class="filter-btn" data-status="ARCHIVED">Archived</button>
+      </div>
+      <div class="view-toggle">
+        <button class="filter-btn on" id="btnGrid">⊞ Grid</button>
+        <button class="filter-btn" id="btnZone">◫ Zone</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Legend -->
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--active)"></div>Active</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--planned)"></div>Planned</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--consolidated)"></div>Consolidated</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--archived)"></div>Archived</div>
+    <div class="legend-item">⚙️ Internal — orchestration, tooling, infra</div>
+    <div class="legend-item">🚀 Product — external-facing, in market</div>
+    <div class="legend-item">🔭 Explore — pipeline, R&D, for-sale candidates</div>
+  </div>
+
+  <main id="main">
+    <div class="load-state"><div class="spinner"></div>Loading registry…</div>
+  </main>
+
+  <footer>
+    <span>Tech4Humanity Portfolio Registry</span>
+    <span style="color:var(--border)">·</span>
+    <span>Live from Supabase via Bridge</span>
+    <span style="color:var(--border)">·</span>
+    <a href="index.html">Research Hub →</a>
+    <span style="color:var(--border)">·</span>
+    <span id="footerTs"></span>
+  </footer>
+</div>
+
+<script>
+/* ═══════════════════════════════════════
+   CONFIG
+═══════════════════════════════════════ */
+const BRIDGE = 'https://m5oqj21chd.execute-api.ap-southeast-2.amazonaws.com/lambda/invoke';
+
+const ZONE_META = {
+  zone1:   { label:'Zone 1', desc:'AI Orchestration & Automation', color:'#00D4FF' },
+  zone2:   { label:'Zone 2', desc:'Ethics, Governance & Security', color:'#7C3AED' },
+  zone3:   { label:'Zone 3', desc:'Brand, Identity & Public Face', color:'#F59E0B' },
+  zone4a:  { label:'Zone 4a', desc:'Robotics Operations', color:'#10B981' },
+  zone4b:  { label:'Zone 4b', desc:'Drone & Aerial Systems', color:'#EF4444' },
+  unknown: { label:'Unzoned', desc:'Pipeline & Exploration', color:'#4B5563' },
+};
+
+const STATUS_DOT = {
+  ACTIVE: '#10B981', PLANNED: '#F59E0B',
+  ARCHIVED: '#4B5563', CONSOLIDATED: '#7C3AED',
+};
+
+const INTERNAL_FNS = new Set([
+  'orchestrator','mcp-infrastructure','tools','operations',
+  'hub-coordinator','communications','internal'
+]);
+const PRODUCT_FNS = new Set([
+  'coach','bci-specialist','bci-research','governance','ethics','security',
+  'data-consent','personal-brand','public-face','facilitator','marketplace',
+  'drone-ops','robotics-ops','tools','hub-coordinator'
+]);
+
+function getGroup(fn) {
+  if (INTERNAL_FNS.has(fn)) return 'internal';
+  if (PRODUCT_FNS.has(fn)) return 'product';
+  return 'explore';
+}
+
+/* ═══════════════════════════════════════
+   STATE
+═══════════════════════════════════════ */
+let ALL_SITES = [];
+let searchVal = '';
+let groupVal  = 'all';
+let statusVal = 'all';
+let viewMode  = 'grid';
+let expanded  = null;
+
+/* ═══════════════════════════════════════
+   FETCH
+═══════════════════════════════════════ */
+async function fetchSites() {
+  const res = await fetch(BRIDGE, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      functionName: 'troy-sql-executor',
+      payload: {
+        sql: `select site_name, primary_url, operational_function, status, zone, source_system, lifecycle_stage
+              from public.sites_registry
+              order by zone, operational_function, site_name`
+      }
+    })
+  });
+  const d = await res.json();
+  const body = JSON.parse(d.result.body);
+  if (body.error) throw new Error(body.error);
+  return body.rows || [];
+}
+
+/* ═══════════════════════════════════════
+   FILTER
+═══════════════════════════════════════ */
+function filtered() {
+  return ALL_SITES.filter(s => {
+    if (groupVal !== 'all' && getGroup(s.operational_function) !== groupVal) return false;
+    if (statusVal !== 'all' && s.status !== statusVal) return false;
+    if (searchVal) {
+      const q = searchVal.toLowerCase();
+      if (
+        !s.site_name?.toLowerCase().includes(q) &&
+        !s.operational_function?.toLowerCase().includes(q) &&
+        !s.primary_url?.toLowerCase().includes(q)
+      ) return false;
+    }
+    return true;
+  });
+}
+
+/* ═══════════════════════════════════════
+   RENDER
+═══════════════════════════════════════ */
+function cardHTML(s) {
+  const zm = ZONE_META[s.zone] || ZONE_META.unknown;
+  const dot = STATUS_DOT[s.status] || '#4B5563';
+  const exp = expanded === key(s);
+  const group = getGroup(s.operational_function);
+  const icon = group === 'internal' ? '⚙️' : group === 'product' ? '🚀' : '🔭';
+
+  return `<div class="site-card${exp?' expanded':''}" data-key="${key(s)}">
+    <div class="card-top">
+      <div class="zone-label" style="color:${zm.color}">${icon} ${zm.label}</div>
+      <div class="status-chip">
+        <div class="status-dot" style="background:${dot}"></div>
+        <div class="status-text">${s.status}</div>
+      </div>
+    </div>
+    <div class="card-name">${s.site_name}</div>
+    <div class="fn-tag">${s.operational_function}</div>
+    ${exp ? `
+    <div class="card-detail" onclick="event.stopPropagation()">
+      <div class="detail-row"><div class="detail-key">URL</div><a class="detail-link" href="${s.primary_url}" target="_blank" rel="noopener">${s.primary_url}</a></div>
+      <div class="detail-row"><div class="detail-key">Source</div><div class="detail-val">${s.source_system || '—'}</div></div>
+      <div class="detail-row"><div class="detail-key">Lifecycle</div><div class="detail-val">${s.lifecycle_stage || '—'}</div></div>
+      <div class="detail-row"><div class="detail-key">Zone</div><div class="detail-val" style="color:${zm.color}">${zm.label} — ${zm.desc}</div></div>
+    </div>` : ''}
+  </div>`;
+}
+
+function key(s) { return (s.site_name + '||' + s.primary_url).replace(/"/g,''); }
+
+function renderGrid(sites) {
+  if (!sites.length) return '<div class="empty">No sites match current filters.</div>';
+  return `<div class="site-grid">${sites.map(cardHTML).join('')}</div>`;
+}
+
+function renderZone(sites) {
+  if (!sites.length) return '<div class="empty">No sites match current filters.</div>';
+  const byZone = {};
+  sites.forEach(s => {
+    const z = s.zone || 'unknown';
+    (byZone[z] = byZone[z] || []).push(s);
+  });
+  const order = Object.keys(ZONE_META).filter(z => byZone[z]?.length);
+  return `<div class="zone-view">${order.map(z => {
+    const zm = ZONE_META[z];
+    return `<div class="zone-section">
+      <div class="zone-header">
+        <div class="zone-orb" style="background:${zm.color}"></div>
+        <div>
+          <div class="zone-title" style="color:${zm.color}">${zm.label}</div>
+          <div class="zone-desc">${zm.desc}</div>
+        </div>
+        <div class="zone-count">${byZone[z].length}</div>
+      </div>
+      <div class="site-grid">${byZone[z].map(cardHTML).join('')}</div>
+    </div>`;
+  }).join('')}</div>`;
+}
+
+function render() {
+  const sites = filtered();
+  const main = document.getElementById('main');
+  main.innerHTML = viewMode === 'grid' ? renderGrid(sites) : renderZone(sites);
+
+  // Wire click
+  main.querySelectorAll('.site-card').forEach(el => {
+    el.addEventListener('click', () => {
+      expanded = expanded === el.dataset.key ? null : el.dataset.key;
+      render();
+    });
+  });
+}
+
+function updateStats() {
+  document.getElementById('stTotal').textContent = ALL_SITES.length;
+  document.getElementById('stActive').textContent = ALL_SITES.filter(s=>s.status==='ACTIVE').length;
+  document.getElementById('stPlanned').textContent = ALL_SITES.filter(s=>s.status==='PLANNED').length;
+  document.getElementById('stConsolidated').textContent = ALL_SITES.filter(s=>s.status==='CONSOLIDATED').length;
+}
+
+/* ═══════════════════════════════════════
+   WIRE CONTROLS
+═══════════════════════════════════════ */
+function wireControls() {
+  // Search
+  document.getElementById('searchInput').addEventListener('input', e => {
+    searchVal = e.target.value; expanded = null; render();
+  });
+
+  // Group filter
+  document.getElementById('groupFilter').addEventListener('click', e => {
+    const btn = e.target.closest('[data-group]');
+    if (!btn) return;
+    groupVal = btn.dataset.group;
+    document.querySelectorAll('[data-group]').forEach(b => b.classList.toggle('on', b.dataset.group === groupVal));
+    expanded = null; render();
+  });
+
+  // Status filter
+  document.getElementById('statusFilter').addEventListener('click', e => {
+    const btn = e.target.closest('[data-status]');
+    if (!btn) return;
+    statusVal = btn.dataset.status;
+    document.querySelectorAll('[data-status]').forEach(b => b.classList.toggle('on', b.dataset.status === statusVal));
+    expanded = null; render();
+  });
+
+  // View toggle
+  document.getElementById('btnGrid').addEventListener('click', () => {
+    viewMode = 'grid';
+    document.getElementById('btnGrid').classList.add('on');
+    document.getElementById('btnZone').classList.remove('on');
+    render();
+  });
+  document.getElementById('btnZone').addEventListener('click', () => {
+    viewMode = 'zone';
+    document.getElementById('btnZone').classList.add('on');
+    document.getElementById('btnGrid').classList.remove('on');
+    render();
+  });
+}
+
+/* ═══════════════════════════════════════
+   INIT
+═══════════════════════════════════════ */
+(async function init() {
+  // Date
+  const now = new Date();
+  document.getElementById('barDate').textContent = now.toLocaleDateString('en-AU', {
+    day:'numeric', month:'short', year:'numeric', timeZone:'Australia/Sydney'
+  });
+  document.getElementById('footerTs').textContent = 'Loaded ' + now.toLocaleTimeString('en-AU', {
+    hour:'2-digit', minute:'2-digit', timeZone:'Australia/Sydney'
+  }) + ' AEDT';
+
+  wireControls();
+
+  try {
+    ALL_SITES = await fetchSites();
+    updateStats();
+    render();
+  } catch(err) {
+    document.getElementById('main').innerHTML =
+      `<div class="error-box" style="color:#EF4444">
+        ⚠ Failed to load registry: ${err.message}<br>
+        <span style="color:#4B5563;font-size:12px;margin-top:6px;display:block">
+          Check CORS / Supabase anon key. Bridge: ${BRIDGE}
+        </span>
+      </div>`;
+  }
+})();
+</script>
+</body>
+</html>
