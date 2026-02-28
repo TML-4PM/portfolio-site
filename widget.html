@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio Admin Widget — Tech 4 Humanity</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#0a0b0f; color:#e8e9ed; font-family:'DM Sans',system-ui,sans-serif; }
+.header { padding:16px 24px; border-bottom:1px solid #1e2030; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.header h1 { font-size:15px; font-weight:700; }
+.header .meta { font-size:11px; opacity:.5; }
+iframe { width:100%; height:calc(100vh - 56px); border:none; display:block; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Portfolio Surface Admin</h1>
+  <div class="meta" id="headerMeta">Loading widget from Supabase…</div>
+</div>
+<div id="widgetFrame"></div>
+<script>
+const BRIDGE = 'https://m5oqj21chd.execute-api.ap-southeast-2.amazonaws.com/lambda/invoke';
+const SUPABASE_URL = 'https://lzfgigiyqpuuxslsygjt.supabase.co';
+
+async function loadWidget() {
+  var metaEl = document.getElementById('headerMeta');
+  try {
+    var res = await fetch(BRIDGE, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        functionName: 'troy-sql-executor',
+        payload: {
+          sql: "select html, slug, title, updated_at from t4h_ui_snippet where slug = 'portfolio-surface-admin' and is_active = true order by updated_at desc limit 1"
+        }
+      })
+    });
+    var d = await res.json();
+    var body = JSON.parse(d.result.body);
+    if (body.error) throw new Error(body.error);
+    var row = (body.rows || [])[0];
+    if (!row) throw new Error('Widget not found in t4h_ui_snippet');
+
+    metaEl.textContent = 'Slug: ' + row.slug + ' · Updated: ' + new Date(row.updated_at).toLocaleString('en-AU');
+
+    // Inject into iframe srcDoc for script isolation
+    var cfg = { url: SUPABASE_URL, anonKey: '' }; // reads via Bridge, no anon key needed for widget internal calls
+    var srcDoc = '<!doctype html><html><head><meta charset="utf-8"/></head><body style="margin:0;background:#f6f7f9">'
+      + '<script>window.__T4H_SUPABASE__=' + JSON.stringify(cfg) + ';<\/script>'
+      + '<script>window.__T4H_BRIDGE__="' + BRIDGE + '";<\/script>'
+      + row.html
+      + '</body></html>';
+
+    var container = document.getElementById('widgetFrame');
+    var iframe = document.createElement('iframe');
+    iframe.style.cssText = 'width:100%;height:calc(100vh - 56px);border:none;display:block';
+    iframe.sandbox = 'allow-scripts allow-forms allow-same-origin allow-popups';
+    iframe.srcdoc = srcDoc;
+    iframe.title = 'portfolio-surface-admin';
+    container.appendChild(iframe);
+  } catch(err) {
+    document.getElementById('headerMeta').textContent = 'Error: ' + err.message;
+    document.getElementById('widgetFrame').innerHTML = '<div style="padding:32px;color:#ef4444;font-family:monospace;font-size:13px">Error loading widget: ' + err.message + '</div>';
+  }
+}
+
+loadWidget();
+</script>
+</body>
+</html>
