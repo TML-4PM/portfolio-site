@@ -182,7 +182,7 @@ footer code { background:var(--surface); padding:2px 6px; border-radius:4px; fon
 
 <footer>
   Tech 4 Humanity — Canonical Doctrine v1.0 (Frozen) — Portfolio v15 — Generated 24 Feb 2026<br>
-  Source: Supabase <code>lzfgigiyqpuuxslsygjt</code> · <code>mcp_business_registry</code> (42) · <code>sites_registry</code> (80)
+  Source: <span id="liveStatus">Loading…</span> (80)
 </footer>
 
 <!-- MODAL -->
@@ -238,64 +238,54 @@ var colorHex = {G1:'#22c55e',G2:'#8b5cf6',G3:'#f59e0b',G4:'#ef4444',G5:'#ec4899'
 // screenshot URL: the best VERIFIED LIVE url to screenshot for each business
 // null = no live site found, show gradient fallback
 // Added: vercel, github, supabase, description for modal
-var businesses = [
-  // G1 CORE (4)
-  {id:3, name:"Tech for Humanity", slug:"tech-for-humanity", group:"G1", canonical:"https://tech4humanity.com.au", ss:"https://tech4humanity.com.au", domains:["tech4humanity.com.au","tech4humanity.org","tech4humanity-hub.lovable.app","tech4-humanity-domains.vercel.app"], vercel:"t4h-site", github:null, desc:"Holding company and central hub for the Tech 4 Humanity portfolio of businesses."},
-  {id:1, name:"Augmented Humanity Coach", slug:"augmented-humanity-coach", group:"G1", canonical:"https://augmentedhumanity.coach", ss:"https://augmented-humanity-coach.vercel.app", domains:["augmentedhumanity.coach","ahc.holo-org.com"], vercel:"augmented-humanity-coach", github:null, desc:"AI coaching platform helping leaders, workers, and machines collaborate effectively through role-based augmentation strategies."},
-  {id:2, name:"HoloOrg", slug:"holoorg", group:"G1", canonical:"https://holo-org.com", ss:"https://holo-org.com", domains:["holo-org.com","holoorg.vercel.app","holowall.vercel.app","holo-org.vercel.app"], vercel:"holoorg", github:null, desc:"Organisational intelligence platform connecting conversations, workflows, and insights across every platform."},
-  {id:4, name:"WorkFamilyAI", slug:"workfamilyai", group:"G1", canonical:"https://workfamilyai.org", ss:"https://workfamilyai.org", domains:["workfamilyai.com","workfamilyai.org","work-family-ai.vercel.app","workfamilyai.vercel.app","neural-ennead-family.vercel.app"], vercel:"workfamilyai", github:null, desc:"AI-powered work-life integration tools for modern families balancing career and home responsibilities."},
+var businesses = []; // populated live from Supabase via Bridge
 
-  // G2 GC-BAT (6)
-  {id:5, name:"ConsentX", slug:"consentx", group:"G2", canonical:"https://consentx.org", ss:"https://consentx.org", domains:["consentx.vercel.app","consentx-westpac-demo1.vercel.app","consentx-westpac-demo1.lovable.app","consent-x.vercel.app"], vercel:"consent-x", github:null, desc:"Consent management and authorisation platform for enterprise data governance and compliance."},
-  {id:6, name:"Far-Cage", slug:"far-cage", group:"G2", canonical:"https://far-cage.org/", ss:"https://far-cage.org/", domains:["far-cage.com","far-cage.org","far-cage.vercel.app"], vercel:"far-cage", github:null, desc:"AI safety and containment standards for responsible artificial intelligence deployment."},
-  {id:7, name:"GC-BAT Core", slug:"gc-bat-core", group:"G2", canonical:"https://gcbat.org", ss:"https://gcbat.org", domains:["gcbat.com","gcbat.org","gcbat-org.vercel.app"], vercel:"gcbat-org", github:null, desc:"Global Council on BCI & Assistive Technology - leading ethical research, innovation, and global collaboration."},
-  {id:8, name:"MyNeuralSignal", slug:"myneuralsignal", group:"G2", canonical:"https://myneuralsignal.gcbat.org", ss:"https://myneuralsignal.gcbat.org", domains:["myneuralsignal.com","myneuralsignal.vercel.app"], vercel:"myneuralsignal", github:null, desc:"Real-time brain signal monitoring and alerts for cognitive health and decision support."},
-  {id:9, name:"NEUROPAK", slug:"neuropak", group:"G2", canonical:"https://neuropak.gcbat.org", ss:"https://neuropak.vercel.app", domains:["neuropak.com","neuropak.io","neuropak.vercel.app","neuropak-dashboard.vercel.app","neurostack.vercel.app"], vercel:"neuropak", github:null, desc:"Neural interface toolkit and dashboard for BCI research and development."},
-  {id:10, name:"RATPAK", slug:"ratpak", group:"G2", canonical:"https://gcbat.org/ratpak", ss:"https://gcbat.org/ratpak", domains:["ratpak.com.au","ratpak.io","ratpak.vercel.app","ratworks.vercel.app"], vercel:"ratpak-platform", github:null, desc:"Robotics and automation technology platform for industrial applications."},
+const BRIDGE_URL = 'https://m5oqj21chd.execute-api.ap-southeast-2.amazonaws.com/lambda/invoke';
 
-  // G3 MISSION (7)
-  {id:11, name:"AquaMe", slug:"aquame", group:"G3", canonical:"https://www.aquame.com.au/", ss:"https://www.aquame.com.au/", domains:["aquame.com.au"], vercel:null, github:null, desc:"Water quality monitoring and hydration tracking for personal wellness."},
-  {id:12, name:"CalmBound", slug:"calmbound", group:"G3", canonical:"https://calmbound-system.vercel.app", ss:"https://calmbound-system.vercel.app", domains:[], vercel:"calmbound-system", github:null, desc:"Mental wellness and stress management platform for workplace wellbeing."},
-  {id:13, name:"Chemists Platform", slug:"chemists-platform", group:"G3", canonical:"https://all-chemist-org.lovable.app", ss:"https://all-chemist-org.lovable.app", domains:["allchemist.org","all-chemist-com.vercel.app"], vercel:"all-chemist-org", github:null, desc:"Digital platform connecting pharmacies and enabling better healthcare access."},
-  {id:14, name:"GAIN", slug:"gain", group:"G3", canonical:"https://gain-foundation.vercel.app", ss:"https://gain-foundation.vercel.app", domains:["gain-foundation.vercel.app"], vercel:"gain", github:null, desc:"Global Agriculture Innovation Network - technology for sustainable farming."},
-  {id:15, name:"Global Tyres", slug:"global-tyres", group:"G3", canonical:"https://global-tyres.vercel.app", ss:"https://global-tyres.vercel.app", domains:["global-tyre-locator.vercel.app","global-tyres.vercel.app"], vercel:null, github:null, desc:"Tyre recycling and sustainability tracking platform."},
-  {id:43, name:"Global Car Part", slug:"global-car-part", group:"G3", canonical:"https://global-part-ownership.lovable.app", ss:"https://global-part-ownership.lovable.app", domains:[], vercel:null, github:null, desc:"Global car parts marketplace and ownership platform. Paired with Global Tyres."},
-  {id:16, name:"SmartPark", slug:"smartpark", group:"G3", canonical:"https://park-harmony-ai.lovable.app", ss:"https://park-harmony-ai.lovable.app", domains:[], vercel:"smartpark", github:null, desc:"Intelligent parking management and urban mobility solutions."},
-
-  // G4 RETAIL (7)
-  {id:17, name:"APAC Just Walk Out", slug:"apac-just-walk-out", group:"G4", canonical:"https://innovate-apac-flow.lovable.app", ss:"https://innovate-apac-flow.lovable.app", domains:[], vercel:null, github:null, desc:"Autonomous checkout technology for retail stores across Asia-Pacific."},
-
-  {id:20, name:"House of Biscuits", slug:"house-of-biscuits", group:"G4", canonical:"https://house-of-biscuits.vercel.app", ss:"https://house-of-biscuits.vercel.app", domains:[], vercel:"house-of-biscuits", github:null, desc:"Artisan biscuit marketplace and delivery platform."},
-  {id:21, name:"JustPoint", slug:"justpoint", group:"G4", canonical:"https://xses.vercel.app/justpoint", ss:"https://xses.vercel.app/", domains:[], vercel:null, github:null, desc:"Location-based retail discovery and loyalty platform."},
-  {id:22, name:"Oman Strategy", slug:"oman-strategy", group:"G4", canonical:"https://oman-australia-strategy.vercel.app", ss:"https://oman-australia-strategy.vercel.app", domains:["oman-australia-strategy.vercel.app"], vercel:null, github:null, desc:"Oman-Australia trade and investment facilitation platform."},
-  {id:23, name:"Vuon Troi", slug:"vuon-troi", group:"G4", canonical:"https://vuon-troi-is-reach-the-sky.vercel.app", ss:"https://vuon-troi-is-reach-the-sky.vercel.app", domains:["vuon-troi-is-reach-the-sky.vercel.app"], vercel:null, github:null, desc:"Vietnamese market expansion and cross-cultural business services."},
-  {id:24, name:"XSES", slug:"xses", group:"G4", canonical:"https://xses.vercel.app/", ss:"https://xses.vercel.app/", domains:[], vercel:"xses", github:null, desc:"Excess inventory and sustainable commerce marketplace."},
-  {id:44, name:"Nthn Australia Investment Options", slug:"nthn-australia-investment", group:"G4", canonical:"https://come-in-spinner.lovable.app", ss:"https://come-in-spinner.lovable.app", domains:[], vercel:null, github:null, desc:"Northern Australia investment opportunities and options analysis platform."},
-
-  // G5 FUN (6)
-  {id:25, name:"AI Oopsies", slug:"ai-oopsies", group:"G5", canonical:"https://ai-oopsies.lovable.app", ss:"https://ai-oopsies.lovable.app", domains:["aioopsies.vercel.app"], vercel:null, github:null, desc:"Collection of humorous AI failures and lessons learned from machine learning mishaps."},
-  {id:26, name:"Apex Predator Insurance", slug:"apex-predator-insurance", group:"G5", canonical:"https://apexpredatorinsurance.com", ss:"https://apexpredatorinsurance.com", domains:["apex-predator-insurance.vercel.app"], vercel:"apex-predator-insurance", github:null, desc:"Satirical insurance product for protection against unlikely apex predator encounters."},
-  {id:27, name:"Predator Alert", slug:"predator-alert", group:"G5", canonical:"https://data.apexpredatorinsurance.com", ss:null, domains:["data.apexpredatorinsurance.com"], vercel:null, github:null, desc:"Research site with saleable artefacts, newsletters and wildlife safety intelligence."},
-  {id:28, name:"Rhythm Method", slug:"rhythm-method", group:"G5", canonical:"https://rhythmmethod.vercel.app/", ss:"https://rhythmmethod.vercel.app/", domains:[], vercel:"rhythmmethod", github:null, desc:"Music-based productivity and focus enhancement application."},
-  {id:30, name:"Stubborn AI Fails", slug:"stubborn-ai-fails", group:"G5", canonical:"https://aioopsies.com", ss:"https://aioopsies.com", domains:["aioopsies.com"], vercel:null, github:null, desc:"Showcase of persistent AI failures that refuse to be fixed — the stubborn side of machine learning."},
-  {id:29, name:"Spotto", slug:"spotto", group:"G5", canonical:"https://extremespotto.com/", ss:"https://extremespotto.com/", domains:["spotto.au","spotto.app","extremespotto.com","spotto.vercel.app","extreme-spotto.vercel.app"], vercel:"spotto", github:null, desc:"Interactive spotting game and location-based entertainment platform."},
-
-  // G6 PERSONAL (4)
-  {id:31, name:"Professional Profile", slug:"professional-profile", group:"G6", canonical:"https://troylatter.com", ss:"https://troylatter.com", domains:["troylatter.com"], vercel:null, github:null, desc:"Professional profile and career portfolio site."},
-  {id:32, name:"MAAT Money", slug:"maat-money", group:"G6", canonical:"https://maat-money-console.vercel.app/", ss:"https://maat-money-console.vercel.app/", domains:["aquame.com.au"], vercel:null, github:null, desc:"Personal finance management guided by principles of balance and fairness."},
-  {id:33, name:"Making You A Star", slug:"making-you-a-star", group:"G6", canonical:"https://making-you-a-star.lovable.app", ss:"https://making-you-a-star.lovable.app", domains:[], vercel:"making-you-a-star", github:null, desc:"Personal branding and career visibility coaching platform."},
-  {id:34, name:"Property Decision Pack", slug:"property-decision-pack", group:"G6", canonical:"https://property-decision-pack-web.vercel.app", ss:"https://property-decision-pack-web.vercel.app", domains:["property-decision-pack-web.vercel.app"], vercel:"property-decision-pack-web", github:null, desc:"Comprehensive property analysis toolkit for informed real estate decisions."},
-
-  // G7 IP (8)
-  {id:35, name:"10 Day Media Map", slug:"10-day-media-map", group:"G7", canonical:"https://compare-the-media.tech4humanity.com.au/", ss:"https://compare-the-media.tech4humanity.com.au/", domains:["book-store.vercel.app"], vercel:"book-store", github:null, desc:"Strategic media planning framework and course for content creators."},
-  {id:36, name:"AI Era Thinking", slug:"ai-era-thinking", group:"G7", canonical:"https://ai-sweet-spots-for-all.vercel.app", ss:"https://ai-sweet-spots-for-all.vercel.app", domains:["ai-sweet-spots-for-all.vercel.app"], vercel:"ai-sweet-spots-for-all", github:null, desc:"Frameworks and methodologies for thriving in the age of artificial intelligence."},
-  {id:39, name:"Neural Market Intelligence", slug:"neural-market-intelligence", group:"G7", canonical:"https://t4h-ecosystem-explainer.lovable.app", ss:"https://t4h-ecosystem-explainer.lovable.app", domains:["neural-market-intelligence.vercel.app","neural-ecosystem-market-intelligence.lovable.app"], vercel:null, github:"TML-4PM/t4h-ecosystem-explainer", desc:"AI-powered market research and competitive intelligence platform. Gated research — not public facing."},
-  {id:40, name:"Neural Research Hub", slug:"neural-research-hub", group:"G7", canonical:"https://neuropak-commander.vercel.app/", ss:"https://neuropak-commander.vercel.app/", domains:[], vercel:null, github:null, desc:"Central repository for neurotechnology research and publications."},
-  {id:41, name:"Resilience Atlas", slug:"resilience-atlas", group:"G7", canonical:"https://atlas-aus-pulse.lovable.app", ss:"https://atlas-aus-pulse.lovable.app", domains:[], vercel:null, github:null, desc:"Mapping personal and organisational resilience factors and strategies."},
-  {id:42, name:"SM 2.0 Tech4Humanity", slug:"sm-2-0-tech4humanity", group:"G7", canonical:"https://sm-ban-watch.vercel.app", ss:"https://sm-ban-watch.vercel.app", domains:["sm-ban-watch.vercel.app"], vercel:"sm-ban-watch", github:null, desc:"Social media monitoring and platform policy tracking tools."},
-  {id:38, name:"LifeGraph Plus", slug:"lifegraph-plus", group:"G7", canonical:"https://mind-atlas.vercel.app", ss:"https://mind-atlas.vercel.app", domains:["mind-atlas.vercel.app"], vercel:null, github:null, desc:"Personal knowledge graph and life mapping tool for self-understanding."},
-  {id:51, name:"Australian Family Guide", slug:"australian-family-guide", group:"G7", canonical:"https://drive.google.com/file/d/15nyHUxFTgXylgq6vpH6qwpQCiDuVx9UB/view", ss:null, domains:[], vercel:null, github:null, desc:"Comprehensive guide for Australian families navigating technology, safety and digital life. ePub publication."}
-];
+async function loadPortfolioFromBridge() {
+  var statusEl = document.getElementById('liveStatus');
+  if (statusEl) statusEl.textContent = 'Loading live data…';
+  try {
+    var res = await fetch(BRIDGE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        functionName: 'troy-sql-executor',
+        payload: {
+          sql: 'select business_slug as slug, business_name as name, group_code as "group", public_url_canonical as canonical, vercel_project as vercel, github_repo as github, status, sort_order from v_t4h_portfolio_surface order by sort_order asc'
+        }
+      })
+    });
+    var d = await res.json();
+    var body = JSON.parse(d.result.body);
+    if (body.error) throw new Error(body.error);
+    var rows = body.rows || [];
+    // Map to business object shape expected by render functions
+    businesses = rows.map(function(r, i) {
+      var canonical = r.canonical || '';
+      if (canonical && !/^https?:\/\//i.test(canonical)) canonical = 'https://' + canonical;
+      return {
+        id: i + 1,
+        name: r.name || r.slug,
+        slug: r.slug,
+        group: r.group || 'G7',
+        canonical: canonical,
+        ss: canonical || null,
+        domains: [],
+        vercel: r.vercel || null,
+        github: r.github || null,
+        status: r.status || 'LIVE',
+        description: r.status || ''
+      };
+    });
+    if (statusEl) statusEl.textContent = '● Live · ' + businesses.length + ' businesses · Supabase v_t4h_portfolio_surface';
+    renderPortfolio(window._activeFilter || 'all');
+    renderDomainMap();
+  } catch(err) {
+    console.error('Bridge load failed:', err);
+    if (statusEl) statusEl.textContent = '⚠ Bridge error: ' + err.message;
+  }
+}
 
 /* ========================================================
    SCREENSHOT URL BUILDER
@@ -693,6 +683,16 @@ function showModalTab(tabId, btn) {
 // Close modal on Escape key
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeModal();
+});
+
+// Live load on startup
+loadPortfolioFromBridge();
+
+// Wire tab buttons to track active filter
+document.querySelectorAll('.tab-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    window._activeFilter = this.getAttribute('data-group') || 'all';
+  });
 });
 </script>
 </body>
