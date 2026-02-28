@@ -1,1222 +1,699 @@
-<!doctype html>
-<html lang="en-AU">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="color-scheme" content="dark light" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tech 4 Humanity — Portfolio v15</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,400;9..144,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0b0f;
+  --surface: #12131a;
+  --surface-hover: #1a1b25;
+  --border: #1e2030;
+  --text: #e8e9ed;
+  --text-dim: #7a7d8e;
+  --accent: #3b82f6;
+  --g1: #22c55e; --g1-bg: rgba(34,197,94,0.08);
+  --g2: #8b5cf6; --g2-bg: rgba(139,92,246,0.08);
+  --g3: #f59e0b; --g3-bg: rgba(245,158,11,0.08);
+  --g4: #ef4444; --g4-bg: rgba(239,68,68,0.08);
+  --g5: #ec4899; --g5-bg: rgba(236,72,153,0.08);
+  --g6: #06b6d4; --g6-bg: rgba(6,182,212,0.08);
+  --g7: #f97316; --g7-bg: rgba(249,115,22,0.08);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; line-height:1.6; overflow-x:hidden; }
 
-  <!-- ═══ SEO / Open Graph ═══ -->
-  <title>Tech 4 Humanity — Research Organism · 8×8 Governed IP Surface</title>
-  <meta name="description" content="A staged research organism: 8 governed research programmes, 64 measurable capability lanes, progressing from exploration to deployment. Defensible R&D — not thought leadership." />
-  <meta name="keywords" content="AI research, human-AI performance, child protection, cultural AI sovereignty, neural signal, biological intelligence, R&D, Tech4Humanity, Troy" />
-  <meta name="author" content="Tech 4 Humanity" />
-  <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#060810" />
-  <link rel="canonical" href="https://tech4humanity.com.au/research" />
+.hero { position:relative; padding:80px 40px 60px; text-align:center; overflow:hidden; }
+.hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(59,130,246,0.12),transparent); pointer-events:none; }
+.hero h1 { font-family:'Fraunces',serif; font-size:clamp(2.4rem,5vw,4rem); font-weight:700; letter-spacing:-0.02em; margin-bottom:12px; }
+.hero .subtitle { color:var(--text-dim); font-size:1.1rem; margin-bottom:32px; }
 
-  <!-- Open Graph -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Tech 4 Humanity — Research Organism" />
-  <meta property="og:description" content="8 governed research programmes. 64 measurable capability lanes. Staged R&D that proves discipline, not vibes." />
-  <meta property="og:url" content="https://tech4humanity.com.au/research" />
-  <meta property="og:image" content="https://tech4humanity.com.au/assets/img/og-research.jpg" />
-  <meta property="og:site_name" content="Tech 4 Humanity" />
+.stats-bar { display:flex; justify-content:center; gap:40px; flex-wrap:wrap; margin-bottom:40px; }
+.stat { text-align:center; }
+.stat-num { font-family:'Fraunces',serif; font-size:2rem; font-weight:700; color:var(--accent); }
+.stat-label { font-size:0.8rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.1em; }
 
-  <!-- Twitter / X -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Tech 4 Humanity — Research Organism" />
-  <meta name="twitter:description" content="8 governed research programmes. 64 measurable capability lanes." />
-  <meta name="twitter:image" content="https://tech4humanity.com.au/assets/img/og-research.jpg" />
+.tab-bar { display:flex; justify-content:center; gap:8px; padding:0 24px; margin-bottom:48px; flex-wrap:wrap; }
+.tab-btn { padding:8px 20px; border:1px solid var(--border); border-radius:24px; background:transparent; color:var(--text-dim); font-family:'DM Sans',sans-serif; font-size:0.85rem; cursor:pointer; transition:all 0.25s; }
+.tab-btn:hover,.tab-btn.active { background:var(--accent); color:#fff; border-color:var(--accent); }
 
-  <!-- Schema.org structured data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ResearchOrganization",
-    "name": "Tech 4 Humanity",
-    "url": "https://tech4humanity.com.au",
-    "description": "A staged research organism: 8 governed research programmes, 64 measurable capability lanes.",
-    "foundingLocation": { "@type": "Place", "name": "Sydney, Australia" },
-    "sameAs": ["https://tech4humanity.com.au"],
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "email": "contact@tech4humanity.com.au",
-      "contactType": "Research & Partnerships"
-    }
-  }
-  </script>
+.view-toggle { display:flex; justify-content:center; gap:8px; margin-bottom:32px; }
+.view-btn { padding:6px 16px; border:1px solid var(--border); border-radius:6px; background:transparent; color:var(--text-dim); font-family:'DM Sans',sans-serif; font-size:0.8rem; cursor:pointer; transition:all 0.2s; }
+.view-btn.active { background:var(--surface-hover); color:var(--text); border-color:var(--text-dim); }
 
-  <!-- Fonts: editorial serif display + mono utility -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+.group-section { padding:0 24px 64px; max-width:1400px; margin:0 auto; }
+.group-header { display:flex; align-items:center; gap:16px; margin-bottom:24px; padding-bottom:16px; border-bottom:1px solid var(--border); }
+.group-badge { display:inline-flex; align-items:center; justify-content:center; width:48px; height:48px; border-radius:12px; font-family:'Fraunces',serif; font-weight:700; font-size:0.9rem; color:#fff; }
+.group-title { font-family:'Fraunces',serif; font-size:1.5rem; font-weight:700; }
+.group-count { color:var(--text-dim); font-size:0.85rem; margin-left:auto; }
 
-  <style>
-    /* ════════════════════════════════════════
-       DESIGN SYSTEM
-    ════════════════════════════════════════ */
-    :root {
-      --bg:          #060810;
-      --bg2:         #0d1020;
-      --surface:     rgba(255,255,255,.055);
-      --surface2:    rgba(255,255,255,.085);
-      --border:      rgba(255,255,255,.10);
-      --border2:     rgba(255,255,255,.18);
-      --text:        rgba(255,255,255,.93);
-      --muted:       rgba(255,255,255,.52);
-      --dim:         rgba(255,255,255,.32);
+.cards-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:20px; }
+.biz-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; overflow:hidden; transition:all 0.3s ease; cursor:pointer; text-decoration:none; color:inherit; display:block; }
+.biz-card:hover { transform:translateY(-4px); border-color:var(--accent); box-shadow:0 12px 40px rgba(0,0,0,0.3); }
 
-      /* Accent palette — marine + amber + jade */
-      --c-blue:      #3b82f6;
-      --c-amber:     #f59e0b;
-      --c-jade:      #34d399;
-      --c-rose:      #f87171;
-      --c-violet:    #a78bfa;
+.card-img { height:180px; position:relative; overflow:hidden; background:var(--surface); }
+.card-img img { width:100%; height:100%; object-fit:cover; object-position:top center; display:block; }
+.card-img .fallback { width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; }
+.card-img .fallback .fb-name { font-family:'Fraunces',serif; font-size:1.1rem; font-weight:700; color:rgba(255,255,255,0.85); text-align:center; padding:0 16px; text-shadow:0 1px 4px rgba(0,0,0,0.3); }
+.card-img .fallback .fb-host { font-size:0.72rem; color:rgba(255,255,255,0.45); font-family:monospace; }
+.card-img .fallback .fb-status { font-size:0.65rem; color:rgba(255,255,255,0.3); text-transform:uppercase; letter-spacing:0.1em; margin-top:4px; }
+.card-visit { position:absolute; top:12px; right:12px; width:36px; height:36px; border-radius:50%; background:rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.15); display:flex; align-items:center; justify-content:center; color:#fff; font-size:14px; text-decoration:none; transition:all 0.2s; opacity:0; z-index:10; }
+.biz-card:hover .card-visit { opacity:1; }
+.card-visit:hover { background:var(--accent); border-color:var(--accent); transform:scale(1.1); }
 
-      /* Status */
-      --s-good:      #34d399;
-      --s-warn:      #f59e0b;
-      --s-bad:       #94a3b8;
+.card-body { padding:16px 20px 20px; }
+.card-body h3 { font-family:'Fraunces',serif; font-size:1.1rem; font-weight:700; margin-bottom:4px; }
+.card-body .slug { color:var(--text-dim); font-size:0.78rem; font-family:monospace; margin-bottom:8px; }
+.card-body .meta { display:flex; gap:8px; flex-wrap:wrap; }
+.badge { display:inline-block; padding:2px 10px; border-radius:12px; font-size:0.7rem; font-weight:500; text-transform:uppercase; letter-spacing:0.05em; }
+.badge-active,.badge-live { background:rgba(34,197,94,0.15); color:#22c55e; }
+.badge-planned { background:rgba(59,130,246,0.15); color:#3b82f6; }
+.badge-consolidated { background:rgba(245,158,11,0.15); color:#f59e0b; }
+.badge-archived { background:rgba(107,114,128,0.15); color:#9ca3af; }
 
-      /* Layout */
-      --max:         1200px;
-      --r:           20px;
-      --r2:          28px;
-      --shadow:      0 20px 60px rgba(0,0,0,.55);
-      --shadow2:     0 4px 20px rgba(0,0,0,.35);
+.domain-section { padding:0 24px 64px; max-width:1400px; margin:0 auto; }
+.domain-table { width:100%; border-collapse:collapse; font-size:0.85rem; }
+.domain-table th { text-align:left; padding:12px 16px; border-bottom:2px solid var(--border); color:var(--text-dim); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; }
+.domain-table td { padding:10px 16px; border-bottom:1px solid var(--border); }
+.domain-table tr:hover td { background:var(--surface-hover); }
+.domain-url { color:var(--accent); text-decoration:none; font-family:monospace; font-size:0.8rem; }
+.domain-url:hover { text-decoration:underline; }
 
-      /* Type */
-      --serif:       'DM Serif Display', Georgia, serif;
-      --sans:        'Outfit', system-ui, sans-serif;
-      --mono:        'DM Mono', ui-monospace, monospace;
-    }
+footer { text-align:center; padding:48px 24px; color:var(--text-dim); font-size:0.8rem; border-top:1px solid var(--border); }
+footer code { background:var(--surface); padding:2px 6px; border-radius:4px; font-size:0.75rem; }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+/* ANALYTICS VIEW */
+.analytics-section { padding:0 24px 64px; max-width:1400px; margin:0 auto; }
+.analytics-header { margin-bottom:32px; }
+.analytics-header h2 { font-family:'Fraunces',serif; font-size:1.8rem; font-weight:700; margin-bottom:8px; }
+.analytics-header p { color:var(--text-dim); }
+.analytics-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(400px, 1fr)); gap:24px; }
+.analytics-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:24px; }
+.analytics-card h3 { font-family:'Fraunces',serif; font-size:1.1rem; font-weight:700; margin-bottom:16px; display:flex; align-items:center; gap:10px; }
+.analytics-card h3 .icon { width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:16px; }
+.analytics-table { width:100%; font-size:0.85rem; }
+.analytics-table th { text-align:left; padding:8px 12px; color:var(--text-dim); font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em; border-bottom:1px solid var(--border); }
+.analytics-table td { padding:10px 12px; border-bottom:1px solid var(--border); }
+.analytics-table tr:hover td { background:var(--surface-hover); }
+.analytics-bar { height:8px; background:var(--bg); border-radius:4px; overflow:hidden; margin-top:4px; }
+.analytics-bar-fill { height:100%; border-radius:4px; }
+.analytics-metric { display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid var(--border); }
+.analytics-metric:last-child { border-bottom:none; }
+.analytics-metric-label { color:var(--text-dim); font-size:0.85rem; }
+.analytics-metric-value { font-family:'Fraunces',serif; font-weight:700; font-size:1.1rem; }
+.analytics-placeholder { padding:40px; text-align:center; color:var(--text-dim); background:var(--bg); border-radius:12px; }
+.analytics-placeholder .icon { font-size:2rem; margin-bottom:12px; opacity:0.5; }
 
-    body {
-      font-family: var(--sans);
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    /* animated gradient noise bg */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      background:
-        radial-gradient(ellipse 1400px 900px at 15% -10%, rgba(59,130,246,.14) 0%, transparent 60%),
-        radial-gradient(ellipse 900px 700px at 95% 5%, rgba(167,139,250,.12) 0%, transparent 55%),
-        radial-gradient(ellipse 1100px 600px at 55% 105%, rgba(52,211,153,.10) 0%, transparent 60%),
-        radial-gradient(ellipse 600px 400px at 85% 50%, rgba(245,158,11,.07) 0%, transparent 50%);
-    }
-
-    .wrap { position: relative; z-index: 1; max-width: var(--max); margin: 0 auto; padding: 0 20px 80px; }
-
-    /* ── Header ── */
-    header {
-      position: sticky; top: 0; z-index: 100;
-      backdrop-filter: blur(20px) saturate(1.4);
-      -webkit-backdrop-filter: blur(20px) saturate(1.4);
-      border-bottom: 1px solid rgba(255,255,255,.07);
-      background: rgba(6,8,16,.72);
-    }
-    .bar {
-      max-width: var(--max); margin: 0 auto; padding: 0 20px;
-      height: 58px; display: flex; align-items: center; justify-content: space-between; gap: 16px;
-    }
-    .brand {
-      display: flex; align-items: center; gap: 10px;
-      text-decoration: none; color: var(--text); flex-shrink: 0;
-    }
-    .mark {
-      width: 32px; height: 32px; border-radius: 10px; flex-shrink: 0;
-      background: linear-gradient(135deg, #3b82f6, #a78bfa, #34d399);
-      position: relative;
-    }
-    .mark::after {
-      content: '';
-      position: absolute; inset: 3px;
-      border-radius: 7px;
-      background: var(--bg);
-      opacity: .6;
-    }
-    .brand-name { font-weight: 600; font-size: 14px; letter-spacing: .2px; }
-    .brand-sub { font-family: var(--mono); font-size: 10.5px; color: var(--muted); }
-    nav { display: flex; gap: 2px; flex-wrap: nowrap; }
-    nav a {
-      text-decoration: none; font-size: 13px; color: var(--muted);
-      padding: 7px 10px; border-radius: 10px;
-      transition: color .15s, background .15s;
-    }
-    nav a:hover { color: var(--text); background: var(--surface); }
-    .nav-cta {
-      font-family: var(--mono); font-size: 11.5px; color: var(--text) !important;
-      background: var(--surface2) !important;
-      border: 1px solid var(--border2) !important;
-      padding: 7px 12px !important; border-radius: 999px !important;
-    }
-
-    /* ── Hero ── */
-    .hero {
-      padding: 64px 0 44px;
-    }
-    .hero-eyebrow {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-family: var(--mono); font-size: 11px; color: var(--c-jade);
-      border: 1px solid rgba(52,211,153,.25);
-      background: rgba(52,211,153,.07);
-      padding: 7px 12px; border-radius: 999px;
-      margin-bottom: 24px;
-      letter-spacing: .5px;
-    }
-    .hero-eyebrow .dot { width: 6px; height: 6px; border-radius: 99px; background: var(--c-jade); animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
-
-    h1.headline {
-      font-family: var(--serif);
-      font-size: clamp(36px, 5.5vw, 72px);
-      line-height: 1.04;
-      letter-spacing: -.02em;
-      max-width: 14ch;
-    }
-    h1.headline em { font-style: italic; color: var(--c-blue); }
-
-    .hero-sub {
-      margin-top: 20px; max-width: 68ch;
-      color: var(--muted); font-size: 16px; line-height: 1.65;
-      font-weight: 300;
-    }
-
-    .hero-pills {
-      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px;
-    }
-    .pill {
-      font-family: var(--mono); font-size: 11.5px;
-      padding: 7px 12px; border-radius: 999px;
-      border: 1px solid var(--border); background: var(--surface);
-      color: var(--muted);
-    }
-
-    /* ── KPI strip ── */
-    .kpi-strip {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 12px; margin: 32px 0;
-    }
-    .kpi-card {
-      border: 1px solid var(--border);
-      background: linear-gradient(180deg, var(--surface2), var(--surface) 60%);
-      border-radius: var(--r);
-      padding: 20px;
-      position: relative; overflow: hidden;
-    }
-    .kpi-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border2), transparent);
-    }
-    .kpi-val {
-      font-family: var(--serif);
-      font-size: 42px; line-height: 1;
-      background: linear-gradient(135deg, #fff, rgba(255,255,255,.6));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .kpi-label { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 8px; letter-spacing: .4px; text-transform: uppercase; }
-    .kpi-sub { font-size: 12px; color: var(--dim); margin-top: 6px; line-height: 1.4; }
-
-    /* ── Section headers ── */
-    .section-head {
-      display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap;
-      gap: 12px; margin-bottom: 16px;
-    }
-    .section-head h2 {
-      font-family: var(--serif); font-size: 24px; font-weight: 400;
-    }
-    .section-meta { font-family: var(--mono); font-size: 11px; color: var(--muted); }
-
-    /* ── Cards ── */
-    .card {
-      border: 1px solid var(--border);
-      background: linear-gradient(160deg, var(--surface2) 0%, rgba(255,255,255,.02) 100%);
-      border-radius: var(--r2);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-    .card-head { padding: 20px 22px 0; }
-    .card-head h3 { font-size: 15px; font-weight: 600; }
-    .card-head p { font-size: 13px; color: var(--muted); margin-top: 6px; line-height: 1.45; }
-    .card-body { padding: 16px 22px 20px; }
-
-    /* ── Organism section ── */
-    #organism { margin-top: 16px; }
-
-    .organism-controls {
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 12px;
-      padding: 20px 22px 0;
-    }
-    .organism-controls h2 { font-family: var(--serif); font-size: 20px; font-weight: 400; }
-    .organism-controls p { font-size: 13px; color: var(--muted); margin-top: 4px; }
-
-    .toggle-group {
-      display: flex; gap: 0;
-      border: 1px solid var(--border); border-radius: 999px;
-      background: var(--surface); padding: 4px;
-    }
-    .toggle-btn {
-      font-family: var(--mono); font-size: 11.5px;
-      background: transparent; border: none; color: var(--muted);
-      padding: 7px 14px; border-radius: 999px; cursor: pointer;
-      transition: all .15s;
-    }
-    .toggle-btn.active {
-      background: var(--surface2);
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-
-    .organism-canvas {
-      display: grid; gap: 14px;
-      padding: 14px 18px 20px;
-    }
-    @media (min-width: 960px) {
-      .organism-canvas { grid-template-columns: 1fr 1.1fr; }
-    }
-
-    /* Image frame */
-    .img-frame {
-      border: 1px solid var(--border); border-radius: var(--r2);
-      background: linear-gradient(160deg, rgba(59,130,246,.08), rgba(52,211,153,.05));
-      position: relative; min-height: 360px;
-      overflow: hidden;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .img-frame img {
-      width: 100%; height: 100%; object-fit: cover; display: block;
-      filter: saturate(1.1);
-    }
-    /* Placeholder while image loads */
-    .img-placeholder {
-      width: 100%; min-height: 360px;
-      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
-    }
-    .img-placeholder .octo-svg { opacity: .15; }
-    .img-placeholder p { font-family: var(--mono); font-size: 12px; color: var(--dim); text-align: center; }
-
-    .img-badge {
-      position: absolute; bottom: 14px; left: 14px;
-      font-family: var(--mono); font-size: 11px; padding: 7px 12px;
-      border-radius: 999px; border: 1px solid var(--border2);
-      background: rgba(6,8,16,.75);
-      backdrop-filter: blur(8px);
-    }
-
-    /* Live indicator */
-    .live-badge {
-      position: absolute; top: 14px; right: 14px;
-      display: flex; align-items: center; gap: 6px;
-      font-family: var(--mono); font-size: 10.5px; padding: 6px 10px;
-      border-radius: 999px; border: 1px solid rgba(52,211,153,.3);
-      background: rgba(52,211,153,.08);
-      color: var(--c-jade);
-    }
-    .live-dot { width: 6px; height: 6px; border-radius: 99px; background: var(--c-jade); animation: pulse 2s infinite; }
-
-    /* Overlay table panel */
-    .overlay-panel {
-      border: 1px solid var(--border); border-radius: var(--r2);
-      background: linear-gradient(180deg, var(--surface2), rgba(255,255,255,.02));
-      overflow: hidden;
-    }
-    .overlay-top {
-      padding: 16px 16px 0;
-      display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap;
-    }
-    .overlay-top h3 { font-size: 14px; font-weight: 600; }
-    .overlay-top p { font-size: 12.5px; color: var(--muted); margin-top: 6px; line-height: 1.4; max-width: 55ch; }
-    .meta-chip {
-      font-family: var(--mono); font-size: 11px; padding: 7px 10px;
-      border-radius: 12px; border: 1px solid var(--border); background: var(--surface);
-      color: var(--muted); white-space: nowrap;
-    }
-
-    /* Loading state */
-    .loading {
-      display: flex; align-items: center; justify-content: center;
-      padding: 40px; gap: 10px;
-      font-family: var(--mono); font-size: 12px; color: var(--dim);
-    }
-    .spinner {
-      width: 16px; height: 16px; border: 1.5px solid var(--border2);
-      border-top-color: var(--c-blue); border-radius: 50%;
-      animation: spin .7s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* Error state */
-    .error-state {
-      padding: 20px; font-family: var(--mono); font-size: 12px; color: var(--c-rose);
-      text-align: center;
-    }
-
-    /* ── Table ── */
-    .table-wrap { padding: 12px 14px 16px; overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
-    thead th {
-      text-align: left; padding: 9px 10px;
-      border-bottom: 1px solid var(--border);
-      font-family: var(--mono); font-size: 11px; color: var(--muted);
-      font-weight: 500; letter-spacing: .4px; text-transform: uppercase;
-    }
-    tbody td {
-      padding: 10px 10px; border-bottom: 1px solid rgba(255,255,255,.055);
-      vertical-align: top; line-height: 1.4;
-    }
-    tbody tr:last-child td { border-bottom: none; }
-    tbody tr:hover td { background: rgba(255,255,255,.025); }
-
-    .arm-name { font-weight: 600; font-size: 13px; }
-    .arm-sub { font-size: 12px; color: var(--muted); margin-top: 3px; }
-
-    /* Status tags */
-    .tag {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 5px 8px; border-radius: 999px;
-      border: 1px solid var(--border); background: var(--surface);
-      font-family: var(--mono); font-size: 11px; color: var(--muted);
-      white-space: nowrap;
-    }
-    .sdot { width: 7px; height: 7px; border-radius: 99px; }
-    .sdot.good { background: var(--s-good); }
-    .sdot.warn { background: var(--s-warn); }
-    .sdot.bad  { background: var(--s-bad); }
-
-    /* Lane chips */
-    .lanes { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
-    .lane-chip {
-      font-family: var(--mono); font-size: 10.5px;
-      padding: 5px 7px; border-radius: 8px;
-      border: 1px solid var(--border); background: rgba(255,255,255,.03);
-      color: var(--muted); cursor: pointer;
-      transition: all .12s;
-    }
-    .lane-chip:hover { background: var(--surface2); color: var(--text); border-color: var(--border2); }
-    .lane-chip.control  { border-color: rgba(52,211,153,.35); color: var(--c-jade); }
-    .lane-chip.measurement { border-color: rgba(245,158,11,.3); color: var(--c-amber); }
-
-    /* ── Arm cards grid ── */
-    .arms-grid {
-      display: grid; gap: 12px;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    }
-    .arm-card {
-      border: 1px solid var(--border);
-      background: linear-gradient(160deg, var(--surface2), rgba(255,255,255,.02));
-      border-radius: var(--r);
-      padding: 18px;
-      cursor: pointer;
-      transition: all .18s;
-      position: relative; overflow: hidden;
-    }
-    .arm-card:hover {
-      border-color: var(--border2);
-      transform: translateY(-2px);
-      box-shadow: var(--shadow2);
-    }
-    .arm-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; width: 3px; bottom: 0;
-      border-radius: 3px 0 0 3px;
-    }
-    .arm-card.warn::before { background: var(--c-amber); }
-    .arm-card.bad::before  { background: var(--s-bad); }
-    .arm-card.good::before { background: var(--c-jade); }
-    .arm-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
-    .arm-card-name { font-weight: 600; font-size: 14px; }
-    .arm-card-sub { font-size: 12px; color: var(--muted); margin-top: 5px; line-height: 1.4; }
-    .arm-card-entry {
-      font-family: var(--mono); font-size: 10.5px; color: var(--dim); margin-top: 10px;
-    }
-    .arm-card-revenue {
-      margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border);
-      font-size: 12px; color: var(--muted); line-height: 1.35;
-    }
-    .arm-card-revenue strong { color: var(--text); font-size: 11px; display: block; margin-bottom: 3px; font-family: var(--mono); text-transform: uppercase; letter-spacing: .4px; }
-
-    /* ── Shortcuts ── */
-    .shortcuts-grid {
-      display: grid; gap: 10px;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    }
-    .shortcut-item {
-      border: 1px solid var(--border); background: var(--surface);
-      border-radius: var(--r); padding: 14px;
-      display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
-    }
-    .shortcut-item b { display: block; font-size: 13px; }
-    .shortcut-item span { display: block; font-size: 12px; color: var(--muted); margin-top: 5px; line-height: 1.35; }
-    .shortcut-link {
-      flex-shrink: 0; font-family: var(--mono); font-size: 11.5px;
-      padding: 7px 12px; border-radius: 10px; border: 1px solid var(--border2);
-      background: var(--surface2); color: var(--text); text-decoration: none;
-      transition: all .12s; white-space: nowrap;
-    }
-    .shortcut-link:hover { background: var(--border); transform: translateY(-1px); }
-
-    /* ── Evidence / IP ── */
-    .ev-grid {
-      display: grid; gap: 12px;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    }
-    .widget-slot {
-      border: 1px dashed var(--border);
-      border-radius: var(--r);
-      padding: 16px; background: rgba(255,255,255,.02);
-      min-height: 80px;
-    }
-    .widget-slot h4 { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-bottom: 8px; }
-    .widget-slot .hint { font-size: 12px; color: var(--dim); line-height: 1.4; }
-
-    /* ── IP registry ── */
-    .ip-schema {
-      font-family: var(--mono); font-size: 12px; color: var(--dim);
-      padding: 14px; border-radius: 12px;
-      background: rgba(59,130,246,.06); border: 1px solid rgba(59,130,246,.18);
-      line-height: 1.6;
-    }
-    .ip-schema .field { color: var(--c-blue); }
-    .ip-schema .type { color: var(--muted); }
-
-    /* ── CTA block ── */
-    .cta-block {
-      text-align: center; padding: 48px 20px;
-    }
-    .cta-block h2 { font-family: var(--serif); font-size: 28px; font-weight: 400; margin-bottom: 12px; }
-    .cta-block p { font-size: 15px; color: var(--muted); max-width: 52ch; margin: 0 auto 24px; line-height: 1.6; }
-    .cta-email {
-      display: inline-flex; align-items: center; gap: 10px;
-      font-family: var(--mono); font-size: 14px;
-      padding: 14px 24px; border-radius: var(--r);
-      border: 1px solid var(--border2); background: var(--surface2);
-      color: var(--text); text-decoration: none;
-      transition: all .15s;
-    }
-    .cta-email:hover { background: var(--border); transform: translateY(-2px); }
-
-    /* ── Footer ── */
-    footer {
-      margin-top: 24px; padding-top: 20px;
-      border-top: 1px solid var(--border);
-    }
-    .footer-grid {
-      display: grid; gap: 16px;
-    }
-    @media (min-width: 640px) { .footer-grid { grid-template-columns: 1.5fr 1fr; } }
-    .footer-brand { font-family: var(--serif); font-size: 18px; margin-bottom: 8px; }
-    .footer-copy { font-size: 12.5px; color: var(--muted); line-height: 1.55; }
-    .footer-links { font-family: var(--mono); font-size: 12px; color: var(--muted); line-height: 2; }
-    .footer-links a { color: var(--muted); text-decoration: none; }
-    .footer-links a:hover { color: var(--text); }
-    .footer-meta { margin-top: 16px; font-family: var(--mono); font-size: 11px; color: var(--dim); }
-
-    /* ── Toast ── */
-    .toast {
-      position: fixed; bottom: 20px; left: 20px; right: 20px;
-      max-width: 480px; z-index: 9999;
-      border: 1px solid var(--border2);
-      border-radius: 16px;
-      background: rgba(13,16,32,.92);
-      backdrop-filter: blur(16px);
-      padding: 12px 16px; color: var(--text);
-      box-shadow: var(--shadow);
-      display: none;
-      animation: slideUp .2s ease;
-    }
-    @keyframes slideUp { from { transform: translateY(8px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-    .toast-msg { font-size: 13.5px; font-weight: 600; }
-    .toast-sub { font-family: var(--mono); font-size: 11.5px; color: var(--muted); margin-top: 4px; }
-
-    /* ── Section spacing ── */
-    .section { margin-top: 48px; }
-
-    /* ── Responsive ── */
-    @media (max-width: 640px) {
-      nav a:not(.nav-cta):not(:last-child) { display: none; }
-      h1.headline { font-size: 32px; }
-    }
-
-    /* ── Skeleton loader ── */
-    .skeleton {
-      background: linear-gradient(90deg, var(--surface) 25%, var(--surface2) 50%, var(--surface) 75%);
-      background-size: 200% 100%;
-      animation: shimmer 1.5s infinite;
-      border-radius: 6px; height: 14px;
-    }
-    @keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
-  </style>
+/* MODAL */
+.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:1000; display:none; align-items:center; justify-content:center; padding:24px; backdrop-filter:blur(4px); }
+.modal-overlay.active { display:flex; }
+.modal { background:var(--surface); border:1px solid var(--border); border-radius:20px; max-width:900px; width:100%; max-height:90vh; overflow:hidden; display:flex; flex-direction:column; }
+.modal-header { display:flex; align-items:center; gap:16px; padding:24px 28px; border-bottom:1px solid var(--border); }
+.modal-header .group-badge { width:44px; height:44px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-weight:700; font-size:0.85rem; color:#fff; flex-shrink:0; }
+.modal-header h2 { font-family:'Fraunces',serif; font-size:1.5rem; font-weight:700; flex:1; }
+.modal-header .close-btn { width:36px; height:36px; border-radius:8px; border:1px solid var(--border); background:transparent; color:var(--text-dim); cursor:pointer; font-size:1.2rem; transition:all 0.2s; }
+.modal-header .close-btn:hover { background:var(--surface-hover); color:var(--text); }
+.modal-body { padding:28px; overflow-y:auto; flex:1; }
+.modal-screenshot { width:100%; height:220px; border-radius:12px; overflow:hidden; margin-bottom:24px; background:var(--bg); }
+.modal-screenshot img { width:100%; height:100%; object-fit:cover; object-position:top center; }
+.modal-screenshot .fallback { width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-size:1.2rem; color:var(--text-dim); }
+.modal-tabs { display:flex; gap:8px; margin-bottom:20px; border-bottom:1px solid var(--border); padding-bottom:12px; }
+.modal-tab { padding:8px 16px; border:none; background:transparent; color:var(--text-dim); font-family:'DM Sans',sans-serif; font-size:0.85rem; cursor:pointer; border-radius:6px; transition:all 0.2s; }
+.modal-tab:hover { color:var(--text); }
+.modal-tab.active { background:var(--accent); color:#fff; }
+.modal-content { display:none; }
+.modal-content.active { display:block; }
+.info-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:16px; }
+.info-item { background:var(--bg); border-radius:10px; padding:14px 16px; }
+.info-label { font-size:0.7rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-dim); margin-bottom:4px; }
+.info-value { font-size:0.9rem; font-weight:500; word-break:break-all; }
+.info-value a { color:var(--accent); text-decoration:none; }
+.info-value a:hover { text-decoration:underline; }
+.info-value.mono { font-family:monospace; font-size:0.8rem; }
+.domain-list { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+.domain-chip { background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:6px 12px; font-family:monospace; font-size:0.75rem; color:var(--text-dim); }
+.modal-footer { padding:20px 28px; border-top:1px solid var(--border); display:flex; gap:12px; justify-content:flex-end; }
+.modal-btn { padding:10px 20px; border-radius:8px; font-family:'DM Sans',sans-serif; font-size:0.9rem; font-weight:500; cursor:pointer; transition:all 0.2s; text-decoration:none; }
+.modal-btn-primary { background:var(--accent); color:#fff; border:none; }
+.modal-btn-primary:hover { background:#2563eb; }
+.modal-btn-secondary { background:transparent; color:var(--text); border:1px solid var(--border); }
+.modal-btn-secondary:hover { background:var(--surface-hover); }
+</style>
 </head>
-
 <body>
-<!-- ═══════════════════════════════════
-     HEADER
-═══════════════════════════════════ -->
-<header>
-  <div class="bar">
-    <a class="brand" href="#top">
-      <div class="mark" aria-hidden="true"></div>
-      <div>
-        <div class="brand-name">Tech 4 Humanity</div>
-        <div class="brand-sub">Research Organism · 8×8 Surface</div>
-      </div>
-    </a>
-    <nav aria-label="Primary navigation">
-      <a href="#organism">Organism</a>
-      <a href="#arms">Arms</a>
-      <a href="#evidence">Evidence</a>
-      <a href="#ip">IP</a>
-      <a href="#contact" class="nav-cta">Contact</a>
-    </nav>
+
+<div class="hero">
+  <h1>Tech 4 Humanity</h1>
+  <div class="subtitle">Canonical Doctrine — 7 Groups × 42 Businesses</div>
+  <div class="stats-bar">
+    <div class="stat"><div class="stat-num">7</div><div class="stat-label">Groups</div></div>
+    <div class="stat"><div class="stat-num">42</div><div class="stat-label">Businesses</div></div>
+    <div class="stat"><div class="stat-num">80</div><div class="stat-label">Sites</div></div>
+    <div class="stat"><div class="stat-num">9</div><div class="stat-label">Active</div></div>
+    <div class="stat"><div class="stat-num">129</div><div class="stat-label">Vercel</div></div>
+    <div class="stat"><div class="stat-num">204</div><div class="stat-label">Instances</div></div>
   </div>
-</header>
+</div>
 
-<main id="top" class="wrap">
+<div class="view-toggle">
+  <button class="view-btn active" onclick="showView('portfolio')">Portfolio View</button>
+  <button class="view-btn" onclick="showView('domain')">Domain Map</button>
+  <button class="view-btn" onclick="showView('analytics')">Analytics</button>
+  <button class="view-btn" onclick="showView('internal-tools')">Internal Tools</button>
+</div>
 
-  <!-- ═══ HERO ═══ -->
-  <section class="hero">
-    <div class="hero-eyebrow">
-      <span class="dot"></span>
-      <span>ORIGIN OCTAVE · GOVERNED RESEARCH ORGANISM</span>
-    </div>
-    <h1 class="headline">We expand <em>deliberately.</em><br>Not randomly.</h1>
-    <p class="hero-sub">
-      This is not a portfolio site. It's a staged research organism.
-      Each arm is a programme. Each subtopic is a measurable capability.
-      The 8×8 grid is a controlled IP surface — not a single-programme risk.
-    </p>
-    <div class="hero-pills">
-      <div class="pill">Horizontal: exploration → measurement → control → deployment</div>
-      <div class="pill">Vertical: 8 areas × 8 lanes = 64 capability vectors</div>
-      <div class="pill">We don't treat tech like tools. We treat it like weather.</div>
-    </div>
-  </section>
+<div class="tab-bar" id="tabBar">
+  <button class="tab-btn active" onclick="filterGroup('all',this)">All (42)</button>
+  <button class="tab-btn" onclick="filterGroup('G1',this)">G1 Core (4)</button>
+  <button class="tab-btn" onclick="filterGroup('G2',this)">G2 GC-BAT (6)</button>
+  <button class="tab-btn" onclick="filterGroup('G3',this)">G3 Mission (7)</button>
+  <button class="tab-btn" onclick="filterGroup('G4',this)">G4 Retail (7)</button>
+  <button class="tab-btn" onclick="filterGroup('G5',this)">G5 Fun (6)</button>
+  <button class="tab-btn" onclick="filterGroup('G6',this)">G6 Personal (4)</button>
+  <button class="tab-btn" onclick="filterGroup('G7',this)">G7 IP (8)</button>
+</div>
 
-  <!-- ═══ KPI STRIP ═══ -->
-  <div class="kpi-strip">
-    <div class="kpi-card">
-      <div class="kpi-val" id="kpiArms">8</div>
-      <div class="kpi-label">Governed Arms</div>
-      <div class="kpi-sub">Independent experimental programmes</div>
+<div id="portfolioView"></div>
+<div id="domainView" class="domain-section"></div>
+<div id="analyticsView" class="analytics-section" style="display:none"></div>
+<div id="internalToolsView" style="display:none"></div>
+
+<footer>
+  Tech 4 Humanity — Canonical Doctrine v1.0 (Frozen) — Portfolio v15 — Generated 24 Feb 2026<br>
+  Source: Supabase <code>lzfgigiyqpuuxslsygjt</code> · <code>mcp_business_registry</code> (42) · <code>sites_registry</code> (80)
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="group-badge" id="modalBadge">G1</div>
+      <h2 id="modalTitle">Business Name</h2>
+      <button class="close-btn" onclick="closeModal()">&times;</button>
     </div>
-    <div class="kpi-card">
-      <div class="kpi-val" id="kpiLanes">64</div>
-      <div class="kpi-label">Capability Lanes</div>
-      <div class="kpi-sub">Measurable artefact slots per surface</div>
+    <div class="modal-body">
+      <div class="modal-screenshot" id="modalScreenshot"></div>
+      <div class="modal-tabs">
+        <button class="modal-tab active" onclick="showModalTab('business',this)">Business Info</button>
+        <button class="modal-tab" onclick="showModalTab('technical',this)">Technical Details</button>
+        <button class="modal-tab" onclick="showModalTab('domains',this)">Domains</button>
+      </div>
+      <div class="modal-content active" id="tab-business">
+        <div class="info-grid" id="businessInfo"></div>
+      </div>
+      <div class="modal-content" id="tab-technical">
+        <div class="info-grid" id="technicalInfo"></div>
+      </div>
+      <div class="modal-content" id="tab-domains">
+        <div id="domainsInfo"></div>
+      </div>
     </div>
-    <div class="kpi-card">
-      <div class="kpi-val">3</div>
-      <div class="kpi-label">Entry Signals</div>
-      <div class="kpi-sub">Trust now · Revenue now · Moat later</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-val">∞</div>
-      <div class="kpi-label">Partner Attach</div>
-      <div class="kpi-sub">Fund one arm without buying the whole animal</div>
+    <div class="modal-footer">
+      <button class="modal-btn modal-btn-secondary" onclick="closeModal()">Close</button>
+      <a class="modal-btn modal-btn-primary" id="modalVisitBtn" href="#" target="_blank">Visit Site →</a>
     </div>
   </div>
-
-  <!-- ═══ ORGANISM VIEW ═══ -->
-  <section id="organism" class="card section">
-    <div class="organism-controls">
-      <div>
-        <h2>The organism view</h2>
-        <p>Same image. Two audiences. No rewrites. — Investor, accountant, or partner conversation starter.</p>
-      </div>
-      <div class="toggle-group" role="group" aria-label="Display mode">
-        <button class="toggle-btn active" id="btnOverlay">Overlay</button>
-        <button class="toggle-btn" id="btnTable">Full table</button>
-      </div>
-    </div>
-
-    <div class="organism-canvas">
-      <!-- Left: image frame -->
-      <div class="img-frame" id="imgFrame">
-        <!-- Swap to real octopus asset: <img src="/assets/img/octopus-stage-2.jpg" alt="Research organism visual" /> -->
-        <div class="img-placeholder">
-          <!-- SVG octopus silhouette placeholder -->
-          <svg class="octo-svg" width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <ellipse cx="80" cy="60" rx="34" ry="38" fill="white" opacity=".8"/>
-            <!-- Arms -->
-            <path d="M46 72 C28 85 20 110 26 128 C30 140 20 148 14 142" stroke="white" stroke-width="10" stroke-linecap="round" fill="none" opacity=".7"/>
-            <path d="M54 88 C42 105 44 130 36 148" stroke="white" stroke-width="9" stroke-linecap="round" fill="none" opacity=".65"/>
-            <path d="M70 96 C66 115 68 138 60 156" stroke="white" stroke-width="8" stroke-linecap="round" fill="none" opacity=".6"/>
-            <path d="M80 98 C80 118 80 140 80 158" stroke="white" stroke-width="8" stroke-linecap="round" fill="none" opacity=".6"/>
-            <path d="M90 96 C94 115 92 138 100 156" stroke="white" stroke-width="8" stroke-linecap="round" fill="none" opacity=".6"/>
-            <path d="M106 88 C118 105 116 130 124 148" stroke="white" stroke-width="9" stroke-linecap="round" fill="none" opacity=".65"/>
-            <path d="M114 72 C132 85 140 110 134 128 C130 140 140 148 146 142" stroke="white" stroke-width="10" stroke-linecap="round" fill="none" opacity=".7"/>
-            <!-- Eyes -->
-            <circle cx="68" cy="52" r="7" fill="#060810" opacity=".9"/>
-            <circle cx="92" cy="52" r="7" fill="#060810" opacity=".9"/>
-            <circle cx="70" cy="50" r="3" fill="white"/>
-            <circle cx="94" cy="50" r="3" fill="white"/>
-          </svg>
-          <p>Place octopus-stage-2.jpg at /assets/img/<br>Replace &lt;img&gt; in #imgFrame</p>
-        </div>
-        <div class="img-badge" id="stageBadge">Stage 1–2 · Dual arm → Quadrant</div>
-        <div class="live-badge"><span class="live-dot"></span>BRIDGE · LIVE</div>
-      </div>
-
-      <!-- Right: overlay panel -->
-      <div class="overlay-panel" id="overlayPanel">
-        <div class="overlay-top">
-          <div>
-            <h3>8 arms × 8 lanes</h3>
-            <p>Each row is a programme. Each lane is a measurable capability. Click a lane to inspect it.
-            This is how it stops being thought leadership and becomes defensible R&D.</p>
-          </div>
-          <div class="meta-chip" id="metaChip">Loading…</div>
-        </div>
-        <div id="overlayTableWrap" class="table-wrap">
-          <div class="loading"><div class="spinner"></div>Fetching from Supabase…</div>
-        </div>
-      </div>
-
-      <!-- Table-only panel (hidden by default) -->
-      <div class="overlay-panel" id="tablePanel" style="display:none; grid-column: 1/-1;">
-        <div class="overlay-top">
-          <div>
-            <h3>Full surface table</h3>
-            <p>Export-ready. Swap data source to CSV or pipe to your IP registry.</p>
-          </div>
-          <div class="meta-chip mono">8 × 8 = 64 vectors</div>
-        </div>
-        <div id="tableWrap" class="table-wrap">
-          <div class="loading"><div class="spinner"></div>Loading…</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ ARMS CARDS ═══ -->
-  <section id="arms" class="section">
-    <div class="section-head">
-      <h2>Arms (programmes)</h2>
-      <span class="section-meta" id="armsMeta">Loading from registry…</span>
-    </div>
-    <div class="arms-grid" id="armsGrid">
-      <!-- skeleton -->
-      <div class="arm-card"><div class="skeleton" style="height:18px;margin-bottom:8px"></div><div class="skeleton" style="width:70%"></div></div>
-      <div class="arm-card"><div class="skeleton" style="height:18px;margin-bottom:8px"></div><div class="skeleton" style="width:60%"></div></div>
-      <div class="arm-card"><div class="skeleton" style="height:18px;margin-bottom:8px"></div><div class="skeleton" style="width:75%"></div></div>
-    </div>
-  </section>
-
-  <!-- ═══ SHORTCUTS ═══ -->
-  <section id="shortcuts" class="section">
-    <div class="section-head">
-      <h2>Research shortcuts</h2>
-      <span class="section-meta">External proof surfaces</span>
-    </div>
-    <div class="shortcuts-grid">
-      <div class="shortcut-item">
-        <div>
-          <b>AI Sweet Spots research site</b>
-          <span>Public proof layer. Studies, numbers, and artefacts. Use as evidence anchor.</span>
-        </div>
-        <a class="shortcut-link" href="https://ai-sweet-spots-1ix30jtq7-troys-projects-5f7de6da.vercel.app/research/" target="_blank" rel="noreferrer">Open ↗</a>
-      </div>
-      <div class="shortcut-item">
-        <div>
-          <b>HoloOrg Agent Factory</b>
-          <span>Pricing, calculators, CV/RFT analysis, conversion tools.</span>
-        </div>
-        <a class="shortcut-link" href="https://holoorg-agent-factory.lovable.app/" target="_blank" rel="noreferrer">Open ↗</a>
-      </div>
-      <div class="shortcut-item">
-        <div>
-          <b>Case studies</b>
-          <span>Seed set. Wire to Supabase registry and render everywhere from one source.</span>
-        </div>
-        <a class="shortcut-link" href="https://holoorg-agent-factory.lovable.app/case-studies" target="_blank" rel="noreferrer">Open ↗</a>
-      </div>
-      <div class="shortcut-item">
-        <div>
-          <b>Pricing page</b>
-          <span>Monitor for drift. Keep sell-now ladder consistent across all surfaces.</span>
-        </div>
-        <a class="shortcut-link" href="https://holoorg-agent-factory.lovable.app/pricing" target="_blank" rel="noreferrer">Open ↗</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ EVIDENCE + GOVERNANCE ═══ -->
-  <section id="evidence" class="section">
-    <div class="section-head">
-      <h2>Evidence + governance</h2>
-      <span class="section-meta">Nothing is REAL without attached evidence</span>
-    </div>
-    <div class="ev-grid">
-      <div class="card">
-        <div class="card-head">
-          <h3>Reality Ledger</h3>
-          <p>Anti "paper city" rail. Nothing claims REAL status without a linked artefact.</p>
-        </div>
-        <div class="card-body">
-          <div class="widget-slot" id="widget-reality-ledger">
-            <h4>WIDGET · reality-ledger</h4>
-            <div class="hint">Inject live widget HTML from snippet table by slug. Expected: status counts, last verified date, top 3 gaps.</div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-head">
-          <h3>MCP health</h3>
-          <p>Operational truth. Fail-only signals. No vanity dashboards.</p>
-        </div>
-        <div class="card-body">
-          <div class="widget-slot" id="widget-mcp-health">
-            <h4>WIDGET · mcp-health</h4>
-            <div class="hint">Drop-in from Command Centre widget pattern. Shows Lambda fleet status, last successful runs.</div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-head">
-          <h3>Metrics feed</h3>
-          <p>One JSON endpoint. Every page renders from it. No drift between surfaces.</p>
-        </div>
-        <div class="card-body">
-          <div class="widget-slot">
-            <h4 style="font-family:var(--mono);font-size:11px;">/metrics.json</h4>
-            <div class="hint">Publish: study_count, participant_total, last_updated, arm_progress[], drift_flags[]. UI stays honest.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ IP REGISTRY ═══ -->
-  <section id="ip" class="section">
-    <div class="section-head">
-      <h2>IP registry</h2>
-      <span class="section-meta">Defensible R&D framing — render everywhere from one source</span>
-    </div>
-    <div class="card">
-      <div class="card-head">
-        <h3>Defensibility framing</h3>
-        <p>
-          One registry. Many surfaces. Every claim linked to evidence. Every asset has a status:
-          <strong>REAL</strong> (verified artefact), <strong>PARTIAL</strong> (in progress), <strong>PRETEND</strong> (intent only).
-        </p>
-      </div>
-      <div class="card-body">
-        <div class="ip-schema">
-          <span class="field">ip_asset_id</span>  <span class="type">UUID</span>  — primary key<br>
-          <span class="field">arm_id</span>        <span class="type">TEXT → research_arms(id)</span><br>
-          <span class="field">title</span>         <span class="type">TEXT</span>  — human claim<br>
-          <span class="field">status</span>        <span class="type">ENUM('REAL','PARTIAL','PRETEND')</span><br>
-          <span class="field">evidence_links</span><span class="type">JSONB</span>  — array of {url, type, verified}<br>
-          <span class="field">licensing_angle</span><span class="type">TEXT</span>  — commercial framing<br>
-          <span class="field">rd_expenditure</span><span class="type">NUMERIC</span>  — ATO R&D substantiation<br>
-          <span class="field">created_at</span>    <span class="type">TIMESTAMPTZ</span>
-        </div>
-        <div class="widget-slot" id="widget-ip-registry" style="margin-top:12px;">
-          <h4>WIDGET · ip-registry</h4>
-          <div class="hint">Inject live IP asset table. Filter by arm_id. Show REAL / PARTIAL / PRETEND counts. Links to Reality Ledger.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ CONTACT CTA ═══ -->
-  <section id="contact" class="section">
-    <div class="card">
-      <div class="cta-block">
-        <h2>You can fund one arm<br>without buying the whole animal.</h2>
-        <p>
-          Partners attach to individual arms. Funding without revealing the full roadmap.
-          No single-project dependency. For partnerships, R&D alignment, or standards collaboration:
-        </p>
-        <a class="cta-email" href="mailto:contact@tech4humanity.com.au">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
-          contact@tech4humanity.com.au
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ FOOTER ═══ -->
-  <footer>
-    <div class="footer-grid">
-      <div>
-        <div class="footer-brand">Research Organism · Tech 4 Humanity</div>
-        <div class="footer-copy">
-          A staged research organism: exploration → measurement → control → deployment.
-          The structure is the message. 8 governed programmes, 64 measurable capability lanes.
-          Defensible R&D — not thought leadership.
-        </div>
-      </div>
-      <div class="footer-links">
-        <a href="https://tech4humanity.com.au">Tech4Humanity</a><br>
-        <a href="https://ai-sweet-spots-1ix30jtq7-troys-projects-5f7de6da.vercel.app/research/">AI Sweet Spots</a><br>
-        <a href="https://holoorg-agent-factory.lovable.app/">HoloOrg · AHC</a><br>
-        <a href="mailto:contact@tech4humanity.com.au">contact@tech4humanity.com.au</a>
-      </div>
-    </div>
-    <div class="footer-meta">
-      Sydney, Australia · Data source: Bridge → Supabase (research_arms + research_lanes) · Rendered live
-    </div>
-  </footer>
-
-</main>
-
-<!-- Toast -->
-<div class="toast" id="toast" role="status" aria-live="polite">
-  <div class="toast-msg" id="toastMsg"></div>
-  <div class="toast-sub" id="toastSub"></div>
 </div>
 
 <script>
-/* ════════════════════════════════════════
-   CONFIG — Bridge-connected
-   All data fetched live from Supabase via Bridge
-════════════════════════════════════════ */
-const BRIDGE  = 'https://m5oqj21chd.execute-api.ap-southeast-2.amazonaws.com/lambda/invoke';
-const SQL_FN  = 'troy-sql-executor';
-const EMAIL_FN = 'troy-email-send';
+/* ========================================================
+   DATA — sourced from mcp_business_registry + sites_registry
+   URLs verified live 19 Feb 2026
+   ======================================================== */
 
-/* ════════════════════════════════════════
-   BRIDGE FETCH
-════════════════════════════════════════ */
-async function bridgeQuery(sql) {
-  const res = await fetch(BRIDGE, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ functionName: SQL_FN, payload: { sql } })
+var groupMeta = {
+  G1: {name:"CORE",color:"var(--g1)",desc:"Foundation — AI coaching, orchestration, holding company"},
+  G2: {name:"GC-BAT",color:"var(--g2)",desc:"Governance, consent, BCI standards, signal stack"},
+  G3: {name:"MISSION",color:"var(--g3)",desc:"Mission-driven — water, wellness, agriculture, sport"},
+  G4: {name:"RETAIL",color:"var(--g4)",desc:"Commercial & trade — market entry, retail, logistics"},
+  G5: {name:"FUN",color:"var(--g5)",desc:"Entertainment, games, satire, consumer apps"},
+  G6: {name:"PERSONAL",color:"var(--g6)",desc:"Personal tools — CV, tax, property, career"},
+  G7: {name:"IP",color:"var(--g7)",desc:"Books, research, courses, IP assets, publications"}
+};
+
+var colorHex = {G1:'#22c55e',G2:'#8b5cf6',G3:'#f59e0b',G4:'#ef4444',G5:'#ec4899',G6:'#06b6d4',G7:'#f97316'};
+
+// screenshot URL: the best VERIFIED LIVE url to screenshot for each business
+// null = no live site found, show gradient fallback
+// Added: vercel, github, supabase, description for modal
+var businesses = [
+  // G1 CORE (4)
+  {id:3, name:"Tech for Humanity", slug:"tech-for-humanity", group:"G1", canonical:"https://tech4humanity.com.au", ss:"https://tech4humanity.com.au", domains:["tech4humanity.com.au","tech4humanity.org","tech4humanity-hub.lovable.app","tech4-humanity-domains.vercel.app"], vercel:"t4h-site", github:null, desc:"Holding company and central hub for the Tech 4 Humanity portfolio of businesses."},
+  {id:1, name:"Augmented Humanity Coach", slug:"augmented-humanity-coach", group:"G1", canonical:"https://augmentedhumanity.coach", ss:"https://augmented-humanity-coach.vercel.app", domains:["augmentedhumanity.coach","ahc.holo-org.com"], vercel:"augmented-humanity-coach", github:null, desc:"AI coaching platform helping leaders, workers, and machines collaborate effectively through role-based augmentation strategies."},
+  {id:2, name:"HoloOrg", slug:"holoorg", group:"G1", canonical:"https://holo-org.com", ss:"https://holo-org.com", domains:["holo-org.com","holoorg.vercel.app","holowall.vercel.app","holo-org.vercel.app"], vercel:"holoorg", github:null, desc:"Organisational intelligence platform connecting conversations, workflows, and insights across every platform."},
+  {id:4, name:"WorkFamilyAI", slug:"workfamilyai", group:"G1", canonical:"https://workfamilyai.org", ss:"https://workfamilyai.org", domains:["workfamilyai.com","workfamilyai.org","work-family-ai.vercel.app","workfamilyai.vercel.app","neural-ennead-family.vercel.app"], vercel:"workfamilyai", github:null, desc:"AI-powered work-life integration tools for modern families balancing career and home responsibilities."},
+
+  // G2 GC-BAT (6)
+  {id:5, name:"ConsentX", slug:"consentx", group:"G2", canonical:"https://consentx.org", ss:"https://consentx.org", domains:["consentx.vercel.app","consentx-westpac-demo1.vercel.app","consentx-westpac-demo1.lovable.app","consent-x.vercel.app"], vercel:"consent-x", github:null, desc:"Consent management and authorisation platform for enterprise data governance and compliance."},
+  {id:6, name:"Far-Cage", slug:"far-cage", group:"G2", canonical:"https://far-cage.org/", ss:"https://far-cage.org/", domains:["far-cage.com","far-cage.org","far-cage.vercel.app"], vercel:"far-cage", github:null, desc:"AI safety and containment standards for responsible artificial intelligence deployment."},
+  {id:7, name:"GC-BAT Core", slug:"gc-bat-core", group:"G2", canonical:"https://gcbat.org", ss:"https://gcbat.org", domains:["gcbat.com","gcbat.org","gcbat-org.vercel.app"], vercel:"gcbat-org", github:null, desc:"Global Council on BCI & Assistive Technology - leading ethical research, innovation, and global collaboration."},
+  {id:8, name:"MyNeuralSignal", slug:"myneuralsignal", group:"G2", canonical:"https://myneuralsignal.gcbat.org", ss:"https://myneuralsignal.gcbat.org", domains:["myneuralsignal.com","myneuralsignal.vercel.app"], vercel:"myneuralsignal", github:null, desc:"Real-time brain signal monitoring and alerts for cognitive health and decision support."},
+  {id:9, name:"NEUROPAK", slug:"neuropak", group:"G2", canonical:"https://neuropak.gcbat.org", ss:"https://neuropak.vercel.app", domains:["neuropak.com","neuropak.io","neuropak.vercel.app","neuropak-dashboard.vercel.app","neurostack.vercel.app"], vercel:"neuropak", github:null, desc:"Neural interface toolkit and dashboard for BCI research and development."},
+  {id:10, name:"RATPAK", slug:"ratpak", group:"G2", canonical:"https://gcbat.org/ratpak", ss:"https://gcbat.org/ratpak", domains:["ratpak.com.au","ratpak.io","ratpak.vercel.app","ratworks.vercel.app"], vercel:"ratpak-platform", github:null, desc:"Robotics and automation technology platform for industrial applications."},
+
+  // G3 MISSION (7)
+  {id:11, name:"AquaMe", slug:"aquame", group:"G3", canonical:"https://www.aquame.com.au/", ss:"https://www.aquame.com.au/", domains:["aquame.com.au"], vercel:null, github:null, desc:"Water quality monitoring and hydration tracking for personal wellness."},
+  {id:12, name:"CalmBound", slug:"calmbound", group:"G3", canonical:"https://calmbound-system.vercel.app", ss:"https://calmbound-system.vercel.app", domains:[], vercel:"calmbound-system", github:null, desc:"Mental wellness and stress management platform for workplace wellbeing."},
+  {id:13, name:"Chemists Platform", slug:"chemists-platform", group:"G3", canonical:"https://all-chemist-org.lovable.app", ss:"https://all-chemist-org.lovable.app", domains:["allchemist.org","all-chemist-com.vercel.app"], vercel:"all-chemist-org", github:null, desc:"Digital platform connecting pharmacies and enabling better healthcare access."},
+  {id:14, name:"GAIN", slug:"gain", group:"G3", canonical:"https://gain-foundation.vercel.app", ss:"https://gain-foundation.vercel.app", domains:["gain-foundation.vercel.app"], vercel:"gain", github:null, desc:"Global Agriculture Innovation Network - technology for sustainable farming."},
+  {id:15, name:"Global Tyres", slug:"global-tyres", group:"G3", canonical:"https://global-tyres.vercel.app", ss:"https://global-tyres.vercel.app", domains:["global-tyre-locator.vercel.app","global-tyres.vercel.app"], vercel:null, github:null, desc:"Tyre recycling and sustainability tracking platform."},
+  {id:43, name:"Global Car Part", slug:"global-car-part", group:"G3", canonical:"https://global-part-ownership.lovable.app", ss:"https://global-part-ownership.lovable.app", domains:[], vercel:null, github:null, desc:"Global car parts marketplace and ownership platform. Paired with Global Tyres."},
+  {id:16, name:"SmartPark", slug:"smartpark", group:"G3", canonical:"https://park-harmony-ai.lovable.app", ss:"https://park-harmony-ai.lovable.app", domains:[], vercel:"smartpark", github:null, desc:"Intelligent parking management and urban mobility solutions."},
+
+  // G4 RETAIL (7)
+  {id:17, name:"APAC Just Walk Out", slug:"apac-just-walk-out", group:"G4", canonical:"https://innovate-apac-flow.lovable.app", ss:"https://innovate-apac-flow.lovable.app", domains:[], vercel:null, github:null, desc:"Autonomous checkout technology for retail stores across Asia-Pacific."},
+
+  {id:20, name:"House of Biscuits", slug:"house-of-biscuits", group:"G4", canonical:"https://house-of-biscuits.vercel.app", ss:"https://house-of-biscuits.vercel.app", domains:[], vercel:"house-of-biscuits", github:null, desc:"Artisan biscuit marketplace and delivery platform."},
+  {id:21, name:"JustPoint", slug:"justpoint", group:"G4", canonical:"https://xses.vercel.app/justpoint", ss:"https://xses.vercel.app/", domains:[], vercel:null, github:null, desc:"Location-based retail discovery and loyalty platform."},
+  {id:22, name:"Oman Strategy", slug:"oman-strategy", group:"G4", canonical:"https://oman-australia-strategy.vercel.app", ss:"https://oman-australia-strategy.vercel.app", domains:["oman-australia-strategy.vercel.app"], vercel:null, github:null, desc:"Oman-Australia trade and investment facilitation platform."},
+  {id:23, name:"Vuon Troi", slug:"vuon-troi", group:"G4", canonical:"https://vuon-troi-is-reach-the-sky.vercel.app", ss:"https://vuon-troi-is-reach-the-sky.vercel.app", domains:["vuon-troi-is-reach-the-sky.vercel.app"], vercel:null, github:null, desc:"Vietnamese market expansion and cross-cultural business services."},
+  {id:24, name:"XSES", slug:"xses", group:"G4", canonical:"https://xses.vercel.app/", ss:"https://xses.vercel.app/", domains:[], vercel:"xses", github:null, desc:"Excess inventory and sustainable commerce marketplace."},
+  {id:44, name:"Nthn Australia Investment Options", slug:"nthn-australia-investment", group:"G4", canonical:"https://come-in-spinner.lovable.app", ss:"https://come-in-spinner.lovable.app", domains:[], vercel:null, github:null, desc:"Northern Australia investment opportunities and options analysis platform."},
+
+  // G5 FUN (6)
+  {id:25, name:"AI Oopsies", slug:"ai-oopsies", group:"G5", canonical:"https://ai-oopsies.lovable.app", ss:"https://ai-oopsies.lovable.app", domains:["aioopsies.vercel.app"], vercel:null, github:null, desc:"Collection of humorous AI failures and lessons learned from machine learning mishaps."},
+  {id:26, name:"Apex Predator Insurance", slug:"apex-predator-insurance", group:"G5", canonical:"https://apexpredatorinsurance.com", ss:"https://apexpredatorinsurance.com", domains:["apex-predator-insurance.vercel.app"], vercel:"apex-predator-insurance", github:null, desc:"Satirical insurance product for protection against unlikely apex predator encounters."},
+  {id:27, name:"Predator Alert", slug:"predator-alert", group:"G5", canonical:"https://data.apexpredatorinsurance.com", ss:null, domains:["data.apexpredatorinsurance.com"], vercel:null, github:null, desc:"Research site with saleable artefacts, newsletters and wildlife safety intelligence."},
+  {id:28, name:"Rhythm Method", slug:"rhythm-method", group:"G5", canonical:"https://rhythmmethod.vercel.app/", ss:"https://rhythmmethod.vercel.app/", domains:[], vercel:"rhythmmethod", github:null, desc:"Music-based productivity and focus enhancement application."},
+  {id:30, name:"Stubborn AI Fails", slug:"stubborn-ai-fails", group:"G5", canonical:"https://aioopsies.com", ss:"https://aioopsies.com", domains:["aioopsies.com"], vercel:null, github:null, desc:"Showcase of persistent AI failures that refuse to be fixed — the stubborn side of machine learning."},
+  {id:29, name:"Spotto", slug:"spotto", group:"G5", canonical:"https://extremespotto.com/", ss:"https://extremespotto.com/", domains:["spotto.au","spotto.app","extremespotto.com","spotto.vercel.app","extreme-spotto.vercel.app"], vercel:"spotto", github:null, desc:"Interactive spotting game and location-based entertainment platform."},
+
+  // G6 PERSONAL (4)
+  {id:31, name:"Professional Profile", slug:"professional-profile", group:"G6", canonical:"https://troylatter.com", ss:"https://troylatter.com", domains:["troylatter.com"], vercel:null, github:null, desc:"Professional profile and career portfolio site."},
+  {id:32, name:"MAAT Money", slug:"maat-money", group:"G6", canonical:"https://maat-money-console.vercel.app/", ss:"https://maat-money-console.vercel.app/", domains:["aquame.com.au"], vercel:null, github:null, desc:"Personal finance management guided by principles of balance and fairness."},
+  {id:33, name:"Making You A Star", slug:"making-you-a-star", group:"G6", canonical:"https://making-you-a-star.lovable.app", ss:"https://making-you-a-star.lovable.app", domains:[], vercel:"making-you-a-star", github:null, desc:"Personal branding and career visibility coaching platform."},
+  {id:34, name:"Property Decision Pack", slug:"property-decision-pack", group:"G6", canonical:"https://property-decision-pack-web.vercel.app", ss:"https://property-decision-pack-web.vercel.app", domains:["property-decision-pack-web.vercel.app"], vercel:"property-decision-pack-web", github:null, desc:"Comprehensive property analysis toolkit for informed real estate decisions."},
+
+  // G7 IP (8)
+  {id:35, name:"10 Day Media Map", slug:"10-day-media-map", group:"G7", canonical:"https://compare-the-media.tech4humanity.com.au/", ss:"https://compare-the-media.tech4humanity.com.au/", domains:["book-store.vercel.app"], vercel:"book-store", github:null, desc:"Strategic media planning framework and course for content creators."},
+  {id:36, name:"AI Era Thinking", slug:"ai-era-thinking", group:"G7", canonical:"https://ai-sweet-spots-for-all.vercel.app", ss:"https://ai-sweet-spots-for-all.vercel.app", domains:["ai-sweet-spots-for-all.vercel.app"], vercel:"ai-sweet-spots-for-all", github:null, desc:"Frameworks and methodologies for thriving in the age of artificial intelligence."},
+  {id:39, name:"Neural Market Intelligence", slug:"neural-market-intelligence", group:"G7", canonical:"https://t4h-ecosystem-explainer.lovable.app", ss:"https://t4h-ecosystem-explainer.lovable.app", domains:["neural-market-intelligence.vercel.app","neural-ecosystem-market-intelligence.lovable.app"], vercel:null, github:"TML-4PM/t4h-ecosystem-explainer", desc:"AI-powered market research and competitive intelligence platform. Gated research — not public facing."},
+  {id:40, name:"Neural Research Hub", slug:"neural-research-hub", group:"G7", canonical:"https://neuropak-commander.vercel.app/", ss:"https://neuropak-commander.vercel.app/", domains:[], vercel:null, github:null, desc:"Central repository for neurotechnology research and publications."},
+  {id:41, name:"Resilience Atlas", slug:"resilience-atlas", group:"G7", canonical:"https://atlas-aus-pulse.lovable.app", ss:"https://atlas-aus-pulse.lovable.app", domains:[], vercel:null, github:null, desc:"Mapping personal and organisational resilience factors and strategies."},
+  {id:42, name:"SM 2.0 Tech4Humanity", slug:"sm-2-0-tech4humanity", group:"G7", canonical:"https://sm-ban-watch.vercel.app", ss:"https://sm-ban-watch.vercel.app", domains:["sm-ban-watch.vercel.app"], vercel:"sm-ban-watch", github:null, desc:"Social media monitoring and platform policy tracking tools."},
+  {id:38, name:"LifeGraph Plus", slug:"lifegraph-plus", group:"G7", canonical:"https://mind-atlas.vercel.app", ss:"https://mind-atlas.vercel.app", domains:["mind-atlas.vercel.app"], vercel:null, github:null, desc:"Personal knowledge graph and life mapping tool for self-understanding."},
+  {id:51, name:"Australian Family Guide", slug:"australian-family-guide", group:"G7", canonical:"https://drive.google.com/file/d/15nyHUxFTgXylgq6vpH6qwpQCiDuVx9UB/view", ss:null, domains:[], vercel:null, github:null, desc:"Comprehensive guide for Australian families navigating technology, safety and digital life. ePub publication."}
+];
+
+/* ========================================================
+   SCREENSHOT URL BUILDER
+   Uses Microlink API — returns image/png directly
+   ======================================================== */
+function screenshotSrc(url) {
+  return 'https://api.microlink.io/?url=' + encodeURIComponent(url) + '&screenshot=true&meta=false&embed=screenshot.url';
+}
+
+/* ========================================================
+   RENDER: PORTFOLIO CARDS
+   ======================================================== */
+function renderCard(biz) {
+  var statusClass = biz.domains.length > 0 ? 'active' : 'planned';
+  var c = colorHex[biz.group] || '#3b82f6';
+  var grad = 'linear-gradient(135deg, ' + c + '18 0%, ' + c + '38 50%, ' + c + '58 100%)';
+  var host = '';
+  try { host = new URL(biz.canonical).hostname; } catch(e) { host = biz.slug; }
+
+  var imgHtml;
+  if (biz.ss) {
+    // Live site — show screenshot, fallback if it fails
+    imgHtml = '<img src="' + screenshotSrc(biz.ss) + '" alt="' + biz.name + '" loading="lazy" ' +
+      'onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">' +
+      '<div class="fallback" style="display:none;background:' + grad + '">' +
+        '<div class="fb-name">' + biz.name + '</div>' +
+        '<div class="fb-host">' + host + '</div>' +
+      '</div>';
+  } else {
+    // No live site — gradient with name
+    imgHtml = '<div class="fallback" style="display:flex;background:' + grad + '">' +
+      '<div class="fb-name">' + biz.name + '</div>' +
+      '<div class="fb-host">' + host + '</div>' +
+      '<div class="fb-status">In development</div>' +
+    '</div>';
+  }
+
+  var domainBadge = '';
+  if (biz.domains.length > 0) {
+    domainBadge = '<span class="badge" style="background:rgba(255,255,255,0.05);color:var(--text-dim)">' +
+      biz.domains.length + ' domain' + (biz.domains.length > 1 ? 's' : '') + '</span>';
+  }
+
+  return '<div class="biz-card" data-group="' + biz.group + '" onclick="openModal(' + biz.id + ')">' +
+    '<div class="card-img">' + 
+      imgHtml + 
+      '<a class="card-visit" href="' + biz.canonical + '" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Visit site">↗</a>' +
+    '</div>' +
+    '<div class="card-body">' +
+      '<h3>' + biz.name + '</h3>' +
+      '<div class="slug">' + biz.slug + ' · ' + biz.group + '</div>' +
+      '<div class="meta">' +
+        '<span class="badge badge-' + statusClass + '">' + (biz.ss ? 'LIVE' : 'PLANNED') + '</span>' +
+        domainBadge +
+      '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+function renderPortfolio(filter) {
+  var container = document.getElementById('portfolioView');
+  var html = '';
+  var groups = ['G1','G2','G3','G4','G5','G6','G7'];
+
+  groups.forEach(function(g) {
+    if (filter !== 'all' && filter !== g) return;
+    var gm = groupMeta[g];
+    var groupBiz = businesses.filter(function(b) { return b.group === g; });
+
+    html += '<div class="group-section" data-group="' + g + '">' +
+      '<div class="group-header">' +
+        '<div class="group-badge" style="background:' + gm.color + '">' + g + '</div>' +
+        '<div>' +
+          '<div class="group-title">' + gm.name + '</div>' +
+          '<div style="color:var(--text-dim);font-size:0.85rem">' + gm.desc + '</div>' +
+        '</div>' +
+        '<div class="group-count">' + groupBiz.length + ' businesses</div>' +
+      '</div>' +
+      '<div class="cards-grid">' +
+        groupBiz.map(renderCard).join('') +
+      '</div>' +
+    '</div>';
   });
-  const d = await res.json();
-  const body = JSON.parse(d.result.body);
-  if (body.error) throw new Error(body.error);
-  return body.rows || [];
+
+  container.innerHTML = html;
 }
 
-/* ════════════════════════════════════════
-   HELPERS
-════════════════════════════════════════ */
-function statusDot(m) {
-  if (m === 'good') return 'good';
-  if (m === 'warn') return 'warn';
-  return 'bad';
-}
+/* ========================================================
+   RENDER: DOMAIN MAP TABLE
+   ======================================================== */
+function renderDomainMap() {
+  var container = document.getElementById('domainView');
+  var rows = '';
+  var groups = ['G1','G2','G3','G4','G5','G6','G7'];
 
-function laneStatus(s) {
-  if (s === 'control') return 'control';
-  if (s === 'measurement') return 'measurement';
-  return '';
-}
+  groups.forEach(function(g) {
+    var gm = groupMeta[g];
+    var groupBiz = businesses.filter(function(b) { return b.group === g; });
 
-function toastShow(msg, sub) {
-  document.getElementById('toastMsg').textContent = msg;
-  document.getElementById('toastSub').textContent = sub || '';
-  const t = document.getElementById('toast');
-  t.style.display = 'block';
-  clearTimeout(window.__tt);
-  window.__tt = setTimeout(() => t.style.display = 'none', 3000);
-}
+    rows += '<tr><td colspan="4" style="background:var(--surface);padding:16px;font-family:Fraunces,serif;font-weight:700;font-size:1.1rem">' +
+      '<span style="display:inline-block;width:32px;height:32px;border-radius:8px;background:' + gm.color + ';color:#fff;text-align:center;line-height:32px;font-size:0.8rem;margin-right:12px;vertical-align:middle">' + g + '</span>' +
+      gm.name + ' — ' + gm.desc + '</td></tr>';
 
-/* ════════════════════════════════════════
-   LOAD DATA FROM SUPABASE VIA BRIDGE
-════════════════════════════════════════ */
-let ARMS_DATA = [];
+    groupBiz.forEach(function(biz) {
+      var host = '';
+      try { host = new URL(biz.canonical).hostname; } catch(e) { host = biz.slug; }
 
-async function loadSurface() {
-  // Single query: arms + lanes aggregated
-  const sql = `
-    SELECT
-      a.id, a.name, a.entry_point, a.one_liner, a.stage,
-      a.progress, a.maturity, a.revenue_hook, a.widget_slug,
-      COALESCE(
-        json_agg(
-          json_build_object(
-            'id', l.id,
-            'name', l.lane_name,
-            'order', l.lane_order,
-            'status', l.status,
-            'evidence', l.evidence_links
-          ) ORDER BY l.lane_order
-        ) FILTER (WHERE l.id IS NOT NULL),
-        '[]'
-      ) as lanes
-    FROM research_arms a
-    LEFT JOIN research_lanes l ON l.arm_id = a.id
-    GROUP BY a.id, a.name, a.entry_point, a.one_liner, a.stage,
-             a.progress, a.maturity, a.revenue_hook, a.widget_slug
-    ORDER BY
-      CASE a.maturity WHEN 'good' THEN 1 WHEN 'warn' THEN 2 ELSE 3 END,
-      a.id
-  `;
-  return await bridgeQuery(sql);
-}
-
-/* ════════════════════════════════════════
-   RENDER: OVERLAY TABLE
-════════════════════════════════════════ */
-function renderOverlayTable(arms) {
-  const rows = arms.map(a => {
-    const lanes = (a.lanes || []).map(l => {
-      const sc = laneStatus(l.status);
-      return `<span class="lane-chip ${sc}" data-arm="${a.id}" data-lane="${encodeURIComponent(l.name)}" data-arm-name="${encodeURIComponent(a.name)}" data-prog="${encodeURIComponent(a.progress)}">${l.name}</span>`;
-    }).join('');
-    const dc = statusDot(a.maturity);
-    return `
-      <tr>
-        <td>
-          <div class="arm-name">${a.name}</div>
-          <div class="arm-sub">${a.one_liner}</div>
-          <div style="margin-top:8px">
-            <span class="tag"><span class="sdot ${dc}"></span>${a.entry_point}</span>
-          </div>
-        </td>
-        <td>
-          <div class="lanes">${lanes}</div>
-        </td>
-        <td>
-          <span class="tag"><span class="sdot ${dc}"></span>${a.progress}</span>
-        </td>
-      </tr>
-    `;
-  }).join('');
-
-  return `
-    <table>
-      <thead>
-        <tr>
-          <th style="width:26%">Arm</th>
-          <th style="width:56%">Lanes (click to inspect)</th>
-          <th style="width:18%">Progress</th>
-        </tr>
-      </thead>
-      <tbody>${rows}</tbody>
-    </table>
-  `;
-}
-
-/* ════════════════════════════════════════
-   RENDER: FULL TABLE
-════════════════════════════════════════ */
-function renderFullTable(arms) {
-  const rows = arms.map(a => {
-    const laneNames = (a.lanes || []).map(l => l.name).join(' · ');
-    const dc = statusDot(a.maturity);
-    return `
-      <tr>
-        <td><div class="arm-name">${a.name}</div><div class="arm-sub">${a.one_liner}</div></td>
-        <td style="font-family:var(--mono);font-size:11px;color:var(--muted)">${laneNames}</td>
-        <td><span class="tag"><span class="sdot ${dc}"></span>${a.progress}</span></td>
-        <td style="font-family:var(--mono);font-size:11px;color:var(--muted)">${a.entry_point}</td>
-        <td style="font-size:12px;color:var(--muted);max-width:160px">${a.revenue_hook || '—'}</td>
-      </tr>
-    `;
-  }).join('');
-
-  return `
-    <table>
-      <thead>
-        <tr>
-          <th>Arm</th>
-          <th>Lanes</th>
-          <th>Progress</th>
-          <th>Entry point</th>
-          <th>Revenue hook</th>
-        </tr>
-      </thead>
-      <tbody>${rows}</tbody>
-    </table>
-  `;
-}
-
-/* ════════════════════════════════════════
-   RENDER: ARM CARDS
-════════════════════════════════════════ */
-function renderArmCards(arms) {
-  const grid = document.getElementById('armsGrid');
-  grid.innerHTML = arms.map(a => {
-    const dc = statusDot(a.maturity);
-    const laneChips = (a.lanes || []).slice(0,4).map(l => {
-      const sc = laneStatus(l.status);
-      return `<span class="lane-chip ${sc}">${l.name}</span>`;
-    }).join('');
-    const more = (a.lanes || []).length > 4 ? `<span class="lane-chip">+${a.lanes.length - 4} more</span>` : '';
-    return `
-      <div class="arm-card ${a.maturity}" data-id="${a.id}">
-        <div class="arm-card-head">
-          <div>
-            <div class="arm-card-name">${a.name}</div>
-            <span class="tag" style="margin-top:6px;display:inline-flex"><span class="sdot ${dc}"></span>${a.progress}</span>
-          </div>
-        </div>
-        <div class="arm-card-sub">${a.one_liner}</div>
-        <div class="arm-card-entry">${a.entry_point}</div>
-        <div class="lanes" style="margin-top:10px">${laneChips}${more}</div>
-        <div class="arm-card-revenue">
-          <strong>Revenue hook</strong>
-          ${a.revenue_hook || 'TBD'}
-        </div>
-      </div>
-    `;
-  }).join('');
-
-  document.getElementById('armsMeta').textContent = `${arms.length} programmes · ${arms.reduce((s,a)=>s+(a.lanes||[]).length,0)} lanes · live from Supabase`;
-
-  grid.querySelectorAll('.arm-card').forEach(el => {
-    el.addEventListener('click', () => {
-      const arm = arms.find(a => a.id === el.dataset.id);
-      if (arm) toastShow(arm.name, arm.one_liner);
+      rows += '<tr>' +
+        '<td style="font-weight:500">' + biz.name + '</td>' +
+        '<td><a class="domain-url" href="' + biz.canonical + '" target="_blank">' + host + '</a></td>' +
+        '<td><span class="badge badge-' + (biz.ss ? 'active' : 'planned') + '">' + (biz.ss ? 'LIVE' : 'PLANNED') + '</span></td>' +
+        '<td>' + (biz.domains.length > 0 ? biz.domains.map(function(d) { return '<span style="font-size:0.75rem;color:var(--text-dim);font-family:monospace">' + d + '</span>'; }).join('<br>') : '<span style="color:var(--text-dim);font-size:0.75rem">—</span>') + '</td>' +
+      '</tr>';
     });
   });
+
+  container.innerHTML = '<table class="domain-table">' +
+    '<thead><tr><th>Business</th><th>Canonical URL</th><th>Status</th><th>All Domains</th></tr></thead>' +
+    '<tbody>' + rows + '</tbody></table>';
 }
 
-/* ════════════════════════════════════════
-   WIRE LANE CLICK (delegated)
-════════════════════════════════════════ */
-function wireLaneClicks() {
-  document.addEventListener('click', e => {
-    const chip = e.target.closest('.lane-chip[data-arm]');
-    if (!chip) return;
-    const armName = decodeURIComponent(chip.dataset.armName || chip.dataset.arm);
-    const laneName = decodeURIComponent(chip.dataset.lane);
-    const prog = decodeURIComponent(chip.dataset.prog || '');
-    toastShow(`${armName} — ${laneName}`, prog ? `Progress: ${prog}` : '');
-  });
+/* ========================================================
+   UI CONTROLLERS
+   ======================================================== */
+function filterGroup(group, btn) {
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+  renderPortfolio(group);
 }
 
-/* ════════════════════════════════════════
-   TOGGLE: OVERLAY / TABLE
-════════════════════════════════════════ */
-function wireModeToggle() {
-  const b1 = document.getElementById('btnOverlay');
-  const b2 = document.getElementById('btnTable');
-  const op = document.getElementById('overlayPanel');
-  const tp = document.getElementById('tablePanel');
-  const ic = document.getElementById('imgFrame');
+function showView(view) {
+  document.querySelectorAll('.view-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('portfolioView').style.display = 'none';
+  document.getElementById('domainView').style.display = 'none';
+  document.getElementById('analyticsView').style.display = 'none';
+  document.getElementById('tabBar').style.display = 'none';
 
-  b1.addEventListener('click', () => {
-    b1.classList.add('active'); b2.classList.remove('active');
-    op.style.display = ''; tp.style.display = 'none';
-    ic.style.display = '';
-  });
-  b2.addEventListener('click', () => {
-    b2.classList.add('active'); b1.classList.remove('active');
-    op.style.display = 'none'; tp.style.display = '';
-    ic.style.display = 'none';
-  });
-}
-
-/* ════════════════════════════════════════
-   WIDGET INJECTION — Bridge-native
-   Fetches widget HTML from ui_snippets table via Bridge
-════════════════════════════════════════ */
-async function injectWidget(slug, targetId) {
-  try {
-    const rows = await bridgeQuery(
-      `SELECT html, title, version FROM ui_snippets WHERE slug = '${slug}' AND active = TRUE LIMIT 1`
-    );
-    if (rows && rows.length && rows[0].html) {
-      const el = document.getElementById(targetId);
-      if (el) el.innerHTML = rows[0].html;
-    }
-  } catch(e) {
-    // silent — slot stays as placeholder
+  if (view === 'portfolio') {
+    document.getElementById('portfolioView').style.display = 'block';
+    document.getElementById('tabBar').style.display = 'flex';
+    document.querySelectorAll('.view-btn')[0].classList.add('active');
+  } else if (view === 'domain') {
+    document.getElementById('domainView').style.display = 'block';
+    document.querySelectorAll('.view-btn')[1].classList.add('active');
+    renderDomainMap();
+  } else if (view === 'analytics') {
+    document.getElementById('analyticsView').style.display = 'block';
+    document.querySelectorAll('.view-btn')[2].classList.add('active');
+    renderAnalytics();
+  } else if (view === 'internal-tools') {
+    document.getElementById('internalToolsView').style.display = 'block';
+    document.querySelectorAll('.view-btn')[3].classList.add('active');
+    renderInternalTools();
   }
 }
 
-/* ════════════════════════════════════════
-   INIT
-════════════════════════════════════════ */
-(async function init() {
-  wireModeToggle();
-  wireLaneClicks();
+/* ========================================================
+   RENDER: INTERNAL TOOLS VIEW
+   ======================================================== */
+var internalToolsRendered = false;
+function renderInternalTools() {
+  if (internalToolsRendered) return;
+  internalToolsRendered = true;
+  var container = document.getElementById('internalToolsView');
 
-  try {
-    const arms = await loadSurface();
-    ARMS_DATA = arms;
-
-    // Update KPI
-    const totalLanes = arms.reduce((s,a) => s + (a.lanes||[]).length, 0);
-    document.getElementById('kpiArms').textContent = arms.length;
-    document.getElementById('kpiLanes').textContent = totalLanes;
-    document.getElementById('metaChip').textContent = `Surface: ${totalLanes} vectors · live`;
-
-    // Render overlay table
-    document.getElementById('overlayTableWrap').innerHTML = renderOverlayTable(arms);
-
-    // Render full table (pre-render for instant toggle)
-    document.getElementById('tableWrap').innerHTML = renderFullTable(arms);
-
-    // Render arm cards
-    renderArmCards(arms);
-
-    // Update stage badge from data
-    const warned = arms.filter(a => a.maturity === 'warn').length;
-    document.getElementById('stageBadge').textContent =
-      `Stage ${warned >= 4 ? '3' : warned >= 2 ? '2' : '1'} · ${warned} active arms`;
-
-  } catch(err) {
-    console.error('Surface load failed:', err);
-    document.getElementById('overlayTableWrap').innerHTML =
-      `<div class="error-state">Failed to load from Supabase: ${err.message}<br>Falling back to static…</div>`;
-
-    // Fallback: static seed data
-    loadStaticFallback();
-  }
-
-  // Widget injection — Bridge-native (active)
-  injectWidget('mcp-health',      'widget-mcp-health');
-  injectWidget('reality-ledger',  'widget-reality-ledger');
-  injectWidget('ip-registry',     'widget-ip-registry');
-
-  // Last updated timestamp
-  try {
-    const ts = await bridgeQuery(
-      `SELECT MAX(updated_at) as last_updated FROM research_arms`
-    );
-    if (ts && ts[0] && ts[0].last_updated) {
-      const d = new Date(ts[0].last_updated);
-      const fmt = d.toLocaleDateString('en-AU', { day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit', timeZone:'Australia/Sydney' });
-      const footer = document.querySelector('.footer-meta');
-      if (footer) footer.textContent += ` · Registry updated ${fmt} AEDT`;
+  var tools = [
+    {
+      name: 'Tech4Humanity Tools Hub',
+      url: 'https://tech4humanity.net/',
+      desc: 'Central hub for T4H tools, calculators, and utilities across all business platforms. Covers AI, BCI, robotics, workforce, finance, and more.',
+      group: 'All Platforms',
+      icon: '🛠️',
+      status: 'live'
     }
-  } catch(e) {}
-})();
-
-/* ════════════════════════════════════════
-   STATIC FALLBACK (if Bridge unreachable)
-════════════════════════════════════════ */
-function loadStaticFallback() {
-  const STATIC = [
-    { id:'ass', name:'AI Sweet Spots', entry_point:'Economic entry point', one_liner:'From performance curiosity → measurable productivity science', progress:'Measurement → Control', maturity:'warn', revenue_hook:'Research licensing, enterprise benchmarking, certification', lanes:[{name:'Core curves',status:'control'},{name:'Measurement metrics',status:'control'},{name:'Population profiles',status:'measurement'},{name:'Adaptive involvement',status:'measurement'},{name:'Replication',status:'measurement'},{name:'Negative responders',status:'exploration'},{name:'Translation layer',status:'exploration'},{name:'Deployment playbooks',status:'exploration'}] },
-    { id:'dcp', name:'Digital Child Protection', entry_point:'Immediate societal entry point', one_liner:'From safety concern → ecosystem protection infrastructure', progress:'Exploration → Measurement', maturity:'warn', revenue_hook:'Gov contracts, compliance tooling, platform licensing', lanes:[{name:'Platform compliance',status:'measurement'},{name:'Ban monitoring',status:'measurement'},{name:'Network protection',status:'exploration'},{name:'Consent architecture',status:'exploration'},{name:'Behaviour modelling',status:'exploration'},{name:'Cost-benefit analysis',status:'exploration'},{name:'Family tooling',status:'exploration'},{name:'Policy translation',status:'exploration'}] },
-    { id:'care', name:'CARE / Cultural Sovereignty', entry_point:'Trust entry point', one_liner:'From inclusion conversation → sovereign AI capability', progress:'Exploration', maturity:'bad', revenue_hook:'Community grants, sovereign model licensing, advisory', lanes:[{name:'Cultural risk'},{name:'Community AI literacy'},{name:'Indigenous models'},{name:'Language access'},{name:'Trust frameworks'},{name:'Governance patterns'},{name:'Adoption disparity'},{name:'Community deployment'}].map(l=>({...l,status:'exploration'})) },
-    { id:'xai', name:'Extreme AI Effects', entry_point:'Safety entry point', one_liner:'From edge curiosity → safety science', progress:'Exploration → Measurement', maturity:'warn', revenue_hook:'Safety audits, enterprise risk consulting, publication', lanes:[{name:'Extreme gains',status:'measurement'},{name:'Skill atrophy',status:'measurement'},{name:'Psychological effects',status:'exploration'},{name:'Medication interaction',status:'exploration'},{name:'Cognitive overload',status:'exploration'},{name:'Safety thresholds',status:'exploration'},{name:'High-stakes scenarios',status:'exploration'},{name:'Mitigation protocols',status:'exploration'}] },
-    { id:'xover', name:'X-overpoints (Economic + Workforce)', entry_point:'Market entry point', one_liner:'From labour change → economic restructuring insight', progress:'Exploration', maturity:'bad', revenue_hook:'Economic advisory, workforce analytics, policy consulting', lanes:['Hiring distortion','Cognitive arbitrage','Market mispricing','Team asymmetry','Capability stacking','Competitive displacement','Capital signalling','Labour redesign'].map(n=>({name:n,status:'exploration'})) },
-    { id:'bio', name:'Human Biology × AI', entry_point:'Clinical entry point', one_liner:'From body ignored → embodied intelligence models', progress:'Exploration', maturity:'bad', revenue_hook:'Clinical partnerships, biomarker licensing, med-tech', lanes:['Sleep','Hormones','Neurodivergence','Physical cognition','Biomarkers','Interoception','Ageing effects','Clinical integration'].map(n=>({name:n,status:'exploration'})) },
-    { id:'mns', name:'MyNeuralSignal', entry_point:'Long-horizon moat', one_liner:'From abstract trust → measurable human signal integrity', progress:'Exploration → Measurement', maturity:'warn', revenue_hook:'Signal data licensing, compliance tooling, BCI integration', lanes:[{name:'Signal capture',status:'measurement'},{name:'Trust metrics',status:'measurement'},{name:'Consent telemetry',status:'exploration'},{name:'Validation methods',status:'exploration'},{name:'Compliance mapping',status:'exploration'},{name:'Biosignal translation',status:'exploration'},{name:'Risk detection',status:'exploration'},{name:'Auditability',status:'exploration'}] },
-    { id:'ubi', name:'Unified Biological Intelligence', entry_point:'Long-horizon moat', one_liner:'From research synthesis → long-term human protection doctrine', progress:'Exploration', maturity:'bad', revenue_hook:'Foundational IP, standards body, long-horizon licensing', lanes:['Foundational theory','Neuro intelligence','Emotional intelligence','Somatic intelligence','Bioelectromagnetic','Safety boundaries','Certification models','Human preservation'].map(n=>({name:n,status:'exploration'})) }
   ];
-  ARMS_DATA = STATIC;
-  const totalLanes = STATIC.reduce((s,a)=>s+a.lanes.length,0);
-  document.getElementById('kpiArms').textContent = STATIC.length;
-  document.getElementById('kpiLanes').textContent = totalLanes;
-  document.getElementById('metaChip').textContent = `Surface: ${totalLanes} vectors · static fallback`;
-  document.getElementById('overlayTableWrap').innerHTML = renderOverlayTable(STATIC);
-  document.getElementById('tableWrap').innerHTML = renderFullTable(STATIC);
-  renderArmCards(STATIC);
+
+  var html = '<div style="padding:32px 24px;">';
+  html += '<h2 style="font-size:1.4rem;margin-bottom:8px;">Internal Tools</h2>';
+  html += '<p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:32px;">T4H operational tools, calculators, and utilities across all business platforms.</p>';
+  html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;">';
+
+  tools.forEach(function(tool) {
+    html += '<div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;transition:border-color 0.2s;" onmouseover="this.style.borderColor=\'var(--accent)\'" onmouseout="this.style.borderColor=\'var(--border)\'">';
+    html += '<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">';
+    html += '<span style="font-size:1.8rem;">' + tool.icon + '</span>';
+    html += '<div>';
+    html += '<div style="font-weight:600;font-size:1rem;">' + tool.name + '</div>';
+    html += '<div style="font-size:0.75rem;color:var(--text-dim);">' + tool.group + '</div>';
+    html += '</div>';
+    html += '<div style="margin-left:auto;"><span style="font-size:0.7rem;padding:2px 8px;border-radius:10px;background:' + (tool.status==='live'?'rgba(34,197,94,0.15)':'rgba(250,204,21,0.15)') + ';color:' + (tool.status==='live'?'#4ade80':'#fbbf24') + ';">' + tool.status.toUpperCase() + '</span></div>';
+    html += '</div>';
+    html += '<p style="font-size:0.83rem;color:var(--text-dim);margin-bottom:16px;line-height:1.5;">' + tool.desc + '</p>';
+    html += '<a href="' + tool.url + '" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;font-size:0.82rem;color:var(--accent);text-decoration:none;">Visit Site →</a>';
+    html += '</div>';
+  });
+
+  html += '</div></div>';
+  container.innerHTML = html;
 }
+
+// INIT
+renderPortfolio('all');
+
+/* ========================================================
+   RENDER: ANALYTICS VIEW
+   ======================================================== */
+function renderAnalytics() {
+  var container = document.getElementById('analyticsView');
+  
+  // Calculate stats
+  var liveCount = businesses.filter(function(b) { return b.ss !== null; }).length;
+  var plannedCount = businesses.length - liveCount;
+  var totalDomains = businesses.reduce(function(sum, b) { return sum + b.domains.length; }, 0);
+  var withVercel = businesses.filter(function(b) { return b.vercel !== null; }).length;
+  
+  // Group stats
+  var groupStats = {};
+  ['G1','G2','G3','G4','G5','G6','G7'].forEach(function(g) {
+    var gBiz = businesses.filter(function(b) { return b.group === g; });
+    groupStats[g] = {
+      total: gBiz.length,
+      live: gBiz.filter(function(b) { return b.ss !== null; }).length,
+      domains: gBiz.reduce(function(sum, b) { return sum + b.domains.length; }, 0)
+    };
+  });
+  
+  var html = '<div class="analytics-header">' +
+    '<h2>Portfolio Analytics</h2>' +
+    '<p>Infrastructure overview, site health, and metrics for all 42 businesses</p>' +
+  '</div>' +
+  '<div class="analytics-grid">' +
+    
+    // OVERVIEW CARD
+    '<div class="analytics-card">' +
+      '<h3><span class="icon" style="background:var(--g1-bg);color:var(--g1)">📊</span>Overview</h3>' +
+      '<div class="analytics-metric"><span class="analytics-metric-label">Total Businesses</span><span class="analytics-metric-value">42</span></div>' +
+      '<div class="analytics-metric"><span class="analytics-metric-label">Live Sites</span><span class="analytics-metric-value" style="color:var(--g1)">' + liveCount + '</span></div>' +
+      '<div class="analytics-metric"><span class="analytics-metric-label">In Development</span><span class="analytics-metric-value" style="color:var(--accent)">' + plannedCount + '</span></div>' +
+      '<div class="analytics-metric"><span class="analytics-metric-label">Total Domains</span><span class="analytics-metric-value">' + totalDomains + '</span></div>' +
+      '<div class="analytics-metric"><span class="analytics-metric-label">Vercel Projects</span><span class="analytics-metric-value">' + withVercel + '</span></div>' +
+    '</div>' +
+    
+    // GROUP BREAKDOWN
+    '<div class="analytics-card">' +
+      '<h3><span class="icon" style="background:var(--g2-bg);color:var(--g2)">📁</span>By Group</h3>' +
+      '<table class="analytics-table">' +
+        '<tr><th>Group</th><th>Total</th><th>Live</th><th>Coverage</th></tr>' +
+        ['G1','G2','G3','G4','G5','G6','G7'].map(function(g) {
+          var s = groupStats[g];
+          var pct = Math.round((s.live / s.total) * 100);
+          return '<tr>' +
+            '<td><span style="color:' + colorHex[g] + ';font-weight:600">' + g + '</span> ' + groupMeta[g].name + '</td>' +
+            '<td>' + s.total + '</td>' +
+            '<td>' + s.live + '</td>' +
+            '<td><div style="display:flex;align-items:center;gap:8px"><span style="width:40px">' + pct + '%</span><div class="analytics-bar" style="flex:1"><div class="analytics-bar-fill" style="width:' + pct + '%;background:' + colorHex[g] + '"></div></div></div></td>' +
+          '</tr>';
+        }).join('') +
+      '</table>' +
+    '</div>' +
+    
+    // SUPABASE TABLES
+    '<div class="analytics-card">' +
+      '<h3><span class="icon" style="background:var(--g3-bg);color:var(--g3)">🗄️</span>Supabase Tables</h3>' +
+      '<table class="analytics-table">' +
+        '<tr><th>Table</th><th>Rows</th><th>Purpose</th></tr>' +
+        '<tr><td><code>mcp_business_registry</code></td><td>42</td><td>Core business definitions</td></tr>' +
+        '<tr><td><code>sites_registry</code></td><td>80</td><td>Site infrastructure</td></tr>' +
+        '<tr><td><code>vercel_projects_map</code></td><td>156</td><td>Vercel deployments</td></tr>' +
+        '<tr><td><code>domains</code></td><td>35</td><td>Registered domains</td></tr>' +
+        '<tr><td><code>group_counts</code></td><td>28</td><td>Category aggregates</td></tr>' +
+      '</table>' +
+    '</div>' +
+    
+    // TRAFFIC & REVENUE (PLACEHOLDER)
+    '<div class="analytics-card">' +
+      '<h3><span class="icon" style="background:var(--g4-bg);color:var(--g4)">📈</span>Traffic & Revenue</h3>' +
+      '<div class="analytics-placeholder">' +
+        '<div class="icon">🔗</div>' +
+        '<div>Connect analytics to view traffic data</div>' +
+        '<div style="margin-top:12px;font-size:0.8rem">Requires: Vercel Analytics, Plausible, or GA4 integration</div>' +
+      '</div>' +
+    '</div>' +
+    
+    // SITE HEALTH
+    '<div class="analytics-card">' +
+      '<h3><span class="icon" style="background:var(--g5-bg);color:var(--g5)">💚</span>Site Health</h3>' +
+      '<table class="analytics-table">' +
+        '<tr><th>Status</th><th>Count</th><th></th></tr>' +
+        '<tr><td>🟢 Live & Healthy</td><td>' + liveCount + '</td><td><span style="color:var(--g1)">OK</span></td></tr>' +
+        '<tr><td>🔵 In Development</td><td>' + plannedCount + '</td><td><span style="color:var(--accent)">Building</span></td></tr>' +
+        '<tr><td>🟡 Needs Review</td><td>0</td><td><span style="color:var(--g3)">Pending</span></td></tr>' +
+        '<tr><td>🔴 Down/Issues</td><td>0</td><td><span style="color:var(--g4)">—</span></td></tr>' +
+      '</table>' +
+    '</div>' +
+    
+    // RECENT ACTIVITY
+    '<div class="analytics-card">' +
+      '<h3><span class="icon" style="background:var(--g6-bg);color:var(--g6)">🕐</span>Infrastructure</h3>' +
+      '<div class="analytics-metric"><span class="analytics-metric-label">Supabase Project</span><span class="analytics-metric-value" style="font-size:0.9rem">lzfgigiyqpuuxslsygjt</span></div>' +
+      '<div class="analytics-metric"><span class="analytics-metric-label">Vercel Team</span><span class="analytics-metric-value" style="font-size:0.9rem">troys-projects</span></div>' +
+      '<div class="analytics-metric"><span class="analytics-metric-label">Primary Region</span><span class="analytics-metric-value" style="font-size:0.9rem">Sydney (ap-southeast-2)</span></div>' +
+      '<div class="analytics-metric"><span class="analytics-metric-label">CDN</span><span class="analytics-metric-value" style="font-size:0.9rem">Vercel Edge Network</span></div>' +
+    '</div>' +
+    
+  '</div>';
+  
+  container.innerHTML = html;
+}
+
+/* ========================================================
+   MODAL FUNCTIONS
+   ======================================================== */
+function openModal(bizId) {
+  var biz = businesses.find(function(b) { return b.id === bizId; });
+  if (!biz) return;
+
+  var gm = groupMeta[biz.group];
+  var c = colorHex[biz.group] || '#3b82f6';
+
+  // Header
+  document.getElementById('modalBadge').style.background = c;
+  document.getElementById('modalBadge').textContent = biz.group;
+  document.getElementById('modalTitle').textContent = biz.name;
+
+  // Screenshot
+  var ssContainer = document.getElementById('modalScreenshot');
+  if (biz.ss) {
+    ssContainer.innerHTML = '<img src="' + screenshotSrc(biz.ss) + '" alt="' + biz.name + '" onerror="this.parentElement.innerHTML=\'<div class=fallback>' + biz.name + '</div>\'">';
+  } else {
+    var grad = 'linear-gradient(135deg, ' + c + '25 0%, ' + c + '45 100%)';
+    ssContainer.innerHTML = '<div class="fallback" style="background:' + grad + '">' + biz.name + '</div>';
+  }
+
+  // Business Info Tab
+  var host = '';
+  try { host = new URL(biz.canonical).hostname; } catch(e) { host = biz.slug; }
+  
+  var businessHtml = 
+    '<div class="info-item"><div class="info-label">Group</div><div class="info-value">' + biz.group + ' — ' + gm.name + '</div></div>' +
+    '<div class="info-item"><div class="info-label">Status</div><div class="info-value"><span class="badge badge-' + (biz.ss ? 'active' : 'planned') + '">' + (biz.ss ? 'LIVE' : 'PLANNED') + '</span></div></div>' +
+    '<div class="info-item"><div class="info-label">Canonical URL</div><div class="info-value"><a href="' + biz.canonical + '" target="_blank">' + host + '</a></div></div>' +
+    '<div class="info-item"><div class="info-label">Business ID</div><div class="info-value mono">' + biz.id + '</div></div>' +
+    '<div class="info-item" style="grid-column:1/-1"><div class="info-label">Description</div><div class="info-value">' + (biz.desc || 'No description available.') + '</div></div>';
+  document.getElementById('businessInfo').innerHTML = businessHtml;
+
+  // Technical Info Tab
+  var technicalHtml = 
+    '<div class="info-item"><div class="info-label">Slug</div><div class="info-value mono">' + biz.slug + '</div></div>' +
+    '<div class="info-item"><div class="info-label">Vercel Project</div><div class="info-value mono">' + (biz.vercel ? '<a href="https://' + biz.vercel + '.vercel.app" target="_blank">' + biz.vercel + '</a>' : '—') + '</div></div>' +
+    '<div class="info-item"><div class="info-label">GitHub Repo</div><div class="info-value mono">' + (biz.github ? '<a href="https://github.com/' + biz.github + '" target="_blank">' + biz.github + '</a>' : '—') + '</div></div>' +
+    '<div class="info-item"><div class="info-label">Screenshot Source</div><div class="info-value mono" style="font-size:0.7rem">' + (biz.ss || '—') + '</div></div>' +
+    '<div class="info-item"><div class="info-label">Domain Count</div><div class="info-value">' + biz.domains.length + '</div></div>' +
+    '<div class="info-item"><div class="info-label">Group Category</div><div class="info-value">' + gm.desc + '</div></div>';
+  document.getElementById('technicalInfo').innerHTML = technicalHtml;
+
+  // Domains Tab
+  var domainsHtml = '<div class="info-label" style="margin-bottom:8px">Registered Domains (' + biz.domains.length + ')</div>';
+  if (biz.domains.length > 0) {
+    domainsHtml += '<div class="domain-list">';
+    biz.domains.forEach(function(d) {
+      domainsHtml += '<a class="domain-chip" href="https://' + d + '" target="_blank">' + d + '</a>';
+    });
+    domainsHtml += '</div>';
+  } else {
+    domainsHtml += '<div style="color:var(--text-dim);font-size:0.85rem">No additional domains registered for this business.</div>';
+  }
+  document.getElementById('domainsInfo').innerHTML = domainsHtml;
+
+  // Visit button
+  document.getElementById('modalVisitBtn').href = biz.canonical;
+
+  // Reset to first tab
+  showModalTab('business', document.querySelector('.modal-tab'));
+
+  // Show modal
+  document.getElementById('modalOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function showModalTab(tabId, btn) {
+  // Update tab buttons
+  document.querySelectorAll('.modal-tab').forEach(function(t) { t.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+  
+  // Update tab content
+  document.querySelectorAll('.modal-content').forEach(function(c) { c.classList.remove('active'); });
+  document.getElementById('tab-' + tabId).classList.add('active');
+}
+
+// Close modal on Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
+});
 </script>
 </body>
 </html>
