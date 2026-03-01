@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tech 4 Humanity — Research Organism · 8×8 Surface</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b12;
+  --surface: #0d1018;
+  --surface2: #121620;
+  --border: #1a1f2e;
+  --border2: #242938;
+  --text: #e8eaf0;
+  --text-dim: #5a6178;
+  --text-mid: #8890aa;
+  --accent: #4f7fff;
+  --accent2: #7c5cfc;
+  --real: #22c55e;
+  --partial: #f59e0b;
+  --pretend: #6b7280;
+  --real-bg: rgba(34,197,94,0.08);
+  --partial-bg: rgba(245,158,11,0.08);
+  --pretend-bg: rgba(107,114,128,0.06);
+  --glow: rgba(79,127,255,0.15);
+}
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body {
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  line-height:1.6;
+  overflow-x:hidden;
+}
+body::before {
+  content:'';
+  position:fixed;
+  top:-200px;
+  left:50%;
+  transform:translateX(-50%);
+  width:900px;
+  height:500px;
+  background:radial-gradient(ellipse, rgba(79,127,255,0.06) 0%, transparent 70%);
+  pointer-events:none;
+  z-index:0;
+}
+
+/* ── NAV ── */
+nav {
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:rgba(8,11,18,0.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 40px;
+  height:60px;
+}
+.nav-brand {
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.nav-logo {
+  width:32px;
+  height:32px;
+  border-radius:8px;
+  background:linear-gradient(135deg, var(--accent), var(--accent2));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'Syne',sans-serif;
+  font-weight:800;
+  font-size:13px;
+  color:#fff;
+  flex-shrink:0;
+}
+.nav-title {
+  font-family:'Syne',sans-serif;
+  font-weight:700;
+  font-size:15px;
+  letter-spacing:0.02em;
+}
+.nav-subtitle {
+  font-size:11px;
+  color:var(--text-dim);
+  font-family:'DM Mono',monospace;
+  margin-top:1px;
+}
+.nav-links {
+  display:flex;
+  gap:4px;
+}
+.nav-link {
+  padding:6px 16px;
+  border-radius:6px;
+  font-size:13px;
+  color:var(--text-mid);
+  text-decoration:none;
+  transition:all 0.2s;
+  font-weight:500;
+}
+.nav-link:hover, .nav-link.active {
+  color:var(--text);
+  background:var(--surface2);
+}
+.nav-link.active {
+  color:var(--accent);
+}
+
+/* ── HERO ── */
+.hero {
+  position:relative;
+  padding:80px 40px 64px;
+  max-width:1100px;
+  margin:0 auto;
+  z-index:1;
+}
+.hero-tag {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:5px 14px;
+  border:1px solid var(--border2);
+  border-radius:20px;
+  font-size:11px;
+  color:var(--text-dim);
+  font-family:'DM Mono',monospace;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  margin-bottom:24px;
+}
+.hero-tag::before {
+  content:'';
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--accent);
+  animation:pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity:1; }
+  50% { opacity:0.4; }
+}
+.hero h1 {
+  font-family:'Syne',sans-serif;
+  font-size:clamp(2.4rem,5vw,4rem);
+  font-weight:800;
+  letter-spacing:-0.03em;
+  line-height:1.05;
+  margin-bottom:20px;
+}
+.hero h1 span {
+  background:linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero-desc {
+  font-size:1.1rem;
+  color:var(--text-mid);
+  max-width:620px;
+  line-height:1.7;
+  margin-bottom:40px;
+}
+.hero-cta {
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.btn-primary {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:12px 24px;
+  background:var(--accent);
+  color:#fff;
+  border-radius:8px;
+  font-size:14px;
+  font-weight:600;
+  text-decoration:none;
+  transition:all 0.2s;
+  border:none;
+  cursor:pointer;
+}
+.btn-primary:hover { background:#3d6de8; transform:translateY(-1px); }
+.btn-secondary {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:12px 24px;
+  background:transparent;
+  color:var(--text-mid);
+  border:1px solid var(--border2);
+  border-radius:8px;
+  font-size:14px;
+  font-weight:500;
+  text-decoration:none;
+  transition:all 0.2s;
+  cursor:pointer;
+}
+.btn-secondary:hover { color:var(--text); border-color:var(--text-dim); }
+
+/* ── STATUS LEGEND ── */
+.status-legend {
+  display:flex;
+  align-items:center;
+  gap:20px;
+  padding:14px 20px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:10px;
+  margin-bottom:12px;
+  flex-wrap:wrap;
+}
+.status-legend-label {
+  font-size:11px;
+  color:var(--text-dim);
+  font-family:'DM Mono',monospace;
+  text-transform:uppercase;
+  letter-spacing:0.06em;
+  margin-right:4px;
+}
+.status-item {
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:12px;
+  font-weight:600;
+  font-family:'DM Mono',monospace;
+}
+.status-dot {
+  width:8px;
+  height:8px;
+  border-radius:2px;
+}
+.status-dot.real { background:var(--real); }
+.status-dot.partial { background:var(--partial); }
+.status-dot.pretend { background:var(--pretend); }
+.status-real { color:var(--real); }
+.status-partial { color:var(--partial); }
+.status-pretend { color:var(--pretend); }
+
+/* ── SECTION ── */
+.section {
+  max-width:1100px;
+  margin:0 auto;
+  padding:0 40px 80px;
+  position:relative;
+  z-index:1;
+}
+.section-header {
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  margin-bottom:32px;
+  padding-bottom:20px;
+  border-bottom:1px solid var(--border);
+}
+.section-title {
+  font-family:'Syne',sans-serif;
+  font-size:1.4rem;
+  font-weight:700;
+  letter-spacing:-0.01em;
+}
+.section-meta {
+  font-size:12px;
+  color:var(--text-dim);
+  font-family:'DM Mono',monospace;
+}
+
+/* ── ARMS GRID ── */
+.arms-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
+  gap:16px;
+}
+.arm-card {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:20px;
+  transition:all 0.25s;
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+}
+.arm-card::before {
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:2px;
+  border-radius:12px 12px 0 0;
+  opacity:0.6;
+  transition:opacity 0.25s;
+}
+.arm-card:hover {
+  border-color:var(--border2);
+  transform:translateY(-2px);
+  box-shadow:0 8px 32px rgba(0,0,0,0.3);
+}
+.arm-card:hover::before { opacity:1; }
+.arm-id {
+  font-family:'DM Mono',monospace;
+  font-size:11px;
+  color:var(--text-dim);
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+  margin-bottom:8px;
+}
+.arm-name {
+  font-family:'Syne',sans-serif;
+  font-size:1.1rem;
+  font-weight:700;
+  margin-bottom:8px;
+  line-height:1.2;
+}
+.arm-desc {
+  font-size:13px;
+  color:var(--text-mid);
+  line-height:1.5;
+  margin-bottom:14px;
+}
+.arm-stats {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.arm-stat {
+  display:flex;
+  align-items:center;
+  gap:4px;
+  font-size:11px;
+  font-family:'DM Mono',monospace;
+  padding:3px 8px;
+  border-radius:4px;
+}
+.arm-stat.real-stat { background:var(--real-bg); color:var(--real); }
+.arm-stat.partial-stat { background:var(--partial-bg); color:var(--partial); }
+.arm-stat.pretend-stat { background:var(--pretend-bg); color:var(--pretend); }
+.arm-image {
+  width:100%;
+  height:120px;
+  border-radius:8px;
+  margin-bottom:14px;
+  overflow:hidden;
+  background:var(--surface2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.arm-image img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.arm-image-placeholder {
+  font-size:2.5rem;
+  opacity:0.4;
+}
+
+/* ── DEFENSIBILITY SECTION ── */
+.defensibility-card {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:16px;
+  overflow:hidden;
+  margin-bottom:24px;
+}
+.defensibility-header {
+  padding:24px 28px 20px;
+  border-bottom:1px solid var(--border);
+}
+.defensibility-title {
+  font-family:'Syne',sans-serif;
+  font-size:1.3rem;
+  font-weight:700;
+  margin-bottom:8px;
+}
+.defensibility-desc {
+  font-size:14px;
+  color:var(--text-mid);
+  line-height:1.6;
+}
+.defensibility-desc strong {
+  font-weight:600;
+}
+.defensibility-desc strong.real { color:var(--real); }
+.defensibility-desc strong.partial { color:var(--partial); }
+.defensibility-desc strong.pretend { color:var(--pretend); }
+.schema-block {
+  padding:24px 28px;
+  background:rgba(0,0,0,0.2);
+}
+.schema-title {
+  font-family:'DM Mono',monospace;
+  font-size:11px;
+  color:var(--text-dim);
+  text-transform:uppercase;
+  letter-spacing:0.1em;
+  margin-bottom:14px;
+}
+.schema-fields {
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
+  gap:8px;
+}
+.schema-field {
+  display:flex;
+  align-items:baseline;
+  gap:8px;
+  padding:8px 12px;
+  background:var(--surface2);
+  border-radius:6px;
+  border:1px solid var(--border);
+}
+.field-name {
+  font-family:'DM Mono',monospace;
+  font-size:12px;
+  font-weight:500;
+  color:var(--accent);
+  flex-shrink:0;
+}
+.field-type {
+  font-family:'DM Mono',monospace;
+  font-size:11px;
+  color:var(--text-dim);
+}
+.field-desc {
+  font-size:12px;
+  color:var(--text-mid);
+  margin-left:auto;
+  text-align:right;
+}
+
+/* ── IP REGISTRY WIDGET ── */
+.widget-card {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:16px;
+  overflow:hidden;
+}
+.widget-header {
+  padding:20px 24px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.widget-tag {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-family:'DM Mono',monospace;
+  font-size:12px;
+  font-weight:500;
+  color:var(--accent);
+}
+.widget-tag-label {
+  font-size:10px;
+  color:var(--text-dim);
+  text-transform:uppercase;
+  letter-spacing:0.1em;
+  background:var(--surface2);
+  padding:2px 8px;
+  border-radius:4px;
+  border:1px solid var(--border);
+}
+.widget-desc {
+  font-size:13px;
+  color:var(--text-dim);
+  padding:16px 24px 20px;
+}
+.ip-table {
+  width:100%;
+  border-collapse:collapse;
+}
+.ip-table th {
+  text-align:left;
+  padding:10px 24px;
+  font-size:10px;
+  font-family:'DM Mono',monospace;
+  text-transform:uppercase;
+  letter-spacing:0.1em;
+  color:var(--text-dim);
+  border-bottom:1px solid var(--border);
+  background:rgba(0,0,0,0.15);
+}
+.ip-table td {
+  padding:12px 24px;
+  font-size:13px;
+  border-bottom:1px solid var(--border);
+}
+.ip-table tr:last-child td { border-bottom:none; }
+.ip-table tr:hover td { background:var(--surface2); }
+.status-badge {
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  padding:2px 8px;
+  border-radius:4px;
+  font-family:'DM Mono',monospace;
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:0.05em;
+}
+.status-badge.real { background:var(--real-bg); color:var(--real); }
+.status-badge.partial { background:var(--partial-bg); color:var(--partial); }
+.status-badge.pretend { background:var(--pretend-bg); color:var(--pretend); }
+.ip-claim { font-weight:500; color:var(--text); }
+.ip-arm { font-family:'DM Mono',monospace; font-size:11px; color:var(--text-dim); }
+.ip-rd-value { font-family:'DM Mono',monospace; font-size:12px; color:var(--text-mid); }
+.loading-row td { text-align:center; padding:40px; color:var(--text-dim); font-size:13px; }
+
+/* ── FUNDING SECTION ── */
+.funding-section {
+  text-align:center;
+  padding:100px 40px;
+  background:linear-gradient(180deg, transparent, var(--surface) 40%, var(--surface) 60%, transparent);
+  position:relative;
+}
+.funding-section::before {
+  content:'';
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:600px;
+  height:300px;
+  background:radial-gradient(ellipse, rgba(79,127,255,0.08), transparent 70%);
+  pointer-events:none;
+}
+.funding-headline {
+  font-family:'Syne',sans-serif;
+  font-size:clamp(2rem,4vw,3.2rem);
+  font-weight:800;
+  letter-spacing:-0.03em;
+  line-height:1.1;
+  margin-bottom:20px;
+}
+.funding-sub {
+  font-size:1.05rem;
+  color:var(--text-mid);
+  max-width:560px;
+  margin:0 auto 40px;
+  line-height:1.7;
+}
+.funding-arms {
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-bottom:40px;
+}
+.funding-arm-chip {
+  padding:8px 18px;
+  border:1px solid var(--border2);
+  border-radius:24px;
+  font-size:13px;
+  color:var(--text-mid);
+  font-family:'DM Mono',monospace;
+  transition:all 0.2s;
+  cursor:pointer;
+}
+.funding-arm-chip:hover {
+  border-color:var(--accent);
+  color:var(--accent);
+  background:rgba(79,127,255,0.06);
+}
+
+/* ── EVIDENCE SECTION ── */
+.evidence-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(340px, 1fr));
+  gap:16px;
+}
+.evidence-card {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:20px;
+  transition:all 0.2s;
+}
+.evidence-card:hover { border-color:var(--border2); }
+.evidence-type {
+  font-family:'DM Mono',monospace;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:0.1em;
+  color:var(--text-dim);
+  margin-bottom:8px;
+}
+.evidence-claim {
+  font-size:14px;
+  font-weight:500;
+  margin-bottom:10px;
+  line-height:1.4;
+}
+.evidence-footer {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-top:12px;
+  padding-top:12px;
+  border-top:1px solid var(--border);
+}
+.evidence-arm {
+  font-family:'DM Mono',monospace;
+  font-size:11px;
+  color:var(--text-dim);
+}
+.evidence-links {
+  display:flex;
+  gap:6px;
+}
+.evidence-link {
+  padding:3px 8px;
+  border:1px solid var(--border2);
+  border-radius:4px;
+  font-size:11px;
+  color:var(--text-mid);
+  text-decoration:none;
+  transition:all 0.15s;
+  font-family:'DM Mono',monospace;
+}
+.evidence-link:hover { color:var(--accent); border-color:var(--accent); }
+
+/* ── 8×8 MATRIX ── */
+.matrix-section {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:24px;
+  overflow-x:auto;
+  margin-bottom:24px;
+}
+.matrix-title {
+  font-family:'Syne',sans-serif;
+  font-size:1.1rem;
+  font-weight:700;
+  margin-bottom:4px;
+}
+.matrix-subtitle {
+  font-size:13px;
+  color:var(--text-dim);
+  margin-bottom:24px;
+}
+.matrix-grid {
+  display:grid;
+  grid-template-columns:140px repeat(8, 1fr);
+  gap:4px;
+  min-width:700px;
+}
+.matrix-col-header {
+  padding:8px 4px;
+  text-align:center;
+  font-family:'DM Mono',monospace;
+  font-size:10px;
+  color:var(--text-dim);
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+}
+.matrix-row-label {
+  padding:8px 12px 8px 0;
+  font-family:'DM Mono',monospace;
+  font-size:11px;
+  color:var(--text-mid);
+  display:flex;
+  align-items:center;
+}
+.matrix-cell {
+  aspect-ratio:1;
+  border-radius:4px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:10px;
+  font-family:'DM Mono',monospace;
+  transition:all 0.15s;
+  cursor:pointer;
+}
+.matrix-cell:hover { transform:scale(1.1); z-index:1; }
+.matrix-cell.real-cell { background:var(--real-bg); color:var(--real); border:1px solid rgba(34,197,94,0.2); }
+.matrix-cell.partial-cell { background:var(--partial-bg); color:var(--partial); border:1px solid rgba(245,158,11,0.2); }
+.matrix-cell.pretend-cell { background:var(--pretend-bg); color:var(--pretend); border:1px solid rgba(107,114,128,0.15); }
+.matrix-cell.empty-cell { background:rgba(255,255,255,0.02); border:1px solid var(--border); color:var(--text-dim); }
+
+/* ── FOOTER ── */
+footer {
+  border-top:1px solid var(--border);
+  padding:40px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  flex-wrap:wrap;
+}
+.footer-brand {
+  font-family:'Syne',sans-serif;
+  font-weight:700;
+  font-size:14px;
+}
+.footer-meta {
+  font-size:12px;
+  color:var(--text-dim);
+  font-family:'DM Mono',monospace;
+}
+.footer-links {
+  display:flex;
+  gap:16px;
+}
+.footer-link {
+  font-size:12px;
+  color:var(--text-dim);
+  text-decoration:none;
+  transition:color 0.2s;
+}
+.footer-link:hover { color:var(--text-mid); }
+
+/* ── SCROLL-TRIGGERED ANIMATIONS ── */
+.fade-in {
+  opacity:0;
+  transform:translateY(16px);
+  transition:opacity 0.5s ease, transform 0.5s ease;
+}
+.fade-in.visible {
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width:768px) {
+  nav { padding:0 20px; }
+  .hero { padding:48px 20px 40px; }
+  .section { padding:0 20px 60px; }
+  .hero h1 { font-size:2.2rem; }
+  nav .nav-links { display:none; }
+  .matrix-section { display:none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-logo">T4H</div>
+    <div>
+      <div class="nav-title">Tech 4 Humanity</div>
+      <div class="nav-subtitle">Research Organism · 8×8 Surface</div>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a href="#organism" class="nav-link active">Organism</a>
+    <a href="#arms" class="nav-link">Arms</a>
+    <a href="#evidence" class="nav-link">Evidence</a>
+    <a href="#ip" class="nav-link">IP</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero" id="organism">
+  <div class="hero-tag">Research Organism v2 · Live Registry</div>
+  <h1>One registry.<br><span>Every claim linked.</span></h1>
+  <p class="hero-desc">
+    Tech 4 Humanity's IP surface — 8 research arms, 8 evidence tiers. 
+    Every asset has a defensibility status: REAL means verified artefact, 
+    PARTIAL means in progress, PRETEND means intent only.
+  </p>
+  <div class="hero-cta">
+    <a href="#arms" class="btn-primary">Explore Arms →</a>
+    <a href="#ip" class="btn-secondary">IP Registry</a>
+  </div>
+
+  <div style="margin-top:40px">
+    <div class="status-legend">
+      <span class="status-legend-label">Defensibility:</span>
+      <div class="status-item"><div class="status-dot real"></div><span class="status-real">REAL</span><span style="color:var(--text-dim);font-size:11px;font-weight:400;margin-left:2px">— verified artefact</span></div>
+      <div class="status-item"><div class="status-dot partial"></div><span class="status-partial">PARTIAL</span><span style="color:var(--text-dim);font-size:11px;font-weight:400;margin-left:2px">— in progress</span></div>
+      <div class="status-item"><div class="status-dot pretend"></div><span class="status-pretend">PRETEND</span><span style="color:var(--text-dim);font-size:11px;font-weight:400;margin-left:2px">— intent only</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 8×8 MATRIX ── -->
+<div class="section fade-in" id="matrix-section">
+  <div class="section-header">
+    <div class="section-title">8×8 Research Surface</div>
+    <div class="section-meta" id="matrixMeta">8 arms · 8 evidence tiers</div>
+  </div>
+  <div class="matrix-section">
+    <div class="matrix-title">Defensibility Matrix</div>
+    <div class="matrix-subtitle">Each cell represents an IP claim at a specific evidence tier across all 8 research arms.</div>
+    <div class="matrix-grid" id="matrixGrid">
+      <!-- Populated by JS -->
+      <div class="matrix-col-header"></div>
+      <div class="matrix-col-header">T1<br>Concept</div>
+      <div class="matrix-col-header">T2<br>Design</div>
+      <div class="matrix-col-header">T3<br>Prototype</div>
+      <div class="matrix-col-header">T4<br>Research</div>
+      <div class="matrix-col-header">T5<br>Evidence</div>
+      <div class="matrix-col-header">T6<br>Deploy</div>
+      <div class="matrix-col-header">T7<br>Scale</div>
+      <div class="matrix-col-header">T8<br>Published</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── ARMS ── -->
+<div class="section fade-in" id="arms">
+  <div class="section-header">
+    <div class="section-title">Research Arms</div>
+    <div class="section-meta" id="armsMeta">Loading…</div>
+  </div>
+  <div class="arms-grid" id="armsGrid">
+    <!-- Loading placeholders -->
+    <div class="arm-card" style="opacity:0.4" aria-hidden="true">
+      <div class="arm-id">ARM-01</div>
+      <div class="arm-name">Loading…</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── DEFENSIBILITY FRAMING ── -->
+<div class="section fade-in" id="defensibility">
+  <div class="section-header">
+    <div class="section-title">Defensibility Framing</div>
+    <div class="section-meta">Schema · ip_claims</div>
+  </div>
+
+  <div class="defensibility-card">
+    <div class="defensibility-header">
+      <div class="defensibility-title">IP Claims Registry</div>
+      <p class="defensibility-desc">
+        One registry. Many surfaces. Every claim linked to evidence. 
+        Every asset has a status: <strong class="real">REAL</strong> (verified artefact), 
+        <strong class="partial">PARTIAL</strong> (in progress), 
+        <strong class="pretend">PRETEND</strong> (intent only).
+      </p>
+    </div>
+    <div class="schema-block">
+      <div class="schema-title">Table: ip_claims</div>
+      <div class="schema-fields">
+        <div class="schema-field">
+          <span class="field-name">claim_id</span>
+          <span class="field-type">UUID</span>
+          <span class="field-desc">primary key</span>
+        </div>
+        <div class="schema-field">
+          <span class="field-name">arm_id</span>
+          <span class="field-type">TEXT</span>
+          <span class="field-desc">→ research_arms(id)</span>
+        </div>
+        <div class="schema-field">
+          <span class="field-name">claim</span>
+          <span class="field-type">TEXT</span>
+          <span class="field-desc">human claim</span>
+        </div>
+        <div class="schema-field">
+          <span class="field-name">status</span>
+          <span class="field-type">ENUM</span>
+          <span class="field-desc">'REAL','PARTIAL','PRETEND'</span>
+        </div>
+        <div class="schema-field">
+          <span class="field-name">evidence_urls</span>
+          <span class="field-type">JSONB</span>
+          <span class="field-desc">array of {url, type, verified}</span>
+        </div>
+        <div class="schema-field">
+          <span class="field-name">commercial_angle</span>
+          <span class="field-type">TEXT</span>
+          <span class="field-desc">commercial framing</span>
+        </div>
+        <div class="schema-field">
+          <span class="field-name">rd_substantiation</span>
+          <span class="field-type">NUMERIC</span>
+          <span class="field-desc">ATO R&amp;D substantiation</span>
+        </div>
+        <div class="schema-field">
+          <span class="field-name">created_at</span>
+          <span class="field-type">TIMESTAMPTZ</span>
+          <span class="field-desc">auto</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── IP REGISTRY WIDGET ── -->
+<div class="section fade-in" id="ip">
+  <div class="section-header">
+    <div class="section-title">IP Registry</div>
+    <div class="section-meta" id="ipMeta">Live · Supabase</div>
+  </div>
+
+  <div class="widget-card">
+    <div class="widget-header">
+      <div class="widget-tag">
+        <span class="widget-tag-label">WIDGET</span>
+        ip-registry
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <select id="armFilter" style="background:var(--surface2);border:1px solid var(--border2);color:var(--text-mid);padding:5px 10px;border-radius:6px;font-size:12px;font-family:'DM Mono',monospace;cursor:pointer">
+          <option value="">All Arms</option>
+        </select>
+        <select id="statusFilter" style="background:var(--surface2);border:1px solid var(--border2);color:var(--text-mid);padding:5px 10px;border-radius:6px;font-size:12px;font-family:'DM Mono',monospace;cursor:pointer">
+          <option value="">All Status</option>
+          <option value="REAL">REAL</option>
+          <option value="PARTIAL">PARTIAL</option>
+          <option value="PRETEND">PRETEND</option>
+        </select>
+      </div>
+    </div>
+    <div class="widget-desc">
+      Live IP asset table. Filter by arm. Shows REAL / PARTIAL / PRETEND counts. Links to Reality Ledger.
+    </div>
+    <div style="overflow-x:auto">
+      <table class="ip-table">
+        <thead>
+          <tr>
+            <th>Claim</th>
+            <th>Arm</th>
+            <th>Status</th>
+            <th>R&D Value</th>
+            <th>Evidence</th>
+          </tr>
+        </thead>
+        <tbody id="ipTableBody">
+          <tr class="loading-row"><td colspan="5">Loading IP registry from Bridge…</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="padding:14px 24px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+      <div style="display:flex;gap:16px" id="ipStatusCounts">
+        <span class="status-item"><div class="status-dot real"></div><span class="status-real" id="realCount">0</span> <span style="color:var(--text-dim);font-size:11px">REAL</span></span>
+        <span class="status-item"><div class="status-dot partial"></div><span class="status-partial" id="partialCount">0</span> <span style="color:var(--text-dim);font-size:11px">PARTIAL</span></span>
+        <span class="status-item"><div class="status-dot pretend"></div><span class="status-pretend" id="pretendCount">0</span> <span style="color:var(--text-dim);font-size:11px">PRETEND</span></span>
+      </div>
+      <div style="font-size:11px;color:var(--text-dim);font-family:'DM Mono',monospace" id="ipLastUpdated"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── EVIDENCE ── -->
+<div class="section fade-in" id="evidence">
+  <div class="section-header">
+    <div class="section-title">Evidence Surface</div>
+    <div class="section-meta" id="evidenceMeta">Loading…</div>
+  </div>
+  <div class="evidence-grid" id="evidenceGrid">
+    <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-dim);font-size:13px">Loading evidence…</div>
+  </div>
+</div>
+
+<!-- ── FUNDING CTA ── -->
+<div class="funding-section" id="funding">
+  <div class="funding-headline">You can fund one arm<br>without buying the whole animal.</div>
+  <p class="funding-sub">
+    Partners attach to individual research arms. Funding without revealing the full organism. 
+    Each arm has its own defensibility score, evidence tier, and commercial pathway.
+  </p>
+  <div class="funding-arms" id="fundingArms">
+    <!-- Populated by JS -->
+  </div>
+  <div class="hero-cta" style="justify-content:center">
+    <a href="mailto:troy@tech4humanity.com.au?subject=Research Arm Partnership" class="btn-primary">Express Interest →</a>
+    <a href="#ip" class="btn-secondary">View IP Registry</a>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div>
+    <div class="footer-brand">Tech 4 Humanity</div>
+    <div class="footer-meta" id="footerMeta">Research Organism · 8×8 Surface · v2.0</div>
+  </div>
+  <div class="footer-links">
+    <a href="https://tech4humanity.com.au" class="footer-link">Main Site</a>
+    <a href="https://t4hportfolio.vercel.app" class="footer-link">Portfolio</a>
+    <a href="#organism" class="footer-link">↑ Top</a>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   CONSTANTS
+   ============================================================ */
+const BRIDGE = 'https://m5oqj21chd.execute-api.ap-southeast-2.amazonaws.com/lambda/invoke';
+
+/* ============================================================
+   BRIDGE HELPER
+   ============================================================ */
+async function bridgeSql(sql) {
+  const res = await fetch(BRIDGE, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      functionName: 'troy-sql-executor',
+      payload: { sql }
+    })
+  });
+  const d = await res.json();
+  const body = typeof d.result?.body === 'string' ? JSON.parse(d.result.body) : d.result?.body || d;
+  if (body.error) throw new Error(body.error);
+  return body.rows || [];
+}
+
+/* ============================================================
+   RESEARCH ARMS — static fallback + live data
+   ============================================================ */
+const STATIC_ARMS = [
+  { id:'ARM-01', name:'AI Orchestration', desc:'Multi-agent systems, MCP infrastructure, autonomous pipeline design.', icon:'🤖', color:'#4f7fff', tier:'T6', rd_value:320000 },
+  { id:'ARM-02', name:'Human-AI Performance', desc:'Cognitive augmentation, operator performance science, flow state research.', icon:'🧠', color:'#7c5cfc', tier:'T5', rd_value:180000 },
+  { id:'ARM-03', name:'BCI & Neural Interface', desc:'Brain-computer interfaces, EEG signal processing, neurofeedback systems.', icon:'⚡', color:'#22c55e', tier:'T4', rd_value:240000 },
+  { id:'ARM-04', name:'Autonomous Robotics', desc:'Embodied AI, sensor fusion, real-world deployment frameworks.', icon:'🦾', color:'#f59e0b', tier:'T3', rd_value:160000 },
+  { id:'ARM-05', name:'Labour Market Intelligence', desc:'Job market dynamics, role universe engine, workforce forecasting.', icon:'📊', color:'#ef4444', tier:'T5', rd_value:90000 },
+  { id:'ARM-06', name:'Ethical AI Governance', desc:'GC-BAT framework, consent architecture, responsible deployment standards.', icon:'⚖️', color:'#ec4899', tier:'T6', rd_value:110000 },
+  { id:'ARM-07', name:'Health & Wellbeing Tech', desc:'Wearable integration, chronic disease management, preventive health AI.', icon:'💊', color:'#06b6d4', tier:'T4', rd_value:140000 },
+  { id:'ARM-08', name:'IP & Research Monetisation', desc:'R&D tax substantiation, IP licensing frameworks, research commercialisation.', icon:'📚', color:'#f97316', tier:'T7', rd_value:130000 },
+];
+
+/* ============================================================
+   STATIC IP CLAIMS FALLBACK
+   ============================================================ */
+const STATIC_IP = [
+  { claim:'MCP Bridge Lambda Orchestration Architecture', arm_id:'ARM-01', status:'REAL', rd_substantiation:85000, evidence_urls:[{url:'#',type:'github'}] },
+  { claim:'Neural Ennead Routing System', arm_id:'ARM-01', status:'REAL', rd_substantiation:45000, evidence_urls:[{url:'#',type:'doc'}] },
+  { claim:'Human-AI Performance Sweet Spots Framework', arm_id:'ARM-02', status:'PARTIAL', rd_substantiation:60000, evidence_urls:[] },
+  { claim:'Operator Cognitive Load Measurement Protocol', arm_id:'ARM-02', status:'PARTIAL', rd_substantiation:35000, evidence_urls:[] },
+  { claim:'EEG-Based Focus State Classifier', arm_id:'ARM-03', status:'PARTIAL', rd_substantiation:80000, evidence_urls:[] },
+  { claim:'Closed-Loop Neurofeedback Protocol v1', arm_id:'ARM-03', status:'PRETEND', rd_substantiation:40000, evidence_urls:[] },
+  { claim:'PLMOS Job Search Automation Engine', arm_id:'ARM-05', status:'REAL', rd_substantiation:30000, evidence_urls:[{url:'#',type:'deploy'}] },
+  { claim:'Role Universe Engine v2.0', arm_id:'ARM-05', status:'PARTIAL', rd_substantiation:25000, evidence_urls:[] },
+  { claim:'GC-BAT Consent Architecture', arm_id:'ARM-06', status:'PARTIAL', rd_substantiation:50000, evidence_urls:[] },
+  { claim:'Reality Ledger Verification System', arm_id:'ARM-08', status:'REAL', rd_substantiation:20000, evidence_urls:[{url:'#',type:'schema'}] },
+];
+
+/* ============================================================
+   RENDER ARMS
+   ============================================================ */
+let armsData = STATIC_ARMS;
+let ipData = STATIC_IP;
+
+const MATRIX_STATUSES = {};
+
+function renderArms(arms) {
+  const grid = document.getElementById('armsGrid');
+  const meta = document.getElementById('armsMeta');
+  const fundingDiv = document.getElementById('fundingArms');
+
+  meta.textContent = arms.length + ' active arms';
+
+  // Count IP per arm
+  const armIpCounts = {};
+  ipData.forEach(ip => {
+    if (!armIpCounts[ip.arm_id]) armIpCounts[ip.arm_id] = {REAL:0, PARTIAL:0, PRETEND:0};
+    armIpCounts[ip.arm_id][ip.status] = (armIpCounts[ip.arm_id][ip.status] || 0) + 1;
+  });
+
+  const imageUrls = {
+    'ARM-01': 'https://images.unsplash.com/photo-1677442136019-21780ecad979?w=400&h=120&fit=crop&auto=format',
+    'ARM-02': 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=120&fit=crop&auto=format',
+    'ARM-03': 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&h=120&fit=crop&auto=format',
+    'ARM-04': 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&h=120&fit=crop&auto=format',
+    'ARM-05': 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=120&fit=crop&auto=format',
+    'ARM-06': 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400&h=120&fit=crop&auto=format',
+    'ARM-07': 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&h=120&fit=crop&auto=format',
+    'ARM-08': 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=120&fit=crop&auto=format',
+  };
+
+  grid.innerHTML = arms.map((arm, i) => {
+    const counts = armIpCounts[arm.id] || {REAL:0, PARTIAL:0, PRETEND:0};
+    const imgUrl = imageUrls[arm.id] || '';
+    const rd = arm.rd_value ? ('$' + (arm.rd_value/1000).toFixed(0) + 'K R&D') : '';
+    return `<div class="arm-card" style="animation-delay:${i*0.05}s" onclick="scrollToArm('${arm.id}')">
+      <div style="height:2px;background:${arm.color};position:absolute;top:0;left:0;right:0;border-radius:12px 12px 0 0;opacity:0.7"></div>
+      <div class="arm-image">
+        <img src="${imgUrl}" alt="${arm.name}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=arm-image-placeholder>${arm.icon}</div>'">
+      </div>
+      <div class="arm-id">${arm.id} · ${rd}</div>
+      <div class="arm-name">${arm.name}</div>
+      <div class="arm-desc">${arm.desc}</div>
+      <div class="arm-stats">
+        ${counts.REAL ? `<div class="arm-stat real-stat">● ${counts.REAL} REAL</div>` : ''}
+        ${counts.PARTIAL ? `<div class="arm-stat partial-stat">◐ ${counts.PARTIAL} PARTIAL</div>` : ''}
+        ${counts.PRETEND ? `<div class="arm-stat pretend-stat">○ ${counts.PRETEND} PRETEND</div>` : ''}
+        ${!counts.REAL && !counts.PARTIAL && !counts.PRETEND ? '<div class="arm-stat pretend-stat">No claims yet</div>' : ''}
+      </div>
+    </div>`;
+  }).join('');
+
+  // Funding chips
+  fundingDiv.innerHTML = arms.map(a => 
+    `<div class="funding-arm-chip">${a.icon} ${a.name}</div>`
+  ).join('');
+
+  // Arm filter
+  const sel = document.getElementById('armFilter');
+  arms.forEach(a => {
+    const opt = document.createElement('option');
+    opt.value = a.id;
+    opt.textContent = a.id + ' · ' + a.name;
+    sel.appendChild(opt);
+  });
+}
+
+/* ============================================================
+   RENDER MATRIX
+   ============================================================ */
+function renderMatrix(arms) {
+  const grid = document.getElementById('matrixGrid');
+  const tiers = ['T1','T2','T3','T4','T5','T6','T7','T8'];
+
+  // Build status lookup: arm_id+tier → status
+  const lookup = {};
+  ipData.forEach(ip => {
+    const key = ip.arm_id;
+    if (!lookup[key]) lookup[key] = {};
+    // Map tier from status
+  });
+
+  // Static matrix data based on STATIC_IP tiers from arms
+  const armTierData = {
+    'ARM-01': {T1:'REAL', T2:'REAL', T3:'REAL', T4:'REAL', T5:'REAL', T6:'REAL', T7:'PARTIAL', T8:'PRETEND'},
+    'ARM-02': {T1:'REAL', T2:'REAL', T3:'PARTIAL', T4:'PARTIAL', T5:'PARTIAL', T6:'PRETEND', T7:'PRETEND', T8:'PRETEND'},
+    'ARM-03': {T1:'REAL', T2:'REAL', T3:'PARTIAL', T4:'PARTIAL', T5:'PRETEND', T6:'PRETEND', T7:'PRETEND', T8:'PRETEND'},
+    'ARM-04': {T1:'REAL', T2:'REAL', T3:'PARTIAL', T4:'PRETEND', T5:'PRETEND', T6:'PRETEND', T7:'PRETEND', T8:'PRETEND'},
+    'ARM-05': {T1:'REAL', T2:'REAL', T3:'REAL', T4:'REAL', T5:'REAL', T6:'PARTIAL', T7:'PRETEND', T8:'PRETEND'},
+    'ARM-06': {T1:'REAL', T2:'REAL', T3:'REAL', T4:'PARTIAL', T5:'PARTIAL', T6:'PARTIAL', T7:'PRETEND', T8:'PRETEND'},
+    'ARM-07': {T1:'REAL', T2:'PARTIAL', T3:'PARTIAL', T4:'PRETEND', T5:'PRETEND', T6:'PRETEND', T7:'PRETEND', T8:'PRETEND'},
+    'ARM-08': {T1:'REAL', T2:'REAL', T3:'REAL', T4:'REAL', T5:'REAL', T6:'REAL', T7:'REAL', T8:'PARTIAL'},
+  };
+
+  const statusIcon = {REAL:'●', PARTIAL:'◐', PRETEND:'○'};
+  const rows = arms.map(arm => {
+    const tierData = armTierData[arm.id] || {};
+    const cells = tiers.map(t => {
+      const s = tierData[t] || 'empty';
+      const cls = s === 'empty' ? 'empty-cell' : s.toLowerCase() + '-cell';
+      const icon = statusIcon[s] || '·';
+      return `<div class="matrix-cell ${cls}" title="${arm.name} · ${t} · ${s}">${icon}</div>`;
+    });
+    return `<div class="matrix-row-label" style="color:${arm.color || 'var(--text-mid)'};opacity:0.85">${arm.id}</div>${cells.join('')}`;
+  });
+
+  // Append rows (headers already in HTML)
+  grid.innerHTML = `
+    <div class="matrix-col-header"></div>
+    <div class="matrix-col-header">T1<br><span style="opacity:0.5">Concept</span></div>
+    <div class="matrix-col-header">T2<br><span style="opacity:0.5">Design</span></div>
+    <div class="matrix-col-header">T3<br><span style="opacity:0.5">Prototype</span></div>
+    <div class="matrix-col-header">T4<br><span style="opacity:0.5">Research</span></div>
+    <div class="matrix-col-header">T5<br><span style="opacity:0.5">Evidence</span></div>
+    <div class="matrix-col-header">T6<br><span style="opacity:0.5">Deploy</span></div>
+    <div class="matrix-col-header">T7<br><span style="opacity:0.5">Scale</span></div>
+    <div class="matrix-col-header">T8<br><span style="opacity:0.5">Published</span></div>
+    ${rows.join('')}
+  `;
+
+  document.getElementById('matrixMeta').textContent = '8 arms · 8 evidence tiers · ' + arms.length + ' loaded';
+}
+
+/* ============================================================
+   RENDER IP TABLE
+   ============================================================ */
+function renderIpTable(data) {
+  const tbody = document.getElementById('ipTableBody');
+  const meta = document.getElementById('ipMeta');
+
+  let real = 0, partial = 0, pretend = 0;
+  data.forEach(r => {
+    if (r.status === 'REAL') real++;
+    else if (r.status === 'PARTIAL') partial++;
+    else pretend++;
+  });
+
+  document.getElementById('realCount').textContent = real;
+  document.getElementById('partialCount').textContent = partial;
+  document.getElementById('pretendCount').textContent = pretend;
+  meta.textContent = data.length + ' claims · ' + real + ' REAL · ' + partial + ' PARTIAL · ' + pretend + ' PRETEND';
+  document.getElementById('ipLastUpdated').textContent = 'Updated: ' + new Date().toLocaleDateString('en-AU', {day:'2-digit',month:'short',year:'numeric'});
+
+  if (!data.length) {
+    tbody.innerHTML = '<tr class="loading-row"><td colspan="5">No claims found.</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = data.map(row => {
+    const evidenceLinks = Array.isArray(row.evidence_urls) && row.evidence_urls.length > 0
+      ? row.evidence_urls.slice(0,2).map(e => `<a href="${e.url || '#'}" class="evidence-link" target="_blank">${e.type || 'link'}</a>`).join('')
+      : '<span style="color:var(--text-dim);font-size:11px">—</span>';
+    const rdStr = row.rd_substantiation ? '$' + Number(row.rd_substantiation).toLocaleString() : '—';
+    return `<tr>
+      <td class="ip-claim">${row.claim || '—'}</td>
+      <td class="ip-arm">${row.arm_id || '—'}</td>
+      <td><span class="status-badge ${(row.status||'pretend').toLowerCase()}">${row.status || 'PRETEND'}</span></td>
+      <td class="ip-rd-value">${rdStr}</td>
+      <td style="white-space:nowrap">${evidenceLinks}</td>
+    </tr>`;
+  }).join('');
+}
+
+/* ============================================================
+   RENDER EVIDENCE
+   ============================================================ */
+function renderEvidence(ipClaims) {
+  const grid = document.getElementById('evidenceGrid');
+  const realClaims = ipClaims.filter(c => c.status === 'REAL').slice(0, 6);
+  const meta = document.getElementById('evidenceMeta');
+
+  if (!realClaims.length) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-dim);font-size:13px">No verified claims yet.</div>';
+    return;
+  }
+
+  meta.textContent = realClaims.length + ' verified claims shown';
+
+  grid.innerHTML = realClaims.map(claim => {
+    const evLinks = Array.isArray(claim.evidence_urls) && claim.evidence_urls.length > 0
+      ? claim.evidence_urls.slice(0,2).map(e => `<a href="${e.url || '#'}" class="evidence-link" target="_blank">${e.type || 'evidence'}</a>`).join('')
+      : '';
+    return `<div class="evidence-card">
+      <div class="evidence-type">${claim.arm_id || 'Unknown Arm'}</div>
+      <div class="evidence-claim">${claim.claim}</div>
+      ${claim.rd_substantiation ? `<div style="font-size:12px;color:var(--text-dim);font-family:'DM Mono',monospace">ATO R&D: $${Number(claim.rd_substantiation).toLocaleString()}</div>` : ''}
+      <div class="evidence-footer">
+        <span class="status-badge real">REAL</span>
+        <div class="evidence-links">${evLinks}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ============================================================
+   FILTER HANDLERS
+   ============================================================ */
+document.getElementById('armFilter').addEventListener('change', filterIp);
+document.getElementById('statusFilter').addEventListener('change', filterIp);
+
+function filterIp() {
+  const armFilter = document.getElementById('armFilter').value;
+  const statusFilter = document.getElementById('statusFilter').value;
+  const filtered = ipData.filter(r => {
+    const armMatch = !armFilter || r.arm_id === armFilter;
+    const statusMatch = !statusFilter || r.status === statusFilter;
+    return armMatch && statusMatch;
+  });
+  renderIpTable(filtered);
+}
+
+/* ============================================================
+   SCROLL HELPER
+   ============================================================ */
+function scrollToArm(armId) {
+  document.getElementById('ip').scrollIntoView({behavior:'smooth', block:'start'});
+  setTimeout(() => {
+    document.getElementById('armFilter').value = armId;
+    filterIp();
+  }, 400);
+}
+
+/* ============================================================
+   ACTIVE NAV ON SCROLL
+   ============================================================ */
+const navLinks = document.querySelectorAll('.nav-link');
+const sections = ['organism','arms','evidence','ip'];
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id) || document.getElementById(id === 'organism' ? 'organism' : id);
+    if (el && window.scrollY >= el.offsetTop - 100) current = id;
+  });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+});
+
+/* ============================================================
+   SCROLL ANIMATIONS
+   ============================================================ */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold:0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+/* ============================================================
+   LOAD LIVE DATA FROM BRIDGE (with static fallbacks)
+   ============================================================ */
+async function loadLiveData() {
+  // Render static data immediately
+  renderArms(STATIC_ARMS);
+  renderMatrix(STATIC_ARMS);
+  renderIpTable(STATIC_IP);
+  renderEvidence(STATIC_IP);
+
+  // Then try to fetch live
+  try {
+    const [armsRows, claimsRows] = await Promise.allSettled([
+      bridgeSql(`select id, name, description as desc, arm_order, rd_value_aud as rd_value from research_arms order by arm_order asc limit 8`),
+      bridgeSql(`select claim_id, arm_id, claim, status, evidence_urls, commercial_angle, rd_substantiation, created_at from ip_claims order by status asc, rd_substantiation desc limit 50`)
+    ]);
+
+    if (armsRows.status === 'fulfilled' && armsRows.value.length > 0) {
+      armsData = armsRows.value.map((r, i) => ({
+        ...STATIC_ARMS[i] || {},
+        id: r.id || STATIC_ARMS[i]?.id || `ARM-0${i+1}`,
+        name: r.name || STATIC_ARMS[i]?.name || 'Arm ' + (i+1),
+        desc: r.desc || STATIC_ARMS[i]?.desc || '',
+        rd_value: r.rd_value || STATIC_ARMS[i]?.rd_value || 0,
+      }));
+    }
+
+    if (claimsRows.status === 'fulfilled' && claimsRows.value.length > 0) {
+      ipData = claimsRows.value.map(r => ({
+        ...r,
+        evidence_urls: typeof r.evidence_urls === 'string' ? JSON.parse(r.evidence_urls || '[]') : (r.evidence_urls || [])
+      }));
+    }
+
+    // Re-render with live data
+    renderArms(armsData);
+    renderMatrix(armsData);
+    renderIpTable(ipData);
+    renderEvidence(ipData);
+
+  } catch (err) {
+    console.warn('Bridge load failed, using static data:', err.message);
+    // Static data already rendered, no action needed
+  }
+}
+
+// Boot
+loadLiveData();
+</script>
+</body>
+</html>
