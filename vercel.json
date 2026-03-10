@@ -1,9 +1,5 @@
 {
-  "rewrites": [
-    { "source": "/", "destination": "/index.html" },
-    { "source": "/research", "destination": "/researchhub.html" },
-    { "source": "/research-hub", "destination": "/researchhub.html" },
-    { "source": "/portfolio", "destination": "/portfolio.html" },
-    { "source": "/widget", "destination": "/widget.html" }
-  ]
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "framework": "nextjs"
 }
