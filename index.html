@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tech 4 Humanity — Portfolio v16</title>
+<title>Tech 4 Humanity — Portfolio v15</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,400;9..144,700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -39,7 +39,7 @@ body { background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif
 .tab-btn { padding:8px 20px; border:1px solid var(--border); border-radius:24px; background:transparent; color:var(--text-dim); font-family:'DM Sans',sans-serif; font-size:0.85rem; cursor:pointer; transition:all 0.25s; }
 .tab-btn:hover,.tab-btn.active { background:var(--accent); color:#fff; border-color:var(--accent); }
 
-.view-toggle { display:flex; justify-content:center; gap:8px; margin-bottom:32px; flex-wrap:wrap; }
+.view-toggle { display:flex; justify-content:center; gap:8px; margin-bottom:32px; }
 .view-btn { padding:6px 16px; border:1px solid var(--border); border-radius:6px; background:transparent; color:var(--text-dim); font-family:'DM Sans',sans-serif; font-size:0.8rem; cursor:pointer; transition:all 0.2s; }
 .view-btn.active { background:var(--surface-hover); color:var(--text); border-color:var(--text-dim); }
 
@@ -58,9 +58,11 @@ body { background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif
 .card-img .fallback { width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; }
 .card-img .fallback .fb-name { font-family:'Fraunces',serif; font-size:1.1rem; font-weight:700; color:rgba(255,255,255,0.85); text-align:center; padding:0 16px; text-shadow:0 1px 4px rgba(0,0,0,0.3); }
 .card-img .fallback .fb-host { font-size:0.72rem; color:rgba(255,255,255,0.45); font-family:monospace; }
+.card-img .fallback .fb-status { font-size:0.65rem; color:rgba(255,255,255,0.3); text-transform:uppercase; letter-spacing:0.1em; margin-top:4px; }
 .card-visit { position:absolute; top:12px; right:12px; width:36px; height:36px; border-radius:50%; background:rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.15); display:flex; align-items:center; justify-content:center; color:#fff; font-size:14px; text-decoration:none; transition:all 0.2s; opacity:0; z-index:10; }
 .biz-card:hover .card-visit { opacity:1; }
-.card-visit:hover { background:var(--accent); border-color:var(--accent); }
+.card-visit:hover { background:var(--accent); border-color:var(--accent); transform:scale(1.1); }
+
 .card-body { padding:16px 20px 20px; }
 .card-body h3 { font-family:'Fraunces',serif; font-size:1.1rem; font-weight:700; margin-bottom:4px; }
 .card-body .slug { color:var(--text-dim); font-size:0.78rem; font-family:monospace; margin-bottom:8px; }
@@ -68,41 +70,9 @@ body { background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif
 .badge { display:inline-block; padding:2px 10px; border-radius:12px; font-size:0.7rem; font-weight:500; text-transform:uppercase; letter-spacing:0.05em; }
 .badge-active,.badge-live { background:rgba(34,197,94,0.15); color:#22c55e; }
 .badge-planned { background:rgba(59,130,246,0.15); color:#3b82f6; }
-.badge-verifying { background:rgba(245,158,11,0.15); color:#f59e0b; }
-.url-count-badge { background:rgba(255,255,255,0.05); color:var(--text-dim); }
+.badge-consolidated { background:rgba(245,158,11,0.15); color:#f59e0b; }
+.badge-archived { background:rgba(107,114,128,0.15); color:#9ca3af; }
 
-/* PLATFORM MATRIX VIEW */
-.matrix-section { padding:0 24px 64px; max-width:1600px; margin:0 auto; }
-.matrix-header { margin-bottom:24px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
-.matrix-header h2 { font-family:'Fraunces',serif; font-size:1.5rem; font-weight:700; }
-.matrix-search { padding:8px 16px; background:var(--surface); border:1px solid var(--border); border-radius:8px; color:var(--text); font-family:'DM Sans',sans-serif; font-size:0.85rem; width:280px; }
-.matrix-search:focus { outline:none; border-color:var(--accent); }
-
-.matrix-table { width:100%; border-collapse:collapse; font-size:0.82rem; }
-.matrix-table th { text-align:left; padding:10px 14px; border-bottom:2px solid var(--border); color:var(--text-dim); font-size:0.72rem; text-transform:uppercase; letter-spacing:0.1em; white-space:nowrap; }
-.matrix-table td { padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
-.matrix-table tr:hover td { background:var(--surface-hover); }
-.matrix-group-row td { background:var(--surface); padding:12px 14px; font-family:'Fraunces',serif; font-weight:700; font-size:1rem; border-bottom:1px solid var(--border); }
-
-.url-chip { display:inline-flex; align-items:center; gap:5px; background:var(--bg); border:1px solid var(--border); border-radius:5px; padding:3px 8px; font-family:monospace; font-size:0.72rem; color:var(--text-dim); text-decoration:none; transition:all 0.15s; margin:2px 2px 2px 0; }
-.url-chip:hover { border-color:var(--accent); color:var(--text); }
-.url-chip.canonical { border-color:rgba(34,197,94,0.4); color:#22c55e; }
-.url-chip.vercel { border-color:rgba(59,130,246,0.35); color:#60a5fa; }
-.url-chip.lovable { border-color:rgba(236,72,153,0.35); color:#f472b6; }
-.url-chip.github { border-color:rgba(107,114,128,0.4); color:#9ca3af; }
-.url-chip.custom { border-color:rgba(245,158,11,0.35); color:#fbbf24; }
-.url-chip.verifying { border-color:rgba(245,158,11,0.3); color:#f59e0b; opacity:0.7; }
-
-.plat-icon { font-size:0.75rem; opacity:0.7; }
-
-.biz-name-cell { font-weight:600; font-size:0.88rem; }
-.biz-slug-cell { font-family:monospace; font-size:0.72rem; color:var(--text-dim); margin-top:2px; }
-.status-dot { display:inline-block; width:7px; height:7px; border-radius:50%; margin-right:5px; }
-.dot-live { background:#22c55e; }
-.dot-planned { background:#3b82f6; }
-.dot-verifying { background:#f59e0b; }
-
-/* DOMAIN VIEW */
 .domain-section { padding:0 24px 64px; max-width:1400px; margin:0 auto; }
 .domain-table { width:100%; border-collapse:collapse; font-size:0.85rem; }
 .domain-table th { text-align:left; padding:12px 16px; border-bottom:2px solid var(--border); color:var(--text-dim); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; }
@@ -111,11 +81,37 @@ body { background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif
 .domain-url { color:var(--accent); text-decoration:none; font-family:monospace; font-size:0.8rem; }
 .domain-url:hover { text-decoration:underline; }
 
+footer { text-align:center; padding:48px 24px; color:var(--text-dim); font-size:0.8rem; border-top:1px solid var(--border); }
+footer code { background:var(--surface); padding:2px 6px; border-radius:4px; font-size:0.75rem; }
+
+/* ANALYTICS VIEW */
+.analytics-section { padding:0 24px 64px; max-width:1400px; margin:0 auto; }
+.analytics-header { margin-bottom:32px; }
+.analytics-header h2 { font-family:'Fraunces',serif; font-size:1.8rem; font-weight:700; margin-bottom:8px; }
+.analytics-header p { color:var(--text-dim); }
+.analytics-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(400px, 1fr)); gap:24px; }
+.analytics-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:24px; }
+.analytics-card h3 { font-family:'Fraunces',serif; font-size:1.1rem; font-weight:700; margin-bottom:16px; display:flex; align-items:center; gap:10px; }
+.analytics-card h3 .icon { width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:16px; }
+.analytics-table { width:100%; font-size:0.85rem; }
+.analytics-table th { text-align:left; padding:8px 12px; color:var(--text-dim); font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em; border-bottom:1px solid var(--border); }
+.analytics-table td { padding:10px 12px; border-bottom:1px solid var(--border); }
+.analytics-table tr:hover td { background:var(--surface-hover); }
+.analytics-bar { height:8px; background:var(--bg); border-radius:4px; overflow:hidden; margin-top:4px; }
+.analytics-bar-fill { height:100%; border-radius:4px; }
+.analytics-metric { display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid var(--border); }
+.analytics-metric:last-child { border-bottom:none; }
+.analytics-metric-label { color:var(--text-dim); font-size:0.85rem; }
+.analytics-metric-value { font-family:'Fraunces',serif; font-weight:700; font-size:1.1rem; }
+.analytics-placeholder { padding:40px; text-align:center; color:var(--text-dim); background:var(--bg); border-radius:12px; }
+.analytics-placeholder .icon { font-size:2rem; margin-bottom:12px; opacity:0.5; }
+
 /* MODAL */
 .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:1000; display:none; align-items:center; justify-content:center; padding:24px; backdrop-filter:blur(4px); }
 .modal-overlay.active { display:flex; }
-.modal { background:var(--surface); border:1px solid var(--border); border-radius:20px; max-width:940px; width:100%; max-height:90vh; overflow:hidden; display:flex; flex-direction:column; }
+.modal { background:var(--surface); border:1px solid var(--border); border-radius:20px; max-width:900px; width:100%; max-height:90vh; overflow:hidden; display:flex; flex-direction:column; }
 .modal-header { display:flex; align-items:center; gap:16px; padding:24px 28px; border-bottom:1px solid var(--border); }
+.modal-header .group-badge { width:44px; height:44px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-weight:700; font-size:0.85rem; color:#fff; flex-shrink:0; }
 .modal-header h2 { font-family:'Fraunces',serif; font-size:1.5rem; font-weight:700; flex:1; }
 .modal-header .close-btn { width:36px; height:36px; border-radius:8px; border:1px solid var(--border); background:transparent; color:var(--text-dim); cursor:pointer; font-size:1.2rem; transition:all 0.2s; }
 .modal-header .close-btn:hover { background:var(--surface-hover); color:var(--text); }
@@ -136,18 +132,15 @@ body { background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif
 .info-value a { color:var(--accent); text-decoration:none; }
 .info-value a:hover { text-decoration:underline; }
 .info-value.mono { font-family:monospace; font-size:0.8rem; }
-.platform-list { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+.domain-list { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+.domain-chip { background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:6px 12px; font-family:monospace; font-size:0.75rem; color:var(--text-dim); }
 .modal-footer { padding:20px 28px; border-top:1px solid var(--border); display:flex; gap:12px; justify-content:flex-end; }
 .modal-btn { padding:10px 20px; border-radius:8px; font-family:'DM Sans',sans-serif; font-size:0.9rem; font-weight:500; cursor:pointer; transition:all 0.2s; text-decoration:none; }
 .modal-btn-primary { background:var(--accent); color:#fff; border:none; }
 .modal-btn-primary:hover { background:#2563eb; }
 .modal-btn-secondary { background:transparent; color:var(--text); border:1px solid var(--border); }
 .modal-btn-secondary:hover { background:var(--surface-hover); }
-
-footer { text-align:center; padding:48px 24px; color:var(--text-dim); font-size:0.8rem; border-top:1px solid var(--border); }
-footer code { background:var(--surface); padding:2px 6px; border-radius:4px; font-size:0.75rem; }
 </style>
-<link rel="icon" type="image/png" sizes="32x32" href="https://lzfgigiyqpuuxslsygjt.supabase.co/storage/v1/object/public/images/t4h-icon.png">
 <!-- T4H-BRAND-INJECT v1 group=G7 -->
 <link rel="icon" type="image/png" sizes="32x32" href="https://lzfgigiyqpuuxslsygjt.supabase.co/storage/v1/object/public/images/t4h-icon.png">
 <link rel="icon" type="image/x-icon" href="https://lzfgigiyqpuuxslsygjt.supabase.co/storage/v1/object/public/images/t4h-icon.ico">
@@ -163,65 +156,68 @@ footer code { background:var(--surface); padding:2px 6px; border-radius:4px; fon
 
 <div class="hero">
   <h1>Tech 4 Humanity</h1>
-  <div class="subtitle">Canonical Doctrine — 7 Groups · Platform URL Matrix</div>
+  <div class="subtitle">Canonical Doctrine — 7 Groups × 42 Businesses</div>
   <div class="stats-bar">
-    <div class="stat"><div class="stat-num" id="statGroups">7</div><div class="stat-label">Groups</div></div>
-    <div class="stat"><div class="stat-num" id="statBiz">—</div><div class="stat-label">Businesses</div></div>
-    <div class="stat"><div class="stat-num" id="statUrls">—</div><div class="stat-label">Total URLs</div></div>
-    <div class="stat"><div class="stat-num" id="statLive">—</div><div class="stat-label">Live Sites</div></div>
-    <div class="stat"><div class="stat-num" id="statVercel">—</div><div class="stat-label">Vercel Projects</div></div>
+    <div class="stat"><div class="stat-num">7</div><div class="stat-label">Groups</div></div>
+    <div class="stat"><div class="stat-num">42</div><div class="stat-label">Businesses</div></div>
+    <div class="stat"><div class="stat-num">80</div><div class="stat-label">Sites</div></div>
+    <div class="stat"><div class="stat-num">9</div><div class="stat-label">Active</div></div>
+    <div class="stat"><div class="stat-num">129</div><div class="stat-label">Vercel</div></div>
+    <div class="stat"><div class="stat-num">204</div><div class="stat-label">Instances</div></div>
   </div>
 </div>
 
 <div class="view-toggle">
-  <button class="view-btn active" onclick="showView('portfolio')">Portfolio</button>
-  <button class="view-btn" onclick="showView('matrix')">Platform Matrix</button>
+  <button class="view-btn active" onclick="showView('portfolio')">Portfolio View</button>
   <button class="view-btn" onclick="showView('domain')">Domain Map</button>
+  <button class="view-btn" onclick="showView('analytics')">Analytics</button>
+  <button class="view-btn" onclick="showView('internal-tools')">Internal Tools</button>
 </div>
 
 <div class="tab-bar" id="tabBar">
-  <button class="tab-btn active" onclick="filterGroup('all',this)">All</button>
-  <button class="tab-btn" onclick="filterGroup('G1',this)">G1 Core</button>
-  <button class="tab-btn" onclick="filterGroup('G2',this)">G2 Signal</button>
-  <button class="tab-btn" onclick="filterGroup('G3',this)">G3 Mission</button>
-  <button class="tab-btn" onclick="filterGroup('G4',this)">G4 Retail</button>
-  <button class="tab-btn" onclick="filterGroup('G5',this)">G5 Fun</button>
-  <button class="tab-btn" onclick="filterGroup('G6',this)">G6 Personal</button>
-  <button class="tab-btn" onclick="filterGroup('G7',this)">G7 IP</button>
+  <button class="tab-btn active" onclick="filterGroup('all',this)">All (42)</button>
+  <button class="tab-btn" onclick="filterGroup('G1',this)">G1 Core (4)</button>
+  <button class="tab-btn" onclick="filterGroup('G2',this)">G2 GC-BAT (6)</button>
+  <button class="tab-btn" onclick="filterGroup('G3',this)">G3 Mission (7)</button>
+  <button class="tab-btn" onclick="filterGroup('G4',this)">G4 Retail (7)</button>
+  <button class="tab-btn" onclick="filterGroup('G5',this)">G5 Fun (6)</button>
+  <button class="tab-btn" onclick="filterGroup('G6',this)">G6 Personal (4)</button>
+  <button class="tab-btn" onclick="filterGroup('G7',this)">G7 IP (8)</button>
 </div>
 
 <div id="portfolioView"></div>
-<div id="matrixView" class="matrix-section" style="display:none"></div>
-<div id="domainView" class="domain-section" style="display:none"></div>
+<div id="domainView" class="domain-section"></div>
+<div id="analyticsView" class="analytics-section" style="display:none"></div>
+<div id="internalToolsView" style="display:none"></div>
 
 <footer>
-  Tech 4 Humanity — Portfolio v16 — Platform URL Matrix — <span id="liveStatus">Loading…</span><br>
-  Source: <code>t4h_repo_structure_map v1.1</code> + <code>infra_sites_registry</code>
+  Tech 4 Humanity — Canonical Doctrine v1.0 (Frozen) — Portfolio v15 — Generated 24 Feb 2026<br>
+  Source: <span id="liveStatus">Loading…</span> (80)
 </footer>
 
 <!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
   <div class="modal">
     <div class="modal-header">
-      <div class="group-badge" id="modalBadge" style="width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:Fraunces,serif;font-weight:700;font-size:0.85rem;color:#fff;flex-shrink:0">G1</div>
+      <div class="group-badge" id="modalBadge">G1</div>
       <h2 id="modalTitle">Business Name</h2>
       <button class="close-btn" onclick="closeModal()">&times;</button>
     </div>
     <div class="modal-body">
       <div class="modal-screenshot" id="modalScreenshot"></div>
       <div class="modal-tabs">
-        <button class="modal-tab active" onclick="showModalTab('business',this)">Overview</button>
-        <button class="modal-tab" onclick="showModalTab('platforms',this)">All Locations</button>
-        <button class="modal-tab" onclick="showModalTab('technical',this)">Technical</button>
+        <button class="modal-tab active" onclick="showModalTab('business',this)">Business Info</button>
+        <button class="modal-tab" onclick="showModalTab('technical',this)">Technical Details</button>
+        <button class="modal-tab" onclick="showModalTab('domains',this)">Domains</button>
       </div>
       <div class="modal-content active" id="tab-business">
         <div class="info-grid" id="businessInfo"></div>
       </div>
-      <div class="modal-content" id="tab-platforms">
-        <div id="platformsInfo"></div>
-      </div>
       <div class="modal-content" id="tab-technical">
         <div class="info-grid" id="technicalInfo"></div>
+      </div>
+      <div class="modal-content" id="tab-domains">
+        <div id="domainsInfo"></div>
       </div>
     </div>
     <div class="modal-footer">
@@ -232,178 +228,128 @@ footer code { background:var(--surface); padding:2px 6px; border-radius:4px; fon
 </div>
 
 <script>
-/* ================================================================
-   CONFIG
-   ================================================================ */
-var BRIDGE_URL = 'https://m5oqj21chd.execute-api.ap-southeast-2.amazonaws.com/lambda/invoke';
-var BRIDGE_KEY = 'bk_tOH8P5WD3mxBKfICa4yI56vJhpuYOynfdf1d_GfvdK4';
+/* ========================================================
+   DATA — sourced from mcp_business_registry + sites_registry
+   URLs verified live 19 Feb 2026
+   ======================================================== */
 
 var groupMeta = {
-  G1:{name:'CORE',color:'var(--g1)',desc:'Foundation — AI coaching, orchestration, holding'},
-  G2:{name:'SIGNAL',color:'var(--g2)',desc:'Governance, consent, BCI, signal stack, research'},
-  G3:{name:'MISSION',color:'var(--g3)',desc:'Mission-driven — health, pharma, water, agriculture'},
-  G4:{name:'RETAIL',color:'var(--g4)',desc:'Commercial & trade — market entry, retail, logistics'},
-  G5:{name:'FUN',color:'var(--g5)',desc:'Entertainment, games, satire, consumer apps'},
-  G6:{name:'PERSONAL',color:'var(--g6)',desc:'Personal tools — CV, tax, property, career'},
-  G7:{name:'IP',color:'var(--g7)',desc:'Books, research, courses, IP assets, publications'}
+  G1: {name:"CORE",color:"var(--g1)",desc:"Foundation — AI coaching, orchestration, holding company"},
+  G2: {name:"GC-BAT",color:"var(--g2)",desc:"Governance, consent, BCI standards, signal stack"},
+  G3: {name:"MISSION",color:"var(--g3)",desc:"Mission-driven — water, wellness, agriculture, sport"},
+  G4: {name:"RETAIL",color:"var(--g4)",desc:"Commercial & trade — market entry, retail, logistics"},
+  G5: {name:"FUN",color:"var(--g5)",desc:"Entertainment, games, satire, consumer apps"},
+  G6: {name:"PERSONAL",color:"var(--g6)",desc:"Personal tools — CV, tax, property, career"},
+  G7: {name:"IP",color:"var(--g7)",desc:"Books, research, courses, IP assets, publications"}
 };
+
 var colorHex = {G1:'#22c55e',G2:'#8b5cf6',G3:'#f59e0b',G4:'#ef4444',G5:'#ec4899',G6:'#06b6d4',G7:'#f97316'};
 
-/* Override display names — canonical 28 alignment */
-var displayNameOverrides = {
-  'medledger': 'MedLedger (All Chemist)',
-  'chemists-platform': 'All Chemist',
-  'augmented-humanity-coach': 'Augmented Humanity Coach',
-  'aiq-ai-olympics': 'AI Olympics',
-  'gc-bat-core': 'GC-BAT Core'
-};
+// screenshot URL: the best VERIFIED LIVE url to screenshot for each business
+// null = no live site found, show gradient fallback
+// Added: vercel, github, supabase, description for modal
+var businesses = []; // populated live from Supabase via Bridge
 
-/* Extra platform URLs known but not yet in registry */
-var extraUrls = {
-  'medledger': [
-    {url:'https://all-chemist-org.lovable.app', platform:'lovable', status:'live'},
-    {url:'https://all-chemists.com.tech4humanity.com.au', platform:'custom', status:'live'},
-    {url:'https://all-chemist.org', platform:'custom', status:'verifying'}
-  ],
-  'chemists-platform': [
-    {url:'https://allchemist.org', platform:'canonical', status:'live'},
-    {url:'https://all-chemist-org.lovable.app', platform:'lovable', status:'live'},
-    {url:'https://all-chemists.com.tech4humanity.com.au', platform:'custom', status:'live'},
-    {url:'https://all-chemist.org', platform:'custom', status:'verifying'}
-  ]
-};
+const BRIDGE_URL = 'https://m5oqj21chd.execute-api.ap-southeast-2.amazonaws.com/lambda/invoke';
 
-var businesses = [];
-var siteIndex = {}; // slug → [{url, platform, status}]
-
-/* ================================================================
-   BRIDGE HELPER
-   ================================================================ */
-async function bridgeSQL(sql) {
-  var res = await fetch(BRIDGE_URL, {
-    method:'POST',
-    headers:{'Content-Type':'application/json','x-api-key':BRIDGE_KEY},
-    body:JSON.stringify({fn:'troy-sql-executor',sql:sql})
-  });
-  var d = await res.json();
-  return d.rows || [];
-}
-
-/* ================================================================
-   LOAD DATA
-   ================================================================ */
-async function loadAll() {
+async function loadPortfolioFromBridge() {
   var statusEl = document.getElementById('liveStatus');
-  statusEl.textContent = 'Loading…';
+  if (statusEl) statusEl.textContent = 'Loading live data…';
   try {
-    // Primary: repo structure map (canonical source of truth)
-    var rows = await bridgeSQL(
-      "SELECT business_slug as slug, business_name as name, group_code as grp, " +
-      "public_url_canonical as canonical, vercel_project as vercel, github_repo as github " +
-      "FROM t4h_repo_structure_map WHERE source_version='v1.1' ORDER BY group_code, business_slug"
-    );
-
-    // Secondary: extra sites from infra_sites_registry
-    var siteRows = await bridgeSQL(
-      "SELECT slug, display_name, primary_url, hosting, status, mapped_business_id " +
-      "FROM infra_sites_registry WHERE status IN ('READY','ACTIVE','LIVE') ORDER BY mapped_business_id, primary_url"
-    );
-
-    // Build site index by mapped_business_id
-    siteRows.forEach(function(s) {
-      var key = String(s.mapped_business_id || '');
-      if (!siteIndex[key]) siteIndex[key] = [];
-      siteIndex[key].push({url: s.primary_url, platform: s.hosting || 'web', status: 'live', label: s.display_name});
+    var res = await fetch(BRIDGE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        functionName: 'troy-sql-executor',
+        payload: {
+          sql: 'select business_slug as slug, business_name as name, group_code as "group", public_url_canonical as canonical, vercel_project as vercel, github_repo as github, status, sort_order from v_t4h_portfolio_surface order by sort_order asc'
+        }
+      })
     });
-
-    // Build business list
+    var d = await res.json();
+    var body = JSON.parse(d.result.body);
+    if (body.error) throw new Error(body.error);
+    var rows = body.rows || [];
+    // Map to business object shape expected by render functions
     businesses = rows.map(function(r, i) {
-      var slug = r.slug || '';
-      var name = displayNameOverrides[slug] || r.name || slug;
       var canonical = r.canonical || '';
       if (canonical && !/^https?:\/\//i.test(canonical)) canonical = 'https://' + canonical;
-      var vercelUrl = r.vercel ? 'https://' + r.vercel + '.vercel.app' : null;
-      var githubUrl = r.github ? 'https://github.com/TML-4PM/' + r.github : null;
-
-      // Build all platform URLs
-      var platforms = [];
-      if (canonical) platforms.push({url:canonical, platform:'canonical', status:'live'});
-      if (vercelUrl) platforms.push({url:vercelUrl, platform:'vercel', status:'live'});
-      if (githubUrl) platforms.push({url:githubUrl, platform:'github', status:'repo'});
-      // Add extras (hardcoded known URLs not yet in DB)
-      if (extraUrls[slug]) extraUrls[slug].forEach(function(e) {
-        if (!platforms.find(function(p){return p.url===e.url;})) platforms.push(e);
-      });
-
       return {
         id: i + 1,
-        slug: slug,
-        name: name,
-        group: r.grp || 'G7',
+        name: r.name || r.slug,
+        slug: r.slug,
+        group: r.group || 'G7',
         canonical: canonical,
         ss: canonical || null,
-        platforms: platforms,
+        domains: [],
         vercel: r.vercel || null,
-        github: r.github || null
+        github: r.github || null,
+        status: r.status || 'LIVE',
+        description: r.status || ''
       };
     });
-
-    // Update stats
-    document.getElementById('statBiz').textContent = businesses.length;
-    var totalUrls = businesses.reduce(function(s,b){return s+b.platforms.length;},0);
-    document.getElementById('statUrls').textContent = totalUrls;
-    document.getElementById('statLive').textContent = businesses.filter(function(b){return b.canonical;}).length;
-    document.getElementById('statVercel').textContent = businesses.filter(function(b){return b.vercel;}).length;
-
-    statusEl.textContent = '● Live · ' + businesses.length + ' businesses · ' + totalUrls + ' total URLs · t4h_repo_structure_map v1.1';
-
+    if (statusEl) statusEl.textContent = '● Live · ' + businesses.length + ' businesses · Supabase v_t4h_portfolio_surface';
     renderPortfolio(window._activeFilter || 'all');
-    if (document.getElementById('matrixView').style.display !== 'none') renderMatrix();
-    if (document.getElementById('domainView').style.display !== 'none') renderDomainMap();
-
+    renderDomainMap();
   } catch(err) {
-    statusEl.textContent = '⚠ ' + err.message;
-    console.error(err);
+    console.error('Bridge load failed:', err);
+    if (statusEl) statusEl.textContent = '⚠ Bridge error: ' + err.message;
   }
 }
 
-/* ================================================================
-   SCREENSHOT
-   ================================================================ */
+/* ========================================================
+   SCREENSHOT URL BUILDER
+   Uses Microlink API — returns image/png directly
+   ======================================================== */
 function screenshotSrc(url) {
   return 'https://api.microlink.io/?url=' + encodeURIComponent(url) + '&screenshot=true&meta=false&embed=screenshot.url';
 }
 
-/* ================================================================
-   PORTFOLIO VIEW
-   ================================================================ */
+/* ========================================================
+   RENDER: PORTFOLIO CARDS
+   ======================================================== */
 function renderCard(biz) {
+  var statusClass = biz.domains.length > 0 ? 'active' : 'planned';
   var c = colorHex[biz.group] || '#3b82f6';
-  var grad = 'linear-gradient(135deg,' + c + '18 0%,' + c + '38 50%,' + c + '58 100%)';
+  var grad = 'linear-gradient(135deg, ' + c + '18 0%, ' + c + '38 50%, ' + c + '58 100%)';
   var host = '';
   try { host = new URL(biz.canonical).hostname; } catch(e) { host = biz.slug; }
 
   var imgHtml;
   if (biz.ss) {
+    // Live site — show screenshot, fallback if it fails
     imgHtml = '<img src="' + screenshotSrc(biz.ss) + '" alt="' + biz.name + '" loading="lazy" ' +
       'onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">' +
-      '<div class="fallback" style="display:none;background:' + grad + '"><div class="fb-name">' + biz.name + '</div><div class="fb-host">' + host + '</div></div>';
+      '<div class="fallback" style="display:none;background:' + grad + '">' +
+        '<div class="fb-name">' + biz.name + '</div>' +
+        '<div class="fb-host">' + host + '</div>' +
+      '</div>';
   } else {
-    imgHtml = '<div class="fallback" style="display:flex;background:' + grad + '"><div class="fb-name">' + biz.name + '</div><div class="fb-host">' + biz.slug + '</div></div>';
+    // No live site — gradient with name
+    imgHtml = '<div class="fallback" style="display:flex;background:' + grad + '">' +
+      '<div class="fb-name">' + biz.name + '</div>' +
+      '<div class="fb-host">' + host + '</div>' +
+      '<div class="fb-status">In development</div>' +
+    '</div>';
   }
 
-  var urlCount = biz.platforms.filter(function(p){return p.platform!=='github';}).length;
+  var domainBadge = '';
+  if (biz.domains.length > 0) {
+    domainBadge = '<span class="badge" style="background:rgba(255,255,255,0.05);color:var(--text-dim)">' +
+      biz.domains.length + ' domain' + (biz.domains.length > 1 ? 's' : '') + '</span>';
+  }
 
   return '<div class="biz-card" data-group="' + biz.group + '" onclick="openModal(' + biz.id + ')">' +
-    '<div class="card-img">' + imgHtml +
-      (biz.canonical ? '<a class="card-visit" href="' + biz.canonical + '" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗</a>' : '') +
+    '<div class="card-img">' + 
+      imgHtml + 
+      '<a class="card-visit" href="' + biz.canonical + '" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Visit site">↗</a>' +
     '</div>' +
     '<div class="card-body">' +
       '<h3>' + biz.name + '</h3>' +
-      '<div class="slug">' + biz.slug + '</div>' +
+      '<div class="slug">' + biz.slug + ' · ' + biz.group + '</div>' +
       '<div class="meta">' +
-        '<span class="badge badge-' + (biz.canonical ? 'live' : 'planned') + '">' + (biz.canonical ? 'LIVE' : 'PLANNED') + '</span>' +
-        (urlCount > 1 ? '<span class="badge url-count-badge">' + urlCount + ' URLs</span>' : '') +
+        '<span class="badge badge-' + statusClass + '">' + (biz.ss ? 'LIVE' : 'PLANNED') + '</span>' +
+        domainBadge +
       '</div>' +
     '</div>' +
   '</div>';
@@ -412,170 +358,264 @@ function renderCard(biz) {
 function renderPortfolio(filter) {
   var container = document.getElementById('portfolioView');
   var html = '';
-  ['G1','G2','G3','G4','G5','G6','G7'].forEach(function(g) {
+  var groups = ['G1','G2','G3','G4','G5','G6','G7'];
+
+  groups.forEach(function(g) {
     if (filter !== 'all' && filter !== g) return;
     var gm = groupMeta[g];
-    var groupBiz = businesses.filter(function(b){return b.group===g;});
+    var groupBiz = businesses.filter(function(b) { return b.group === g; });
+
     html += '<div class="group-section" data-group="' + g + '">' +
       '<div class="group-header">' +
         '<div class="group-badge" style="background:' + gm.color + '">' + g + '</div>' +
-        '<div><div class="group-title">' + gm.name + '</div><div style="color:var(--text-dim);font-size:0.85rem">' + gm.desc + '</div></div>' +
+        '<div>' +
+          '<div class="group-title">' + gm.name + '</div>' +
+          '<div style="color:var(--text-dim);font-size:0.85rem">' + gm.desc + '</div>' +
+        '</div>' +
         '<div class="group-count">' + groupBiz.length + ' businesses</div>' +
       '</div>' +
-      '<div class="cards-grid">' + groupBiz.map(renderCard).join('') + '</div>' +
+      '<div class="cards-grid">' +
+        groupBiz.map(renderCard).join('') +
+      '</div>' +
     '</div>';
   });
-  container.innerHTML = html || '<div style="padding:64px;text-align:center;color:var(--text-dim)">Loading…</div>';
-}
 
-/* ================================================================
-   PLATFORM MATRIX VIEW
-   ================================================================ */
-function renderMatrix() {
-  var container = document.getElementById('matrixView');
-  var html = '<div class="matrix-header">' +
-    '<div>' +
-      '<h2>Platform URL Matrix</h2>' +
-      '<p style="color:var(--text-dim);font-size:0.85rem;margin-top:4px">All known locations for every business — canonical, Vercel, Lovable, custom domains</p>' +
-    '</div>' +
-    '<input class="matrix-search" type="text" placeholder="Search business or URL…" oninput="filterMatrix(this.value)" id="matrixSearch">' +
-  '</div>' +
-  '<div style="overflow-x:auto">' +
-  '<table class="matrix-table" id="matrixTable">' +
-  '<thead><tr>' +
-    '<th>#</th>' +
-    '<th>Business</th>' +
-    '<th>Canonical</th>' +
-    '<th>Vercel</th>' +
-    '<th>Lovable</th>' +
-    '<th>Custom Domains</th>' +
-    '<th>GitHub</th>' +
-  '</tr></thead>' +
-  '<tbody id="matrixBody">' +
-  buildMatrixRows(businesses) +
-  '</tbody></table></div>';
   container.innerHTML = html;
 }
 
-function buildMatrixRows(bizList) {
-  var html = '';
-  var lastGroup = '';
-  var i = 0;
-  bizList.forEach(function(biz) {
-    if (biz.group !== lastGroup) {
-      var gm = groupMeta[biz.group];
-      html += '<tr class="matrix-group-row"><td colspan="7">' +
-        '<span style="display:inline-block;width:28px;height:28px;border-radius:6px;background:' + colorHex[biz.group] + ';color:#fff;text-align:center;line-height:28px;font-size:0.75rem;margin-right:10px;vertical-align:middle">' + biz.group + '</span>' +
-        gm.name + ' — ' + gm.desc +
-      '</td></tr>';
-      lastGroup = biz.group;
-    }
-    i++;
-
-    var canonical = biz.platforms.find(function(p){return p.platform==='canonical';});
-    var vercelPlatforms = biz.platforms.filter(function(p){return p.platform==='vercel';});
-    var lovablePlatforms = biz.platforms.filter(function(p){return p.platform==='lovable';});
-    var customPlatforms = biz.platforms.filter(function(p){return p.platform==='custom';});
-    var githubPlatforms = biz.platforms.filter(function(p){return p.platform==='github';});
-
-    function chip(p, cls) {
-      var short = p.url.replace(/^https?:\/\//,'');
-      return '<a href="' + p.url + '" target="_blank" class="url-chip ' + cls + (p.status==='verifying'?' verifying':'') + '" title="' + p.url + '">' +
-        short + (p.status==='verifying'?' ⏳':'') +
-      '</a>';
-    }
-
-    html += '<tr data-search="' + (biz.name + ' ' + biz.slug + ' ' + biz.platforms.map(function(p){return p.url;}).join(' ')).toLowerCase() + '">' +
-      '<td style="color:var(--text-dim);font-family:monospace;font-size:0.75rem">' + i + '</td>' +
-      '<td><div class="biz-name-cell">' + biz.name + '</div><div class="biz-slug-cell">' + biz.slug + '</div></td>' +
-      '<td>' + (canonical ? chip(canonical,'canonical') : '<span style="color:var(--text-dim);font-size:0.75rem">—</span>') + '</td>' +
-      '<td>' + (vercelPlatforms.length ? vercelPlatforms.map(function(p){return chip(p,'vercel');}).join('') : '<span style="color:var(--text-dim);font-size:0.75rem">—</span>') + '</td>' +
-      '<td>' + (lovablePlatforms.length ? lovablePlatforms.map(function(p){return chip(p,'lovable');}).join('') : '<span style="color:var(--text-dim);font-size:0.75rem">—</span>') + '</td>' +
-      '<td>' + (customPlatforms.length ? customPlatforms.map(function(p){return chip(p,'custom');}).join('') : '<span style="color:var(--text-dim);font-size:0.75rem">—</span>') + '</td>' +
-      '<td>' + (githubPlatforms.length ? githubPlatforms.map(function(p){return chip(p,'github');}).join('') : '<span style="color:var(--text-dim);font-size:0.75rem">—</span>') + '</td>' +
-    '</tr>';
-  });
-  return html;
-}
-
-function filterMatrix(q) {
-  q = q.toLowerCase();
-  var rows = document.querySelectorAll('#matrixBody tr:not(.matrix-group-row)');
-  rows.forEach(function(row) {
-    var match = !q || (row.getAttribute('data-search') || '').indexOf(q) > -1;
-    row.style.display = match ? '' : 'none';
-  });
-}
-
-/* ================================================================
-   DOMAIN MAP VIEW (legacy)
-   ================================================================ */
+/* ========================================================
+   RENDER: DOMAIN MAP TABLE
+   ======================================================== */
 function renderDomainMap() {
   var container = document.getElementById('domainView');
   var rows = '';
-  ['G1','G2','G3','G4','G5','G6','G7'].forEach(function(g) {
+  var groups = ['G1','G2','G3','G4','G5','G6','G7'];
+
+  groups.forEach(function(g) {
     var gm = groupMeta[g];
-    var groupBiz = businesses.filter(function(b){return b.group===g;});
-    rows += '<tr><td colspan="3" style="background:var(--surface);padding:12px 16px;font-family:Fraunces,serif;font-weight:700">' +
-      '<span style="display:inline-block;width:28px;height:28px;border-radius:6px;background:' + colorHex[g] + ';color:#fff;text-align:center;line-height:28px;font-size:0.75rem;margin-right:8px;vertical-align:middle">' + g + '</span>' +
-      gm.name + '</td></tr>';
+    var groupBiz = businesses.filter(function(b) { return b.group === g; });
+
+    rows += '<tr><td colspan="4" style="background:var(--surface);padding:16px;font-family:Fraunces,serif;font-weight:700;font-size:1.1rem">' +
+      '<span style="display:inline-block;width:32px;height:32px;border-radius:8px;background:' + gm.color + ';color:#fff;text-align:center;line-height:32px;font-size:0.8rem;margin-right:12px;vertical-align:middle">' + g + '</span>' +
+      gm.name + ' — ' + gm.desc + '</td></tr>';
+
     groupBiz.forEach(function(biz) {
-      var nonGithub = biz.platforms.filter(function(p){return p.platform!=='github';});
+      var host = '';
+      try { host = new URL(biz.canonical).hostname; } catch(e) { host = biz.slug; }
+
       rows += '<tr>' +
         '<td style="font-weight:500">' + biz.name + '</td>' +
-        '<td>' + (biz.canonical ? '<a class="domain-url" href="' + biz.canonical + '" target="_blank">' + biz.canonical.replace(/^https?:\/\//,'') + '</a>' : '<span style="color:var(--text-dim)">—</span>') + '</td>' +
-        '<td>' + (nonGithub.length > 1 ? nonGithub.filter(function(p){return p.platform!=='canonical';}).map(function(p){
-          return '<a class="domain-url" href="' + p.url + '" target="_blank" style="margin-right:8px;' + (p.status==='verifying'?'opacity:0.6':'') + '">' + p.url.replace(/^https?:\/\//,'') + (p.status==='verifying'?' ⏳':'') + '</a>';
-        }).join('') : '<span style="color:var(--text-dim);font-size:0.75rem">—</span>') + '</td>' +
+        '<td><a class="domain-url" href="' + biz.canonical + '" target="_blank">' + host + '</a></td>' +
+        '<td><span class="badge badge-' + (biz.ss ? 'active' : 'planned') + '">' + (biz.ss ? 'LIVE' : 'PLANNED') + '</span></td>' +
+        '<td>' + (biz.domains.length > 0 ? biz.domains.map(function(d) { return '<span style="font-size:0.75rem;color:var(--text-dim);font-family:monospace">' + d + '</span>'; }).join('<br>') : '<span style="color:var(--text-dim);font-size:0.75rem">—</span>') + '</td>' +
       '</tr>';
     });
   });
+
   container.innerHTML = '<table class="domain-table">' +
-    '<thead><tr><th>Business</th><th>Canonical URL</th><th>Other Locations</th></tr></thead>' +
+    '<thead><tr><th>Business</th><th>Canonical URL</th><th>Status</th><th>All Domains</th></tr></thead>' +
     '<tbody>' + rows + '</tbody></table>';
 }
 
-/* ================================================================
+/* ========================================================
    UI CONTROLLERS
-   ================================================================ */
+   ======================================================== */
 function filterGroup(group, btn) {
-  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
   if (btn) btn.classList.add('active');
-  window._activeFilter = group;
   renderPortfolio(group);
 }
 
 function showView(view) {
-  document.querySelectorAll('.view-btn').forEach(function(b){b.classList.remove('active');});
-  ['portfolioView','matrixView','domainView'].forEach(function(id){
-    document.getElementById(id).style.display='none';
-  });
+  document.querySelectorAll('.view-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('portfolioView').style.display = 'none';
+  document.getElementById('domainView').style.display = 'none';
+  document.getElementById('analyticsView').style.display = 'none';
   document.getElementById('tabBar').style.display = 'none';
 
-  if (view==='portfolio') {
-    document.getElementById('portfolioView').style.display='block';
-    document.getElementById('tabBar').style.display='flex';
+  if (view === 'portfolio') {
+    document.getElementById('portfolioView').style.display = 'block';
+    document.getElementById('tabBar').style.display = 'flex';
     document.querySelectorAll('.view-btn')[0].classList.add('active');
-  } else if (view==='matrix') {
-    document.getElementById('matrixView').style.display='block';
+  } else if (view === 'domain') {
+    document.getElementById('domainView').style.display = 'block';
     document.querySelectorAll('.view-btn')[1].classList.add('active');
-    if (businesses.length) renderMatrix();
-  } else if (view==='domain') {
-    document.getElementById('domainView').style.display='block';
+    renderDomainMap();
+  } else if (view === 'analytics') {
+    document.getElementById('analyticsView').style.display = 'block';
     document.querySelectorAll('.view-btn')[2].classList.add('active');
-    if (businesses.length) renderDomainMap();
+    renderAnalytics();
+  } else if (view === 'internal-tools') {
+    document.getElementById('internalToolsView').style.display = 'block';
+    document.querySelectorAll('.view-btn')[3].classList.add('active');
+    renderInternalTools();
   }
 }
 
-/* ================================================================
-   MODAL
-   ================================================================ */
-function openModal(bizId) {
-  var biz = businesses.find(function(b){return b.id===bizId;});
-  if (!biz) return;
-  var c = colorHex[biz.group] || '#3b82f6';
-  var gm = groupMeta[biz.group];
+/* ========================================================
+   RENDER: INTERNAL TOOLS VIEW
+   ======================================================== */
+var internalToolsRendered = false;
+function renderInternalTools() {
+  if (internalToolsRendered) return;
+  internalToolsRendered = true;
+  var container = document.getElementById('internalToolsView');
 
+  var tools = [
+    {
+      name: 'Tech4Humanity Tools Hub',
+      url: 'https://tech4humanity.net/',
+      desc: 'Central hub for T4H tools, calculators, and utilities across all business platforms. Covers AI, BCI, robotics, workforce, finance, and more.',
+      group: 'All Platforms',
+      icon: '🛠️',
+      status: 'live'
+    }
+  ];
+
+  var html = '<div style="padding:32px 24px;">';
+  html += '<h2 style="font-size:1.4rem;margin-bottom:8px;">Internal Tools</h2>';
+  html += '<p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:32px;">T4H operational tools, calculators, and utilities across all business platforms.</p>';
+  html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;">';
+
+  tools.forEach(function(tool) {
+    html += '<div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;transition:border-color 0.2s;" onmouseover="this.style.borderColor=\'var(--accent)\'" onmouseout="this.style.borderColor=\'var(--border)\'">';
+    html += '<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">';
+    html += '<span style="font-size:1.8rem;">' + tool.icon + '</span>';
+    html += '<div>';
+    html += '<div style="font-weight:600;font-size:1rem;">' + tool.name + '</div>';
+    html += '<div style="font-size:0.75rem;color:var(--text-dim);">' + tool.group + '</div>';
+    html += '</div>';
+    html += '<div style="margin-left:auto;"><span style="font-size:0.7rem;padding:2px 8px;border-radius:10px;background:' + (tool.status==='live'?'rgba(34,197,94,0.15)':'rgba(250,204,21,0.15)') + ';color:' + (tool.status==='live'?'#4ade80':'#fbbf24') + ';">' + tool.status.toUpperCase() + '</span></div>';
+    html += '</div>';
+    html += '<p style="font-size:0.83rem;color:var(--text-dim);margin-bottom:16px;line-height:1.5;">' + tool.desc + '</p>';
+    html += '<a href="' + tool.url + '" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;font-size:0.82rem;color:var(--accent);text-decoration:none;">Visit Site →</a>';
+    html += '</div>';
+  });
+
+  html += '</div></div>';
+  container.innerHTML = html;
+}
+
+// INIT
+renderPortfolio('all');
+
+/* ========================================================
+   RENDER: ANALYTICS VIEW
+   ======================================================== */
+function renderAnalytics() {
+  var container = document.getElementById('analyticsView');
+  
+  // Calculate stats
+  var liveCount = businesses.filter(function(b) { return b.ss !== null; }).length;
+  var plannedCount = businesses.length - liveCount;
+  var totalDomains = businesses.reduce(function(sum, b) { return sum + b.domains.length; }, 0);
+  var withVercel = businesses.filter(function(b) { return b.vercel !== null; }).length;
+  
+  // Group stats
+  var groupStats = {};
+  ['G1','G2','G3','G4','G5','G6','G7'].forEach(function(g) {
+    var gBiz = businesses.filter(function(b) { return b.group === g; });
+    groupStats[g] = {
+      total: gBiz.length,
+      live: gBiz.filter(function(b) { return b.ss !== null; }).length,
+      domains: gBiz.reduce(function(sum, b) { return sum + b.domains.length; }, 0)
+    };
+  });
+  
+  var html = '<div class="analytics-header">' +
+    '<h2>Portfolio Analytics</h2>' +
+    '<p>Infrastructure overview, site health, and metrics for all 42 businesses</p>' +
+  '</div>' +
+  '<div class="analytics-grid">' +
+    
+    // OVERVIEW CARD
+    '<div class="analytics-card">' +
+      '<h3><span class="icon" style="background:var(--g1-bg);color:var(--g1)">📊</span>Overview</h3>' +
+      '<div class="analytics-metric"><span class="analytics-metric-label">Total Businesses</span><span class="analytics-metric-value">42</span></div>' +
+      '<div class="analytics-metric"><span class="analytics-metric-label">Live Sites</span><span class="analytics-metric-value" style="color:var(--g1)">' + liveCount + '</span></div>' +
+      '<div class="analytics-metric"><span class="analytics-metric-label">In Development</span><span class="analytics-metric-value" style="color:var(--accent)">' + plannedCount + '</span></div>' +
+      '<div class="analytics-metric"><span class="analytics-metric-label">Total Domains</span><span class="analytics-metric-value">' + totalDomains + '</span></div>' +
+      '<div class="analytics-metric"><span class="analytics-metric-label">Vercel Projects</span><span class="analytics-metric-value">' + withVercel + '</span></div>' +
+    '</div>' +
+    
+    // GROUP BREAKDOWN
+    '<div class="analytics-card">' +
+      '<h3><span class="icon" style="background:var(--g2-bg);color:var(--g2)">📁</span>By Group</h3>' +
+      '<table class="analytics-table">' +
+        '<tr><th>Group</th><th>Total</th><th>Live</th><th>Coverage</th></tr>' +
+        ['G1','G2','G3','G4','G5','G6','G7'].map(function(g) {
+          var s = groupStats[g];
+          var pct = Math.round((s.live / s.total) * 100);
+          return '<tr>' +
+            '<td><span style="color:' + colorHex[g] + ';font-weight:600">' + g + '</span> ' + groupMeta[g].name + '</td>' +
+            '<td>' + s.total + '</td>' +
+            '<td>' + s.live + '</td>' +
+            '<td><div style="display:flex;align-items:center;gap:8px"><span style="width:40px">' + pct + '%</span><div class="analytics-bar" style="flex:1"><div class="analytics-bar-fill" style="width:' + pct + '%;background:' + colorHex[g] + '"></div></div></div></td>' +
+          '</tr>';
+        }).join('') +
+      '</table>' +
+    '</div>' +
+    
+    // SUPABASE TABLES
+    '<div class="analytics-card">' +
+      '<h3><span class="icon" style="background:var(--g3-bg);color:var(--g3)">🗄️</span>Supabase Tables</h3>' +
+      '<table class="analytics-table">' +
+        '<tr><th>Table</th><th>Rows</th><th>Purpose</th></tr>' +
+        '<tr><td><code>mcp_business_registry</code></td><td>42</td><td>Core business definitions</td></tr>' +
+        '<tr><td><code>sites_registry</code></td><td>80</td><td>Site infrastructure</td></tr>' +
+        '<tr><td><code>vercel_projects_map</code></td><td>156</td><td>Vercel deployments</td></tr>' +
+        '<tr><td><code>domains</code></td><td>35</td><td>Registered domains</td></tr>' +
+        '<tr><td><code>group_counts</code></td><td>28</td><td>Category aggregates</td></tr>' +
+      '</table>' +
+    '</div>' +
+    
+    // TRAFFIC & REVENUE (PLACEHOLDER)
+    '<div class="analytics-card">' +
+      '<h3><span class="icon" style="background:var(--g4-bg);color:var(--g4)">📈</span>Traffic & Revenue</h3>' +
+      '<div class="analytics-placeholder">' +
+        '<div class="icon">🔗</div>' +
+        '<div>Connect analytics to view traffic data</div>' +
+        '<div style="margin-top:12px;font-size:0.8rem">Requires: Vercel Analytics, Plausible, or GA4 integration</div>' +
+      '</div>' +
+    '</div>' +
+    
+    // SITE HEALTH
+    '<div class="analytics-card">' +
+      '<h3><span class="icon" style="background:var(--g5-bg);color:var(--g5)">💚</span>Site Health</h3>' +
+      '<table class="analytics-table">' +
+        '<tr><th>Status</th><th>Count</th><th></th></tr>' +
+        '<tr><td>🟢 Live & Healthy</td><td>' + liveCount + '</td><td><span style="color:var(--g1)">OK</span></td></tr>' +
+        '<tr><td>🔵 In Development</td><td>' + plannedCount + '</td><td><span style="color:var(--accent)">Building</span></td></tr>' +
+        '<tr><td>🟡 Needs Review</td><td>0</td><td><span style="color:var(--g3)">Pending</span></td></tr>' +
+        '<tr><td>🔴 Down/Issues</td><td>0</td><td><span style="color:var(--g4)">—</span></td></tr>' +
+      '</table>' +
+    '</div>' +
+    
+    // RECENT ACTIVITY
+    '<div class="analytics-card">' +
+      '<h3><span class="icon" style="background:var(--g6-bg);color:var(--g6)">🕐</span>Infrastructure</h3>' +
+      '<div class="analytics-metric"><span class="analytics-metric-label">Supabase Project</span><span class="analytics-metric-value" style="font-size:0.9rem">lzfgigiyqpuuxslsygjt</span></div>' +
+      '<div class="analytics-metric"><span class="analytics-metric-label">Vercel Team</span><span class="analytics-metric-value" style="font-size:0.9rem">troys-projects</span></div>' +
+      '<div class="analytics-metric"><span class="analytics-metric-label">Primary Region</span><span class="analytics-metric-value" style="font-size:0.9rem">Sydney (ap-southeast-2)</span></div>' +
+      '<div class="analytics-metric"><span class="analytics-metric-label">CDN</span><span class="analytics-metric-value" style="font-size:0.9rem">Vercel Edge Network</span></div>' +
+    '</div>' +
+    
+  '</div>';
+  
+  container.innerHTML = html;
+}
+
+/* ========================================================
+   MODAL FUNCTIONS
+   ======================================================== */
+function openModal(bizId) {
+  var biz = businesses.find(function(b) { return b.id === bizId; });
+  if (!biz) return;
+
+  var gm = groupMeta[biz.group];
+  var c = colorHex[biz.group] || '#3b82f6';
+
+  // Header
   document.getElementById('modalBadge').style.background = c;
   document.getElementById('modalBadge').textContent = biz.group;
   document.getElementById('modalTitle').textContent = biz.name;
@@ -585,52 +625,52 @@ function openModal(bizId) {
   if (biz.ss) {
     ssContainer.innerHTML = '<img src="' + screenshotSrc(biz.ss) + '" alt="' + biz.name + '" onerror="this.parentElement.innerHTML=\'<div class=fallback>' + biz.name + '</div>\'">';
   } else {
-    var grad = 'linear-gradient(135deg,' + c + '25 0%,' + c + '45 100%)';
+    var grad = 'linear-gradient(135deg, ' + c + '25 0%, ' + c + '45 100%)';
     ssContainer.innerHTML = '<div class="fallback" style="background:' + grad + '">' + biz.name + '</div>';
   }
 
-  // Overview tab
+  // Business Info Tab
   var host = '';
   try { host = new URL(biz.canonical).hostname; } catch(e) { host = biz.slug; }
-  document.getElementById('businessInfo').innerHTML =
+  
+  var businessHtml = 
     '<div class="info-item"><div class="info-label">Group</div><div class="info-value">' + biz.group + ' — ' + gm.name + '</div></div>' +
-    '<div class="info-item"><div class="info-label">Status</div><div class="info-value"><span class="badge badge-' + (biz.canonical?'live':'planned') + '">' + (biz.canonical?'LIVE':'PLANNED') + '</span></div></div>' +
+    '<div class="info-item"><div class="info-label">Status</div><div class="info-value"><span class="badge badge-' + (biz.ss ? 'active' : 'planned') + '">' + (biz.ss ? 'LIVE' : 'PLANNED') + '</span></div></div>' +
     '<div class="info-item"><div class="info-label">Canonical URL</div><div class="info-value"><a href="' + biz.canonical + '" target="_blank">' + host + '</a></div></div>' +
-    '<div class="info-item"><div class="info-label">Total Locations</div><div class="info-value">' + biz.platforms.length + '</div></div>';
+    '<div class="info-item"><div class="info-label">Business ID</div><div class="info-value mono">' + biz.id + '</div></div>' +
+    '<div class="info-item" style="grid-column:1/-1"><div class="info-label">Description</div><div class="info-value">' + (biz.desc || 'No description available.') + '</div></div>';
+  document.getElementById('businessInfo').innerHTML = businessHtml;
 
-  // All Locations tab
-  function platformLabel(p) {
-    var icons = {canonical:'🌐',vercel:'▲',lovable:'💜',github:'🐙',custom:'🔗',web:'🌍'};
-    return (icons[p.platform]||'🔗') + ' ' + p.platform.charAt(0).toUpperCase() + p.platform.slice(1);
-  }
-  var platHtml = '<div style="display:flex;flex-direction:column;gap:10px">';
-  var grouped = {};
-  biz.platforms.forEach(function(p) {
-    if (!grouped[p.platform]) grouped[p.platform] = [];
-    grouped[p.platform].push(p);
-  });
-  ['canonical','vercel','lovable','custom','github','web'].forEach(function(plat) {
-    if (!grouped[plat]) return;
-    platHtml += '<div style="background:var(--bg);border-radius:10px;padding:14px 16px">' +
-      '<div class="info-label" style="margin-bottom:8px">' + platformLabel({platform:plat}) + '</div>';
-    grouped[plat].forEach(function(p) {
-      platHtml += '<a href="' + p.url + '" target="_blank" class="url-chip ' + plat + '" style="font-size:0.82rem;padding:5px 10px">' +
-        p.url.replace(/^https?:\/\//,'') + (p.status==='verifying'?' ⏳ verifying':'') + '</a>';
-    });
-    platHtml += '</div>';
-  });
-  platHtml += '</div>';
-  document.getElementById('platformsInfo').innerHTML = platHtml;
-
-  // Technical tab
-  document.getElementById('technicalInfo').innerHTML =
+  // Technical Info Tab
+  var technicalHtml = 
     '<div class="info-item"><div class="info-label">Slug</div><div class="info-value mono">' + biz.slug + '</div></div>' +
-    '<div class="info-item"><div class="info-label">Vercel Project</div><div class="info-value mono">' + (biz.vercel || '—') + '</div></div>' +
-    '<div class="info-item"><div class="info-label">GitHub Repo</div><div class="info-value mono">' + (biz.github ? '<a href="https://github.com/TML-4PM/' + biz.github + '" target="_blank">TML-4PM/' + biz.github + '</a>' : '—') + '</div></div>' +
-    '<div class="info-item"><div class="info-label">Group</div><div class="info-value">' + biz.group + '</div></div>';
+    '<div class="info-item"><div class="info-label">Vercel Project</div><div class="info-value mono">' + (biz.vercel ? '<a href="https://' + biz.vercel + '.vercel.app" target="_blank">' + biz.vercel + '</a>' : '—') + '</div></div>' +
+    '<div class="info-item"><div class="info-label">GitHub Repo</div><div class="info-value mono">' + (biz.github ? '<a href="https://github.com/' + biz.github + '" target="_blank">' + biz.github + '</a>' : '—') + '</div></div>' +
+    '<div class="info-item"><div class="info-label">Screenshot Source</div><div class="info-value mono" style="font-size:0.7rem">' + (biz.ss || '—') + '</div></div>' +
+    '<div class="info-item"><div class="info-label">Domain Count</div><div class="info-value">' + biz.domains.length + '</div></div>' +
+    '<div class="info-item"><div class="info-label">Group Category</div><div class="info-value">' + gm.desc + '</div></div>';
+  document.getElementById('technicalInfo').innerHTML = technicalHtml;
 
-  document.getElementById('modalVisitBtn').href = biz.canonical || '#';
+  // Domains Tab
+  var domainsHtml = '<div class="info-label" style="margin-bottom:8px">Registered Domains (' + biz.domains.length + ')</div>';
+  if (biz.domains.length > 0) {
+    domainsHtml += '<div class="domain-list">';
+    biz.domains.forEach(function(d) {
+      domainsHtml += '<a class="domain-chip" href="https://' + d + '" target="_blank">' + d + '</a>';
+    });
+    domainsHtml += '</div>';
+  } else {
+    domainsHtml += '<div style="color:var(--text-dim);font-size:0.85rem">No additional domains registered for this business.</div>';
+  }
+  document.getElementById('domainsInfo').innerHTML = domainsHtml;
+
+  // Visit button
+  document.getElementById('modalVisitBtn').href = biz.canonical;
+
+  // Reset to first tab
   showModalTab('business', document.querySelector('.modal-tab'));
+
+  // Show modal
   document.getElementById('modalOverlay').classList.add('active');
   document.body.style.overflow = 'hidden';
 }
@@ -641,15 +681,29 @@ function closeModal() {
 }
 
 function showModalTab(tabId, btn) {
-  document.querySelectorAll('.modal-tab').forEach(function(t){t.classList.remove('active');});
+  // Update tab buttons
+  document.querySelectorAll('.modal-tab').forEach(function(t) { t.classList.remove('active'); });
   if (btn) btn.classList.add('active');
-  document.querySelectorAll('.modal-content').forEach(function(c){c.classList.remove('active');});
+  
+  // Update tab content
+  document.querySelectorAll('.modal-content').forEach(function(c) { c.classList.remove('active'); });
   document.getElementById('tab-' + tabId).classList.add('active');
 }
 
-document.addEventListener('keydown', function(e) { if (e.key==='Escape') closeModal(); });
+// Close modal on Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
+});
 
-loadAll();
+// Live load on startup
+loadPortfolioFromBridge();
+
+// Wire tab buttons to track active filter
+document.querySelectorAll('.tab-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    window._activeFilter = this.getAttribute('data-group') || 'all';
+  });
+});
 </script>
 </body>
 </html>
